@@ -1520,6 +1520,45 @@ pub async fn start(app: &AppHandle) -> Result<ServiceStatus, String> {
     }
 }
 
+/// Shut down owned work before the shell exits on a termination signal.
+///
+/// Tauri only sends `RunEvent::ExitRequested` when the UI asks to quit. A
+/// SIGTERM or SIGINT delivered to the process bypasses that event and leaves
+/// the sidecar orphaned, so the signal handler must use the same explicit
+/// `stop` + `exit` path as the tray quit action.
+#[cfg(unix)]
+pub fn install_signal_handlers(app: &AppHandle) {
+    use tokio::signal::unix::{SignalKind, signal};
+
+    let app = app.clone();
+    tauri::async_runtime::spawn(async move {
+        let Ok(mut terminate) = signal(SignalKind::terminate()) else {
+            return;
+        };
+        let Ok(mut interrupt) = signal(SignalKind::interrupt()) else {
+            return;
+        };
+        tokio::select! {
+            _ = terminate.recv() => {}
+            _ = interrupt.recv() => {}
+        }
+        crate::tray::quit(&app);
+    });
+}
+
+#[cfg(windows)]
+pub fn install_signal_handlers(app: &AppHandle) {
+    let app = app.clone();
+    tauri::async_runtime::spawn(async move {
+        if tokio::signal::ctrl_c().await.is_ok() {
+            crate::tray::quit(&app);
+        }
+    });
+}
+
+#[cfg(not(any(unix, windows)))]
+pub fn install_signal_handlers(_app: &AppHandle) {}
+
 pub async fn stop(app: &AppHandle) -> Result<ServiceStatus, String> {
     let state = app.state::<DesktopState>();
     let _gate = state.start_gate.lock().await;

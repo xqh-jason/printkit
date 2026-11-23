@@ -11,6 +11,10 @@ if [[ ! -x $bin ]]; then
   cargo build -p printkit
 fi
 
+# SIGTERM is the production path; PRINTKIT_DESKTOP_SIGNAL=INT covers Ctrl-C's
+# counterpart handler in local runs.
+desktop_signal=${PRINTKIT_DESKTOP_SIGNAL:-TERM}
+
 data=$(mktemp -d)
 # The CLI-owned serve below is exercised through the observability endpoints.
 printf 'version = 1\nsettled = 2\npreset = "all"\n' >"$data/plugins.toml"
@@ -344,21 +348,21 @@ if [[ -s $dev_data/serve.lock ]]; then
   printf 'desktop shell: pid=%s owns sidecar pid=%s on port %s\n' \
     "$desktop_pid" "$sidecar_pid" "$dev_port"
 
-  kill "$desktop_pid" 2>/dev/null || true
+  kill -"$desktop_signal" "$desktop_pid" 2>/dev/null || true
   wait "$desktop_pid" 2>/dev/null || true
   desktop_pid=
   if pid_running "$sidecar_pid"; then
     kill "$sidecar_pid" 2>/dev/null || true
   fi
-  # SIGTERM gives the service a bounded 2 s drain; a loaded CI runner can need
-  # a little longer to tear the process down, so wait up to 10 s before calling
-  # it a survivor. A zombie has already exited; only a running process counts.
+  # The selected signal gives the shell a bounded chance to stop its sidecar;
+  # a loaded runner can need a little longer to tear the process down.
+  # A zombie has already exited; only a running process counts.
   for _ in $(seq 1 100); do
     pid_running "$sidecar_pid" || break
     sleep 0.1
   done
   if pid_running "$sidecar_pid"; then
-    fail "the desktop sidecar survived SIGTERM ($(ps -o pid,ppid,stat,etime,command -p "$sidecar_pid" 2>/dev/null | tr '\n' ' '); serve: $(tail -3 "$dev_data/serve.log" 2>/dev/null))"
+    fail "the desktop sidecar survived SIG$desktop_signal ($(ps -o pid,ppid,stat,etime,command -p "$sidecar_pid" 2>/dev/null | tr '\n' ' '); serve: $(tail -3 "$dev_data/serve.log" 2>/dev/null))"
   fi
   if curl -fsS -o /dev/null "http://127.0.0.1:$dev_port/admin/session" 2>/dev/null; then
     fail "the desktop sidecar port still answers after the process exited"

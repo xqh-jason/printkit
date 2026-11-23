@@ -25,7 +25,28 @@ use crate::service::plugins::{self, GatedSink};
 #[derive(Debug, Args)]
 pub struct ServeArgs {}
 
+/// A desktop shell may block SIGTERM/SIGINT before spawning the sidecar.
+/// Signal masks survive exec, so unblock them before registering the async
+/// handlers; otherwise `serve` keeps running after the shell is gone.
+#[cfg(unix)]
+#[allow(unsafe_code)]
+fn unblock_termination_signals() {
+    // SAFETY: `sigemptyset`/`sigaddset` initialise the local set; the call
+    // only changes this process's signal mask and passes no pointers out.
+    unsafe {
+        let mut signals: libc::sigset_t = std::mem::zeroed();
+        libc::sigemptyset(&mut signals);
+        libc::sigaddset(&mut signals, libc::SIGTERM);
+        libc::sigaddset(&mut signals, libc::SIGINT);
+        libc::pthread_sigmask(libc::SIG_UNBLOCK, &signals, std::ptr::null_mut());
+    }
+}
+
+#[cfg(not(unix))]
+fn unblock_termination_signals() {}
+
 pub fn run(_args: ServeArgs, overrides: CliOverrides) -> Result<(), Failure> {
+    unblock_termination_signals();
     let config = AppConfig::load(overrides).map_err(Failure::from_config)?;
     let data_dir = config.data_dir.value.clone();
     let port = config.server.port.value;

@@ -140,6 +140,7 @@ pub fn run() {
             tray::install_app_menu(&handle)?;
             tray::install(&handle)?;
             lifecycle::install_plugin_refresh(&handle);
+            lifecycle::install_signal_handlers(&handle);
             // Probing runs off the setup thread so a slow renderer or a
             // missing sidecar cannot delay the first window.
             tauri::async_runtime::spawn(async move {
