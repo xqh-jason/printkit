@@ -1,0 +1,109 @@
+{
+  "version": 1,
+  "meta": {
+    "title": "collate fixture",
+    "tags": ["fixture", "collate"]
+  },
+  "output": {
+    "copies": 3,
+    "collate": false
+  },
+  "pages": [
+    {
+      "spec": {
+        "size": "A5",
+        "margins": {
+          "top": 8,
+          "right": 8,
+          "bottom": 8,
+          "left": 8
+        }
+      },
+      "items": [
+        {
+          "id": "collate-page-one",
+          "type": "text",
+          "frame": {
+            "x": 12,
+            "y": 12,
+            "width": 100,
+            "height": 10
+          },
+          "style": {
+            "fontSize": 5,
+            "lineHeight": 1.2,
+            "color": "#000000",
+            "align": "left"
+          },
+          "data": {
+            "text": "collate fixture page one"
+          }
+        }
+      ]
+    },
+    {
+      "spec": {
+        "size": "A5",
+        "margins": {
+          "top": 8,
+          "right": 8,
+          "bottom": 8,
+          "left": 8
+        }
+      },
+      "items": [
+        {
+          "id": "collate-page-two",
+          "type": "text",
+          "frame": {
+            "x": 12,
+            "y": 12,
+            "width": 100,
+            "height": 10
+          },
+          "style": {
+            "fontSize": 5,
+            "lineHeight": 1.2,
+            "color": "#000000",
+            "align": "left"
+          },
+          "data": {
+            "text": "collate fixture page two"
+          }
+        }
+      ]
+    },
+    {
+      "spec": {
+        "size": "A5",
+        "margins": {
+          "top": 8,
+          "right": 8,
+          "bottom": 8,
+          "left": 8
+        }
+      },
+      "items": [
+        {
+          "id": "collate-page-three",
+          "type": "text",
+          "frame": {
+            "x": 12,
+            "y": 12,
+            "width": 100,
+            "height": 10
+          },
+          "style": {
+            "fontSize": 5,
+            "lineHeight": 1.2,
+            "color": "#000000",
+            "align": "left"
+          },
+          "data": {
+            "text": "collate fixture page three"
+          }
+        }
+      ]
+    }
+  ]
+}

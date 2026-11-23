@@ -1,0 +1,143 @@
+{
+  "tolerance_mm": 0.3,
+  "line_height_tolerance_mm": 0.5,
+  "samples": [
+    {
+      "fixture": "geometry.json",
+      "text": [
+        {
+          "page": 1,
+          "word": "origin-marker",
+          "x_mm": 10.0
+        },
+        {
+          "page": 1,
+          "word": "corner-marker",
+          "x_mm": 170.0
+        }
+      ],
+      "vector": []
+    },
+    {
+      "fixture": "layout.json",
+      "text": [
+        {
+          "page": 1,
+          "word": "GEOMX",
+          "x_mm": 20.0
+        },
+        {
+          "page": 1,
+          "word": "LHONE",
+          "x_mm": 20.0
+        },
+        {
+          "page": 1,
+          "word": "LHTWO",
+          "x_mm": 20.0
+        }
+      ],
+      "line_height": [
+        {
+          "page": 1,
+          "first": "LHONE",
+          "second": "LHTWO",
+          "line_height_mm": 5.25
+        }
+      ],
+      "vector": [
+        {
+          "page": 1,
+          "id": "shape-rect",
+          "box_mm": {
+            "x": 20.0,
+            "y": 20.0,
+            "width": 40.0,
+            "height": 20.0
+          }
+        },
+        {
+          "page": 1,
+          "id": "shape-circle",
+          "box_mm": {
+            "x": 20.0,
+            "y": 50.0,
+            "width": 30.0,
+            "height": 30.0
+          }
+        },
+        {
+          "page": 1,
+          "id": "shape-ellipse",
+          "box_mm": {
+            "x": 80.0,
+            "y": 20.0,
+            "width": 50.0,
+            "height": 25.0
+          }
+        },
+        {
+          "page": 1,
+          "id": "shape-polygon",
+          "box_mm": {
+            "x": 80.0,
+            "y": 50.0,
+            "width": 50.0,
+            "height": 25.0
+          }
+        },
+        {
+          "page": 1,
+          "id": "shape-tian-grid",
+          "box_mm": {
+            "x": 150.0,
+            "y": 20.0,
+            "width": 40.0,
+            "height": 30.0
+          }
+        },
+        {
+          "page": 1,
+          "id": "shape-text-rule",
+          "box_mm": {
+            "x": 150.0,
+            "y": 60.0,
+            "width": 40.0,
+            "height": 20.0
+          }
+        },
+        {
+          "page": 1,
+          "id": "shape-line",
+          "box_mm": {
+            "x": 20.0,
+            "y": 92.4,
+            "width": 60.0,
+            "height": 0.2
+          }
+        },
+        {
+          "page": 1,
+          "id": "barcode-qr",
+          "box_mm": {
+            "x": 20.0,
+            "y": 110.0,
+            "width": 30.0,
+            "height": 30.0
+          }
+        },
+        {
+          "page": 1,
+          "id": "table-small",
+          "box_mm": {
+            "x": 20.0,
+            "y": 200.0,
+            "width": 170.0,
+            "height": 36.3
+          },
+          "note": "six 6 mm rows plus the outer collapsed borders"
+        }
+      ]
+    }
+  ]
+}

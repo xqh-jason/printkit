@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "spec": {
+        "size": "A4",
+        "margins": {
+          "top": 12,
+          "right": 12,
+          "bottom": 12,
+          "left": 12
+        }
+      },
+      "items": [
+        {
+          "id": "heading",
+          "type": "text",
+          "frame": {
+            "x": 15,
+            "y": 15,
+            "width": 180,
+            "height": 10
+          },
+          "style": {
+            "fontSize": 5,
+            "lineHeight": 1.2,
+            "color": "#000000",
+            "align": "left"
+          },
+          "data": {
+            "text": "printkit injection sample"
+          }
+        },
+        {
+          "id": "hostile-html",
+          "type": "html",
+          "frame": {
+            "x": 15,
+            "y": 32,
+            "width": 180,
+            "height": 70
+          },
+          "style": {
+            "overflow": "hidden"
+          },
+          "data": {
+            "html": "<style>@import url(http://example.invalid/sheet.css); .box{background:url(http://example.invalid/background.png);} .safe{color:#123456;font-family:\"Source Han Sans SC\";}</style><div class=\"box safe\" onclick=\"alert('click')\" onmouseover=\"alert('over')\" style=\"background-image:url(http://example.invalid/inline.png);padding:4mm\"><p>sanitised html block</p><a href=\"javascript:alert('link')\">bad link</a><img src=\"http://example.invalid/pixel.png\"><link rel=\"stylesheet\" href=\"http://example.invalid/link.css\"><meta http-equiv=\"refresh\" content=\"0;url=http://example.invalid/\"></div><script>alert('script block')</script><p class=\"safe\">inline html stays printable</p><p>Tom &amp; Jerry &lt;script&gt;alert(1)&lt;/script&gt;</p>"
+          }
+        },
+        {
+          "id": "inline-image",
+          "type": "image",
+          "frame": {
+            "x": 15,
+            "y": 110,
+            "width": 30,
+            "height": 30
+          },
+          "style": {
+            "fit": "contain"
+          },
+          "data": {
+            "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="
+          }
+        }
+      ]
+    }
+  ]
+}

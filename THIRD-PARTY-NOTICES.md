@@ -1,0 +1,1479 @@
+# Third-party notices
+
+Generated from the CycloneDX SBOM by `scripts/gen-notices.py`; do not
+edit this file by hand. Regenerate the legal inputs and the Markdown:
+
+```sh
+bash scripts/gen-legal-notices.sh
+python3 scripts/gen-notices.py --check --sbom dist/sbom.cdx.json
+```
+
+The SBOM contains **701 components**: **682 third-party** and **19** first-party project entries. The first-party entries are listed separately for traceability and carry the project's own license.
+
+Copyright in each third-party component remains with its upstream
+authors. These notices aggregate the license texts and source links
+shipped by those packages; they do not reassign copyright or claim
+that the inventory is complete. This is a best-effort disclosure, not
+a statement of full compliance.
+
+## NOTICES policy
+
+- Each inventory entry names the component, its version, its SPDX
+  license expression, the author string from package metadata, and a
+  source link when the SBOM has one.
+- Rust license expressions are validated with Mozilla `cargo-about`
+  (cargo-about 0.9.3); the text is reproduced from every LICENSE file of the exact
+  registry package, including both alternatives of a dual license.
+  Node data combines `pnpm licenses list --long --json` with the
+  LICENSE files installed from the npm package tarballs. The result is
+  committed in `assets/licenses/component-licenses.json`; the full
+  texts are in `assets/licenses/component-licenses.txt`.
+- A component whose packaged license text contains no copyright line
+  is marked `[packaged metadata has no copyright line; see upstream source]`. The marker describes the package metadata received;
+  it is not a claim that the component has no copyright holder.
+- Apache-2.0 license files include an appendix template line such as
+  `Copyright {yyyy} {name of copyright owner}` (some releases use
+  square brackets instead of braces). It is license boilerplate, not a
+  component attribution, and is never copied into the copyright field.
+- The license texts are the terms, not a per-component copyright
+  notice. The upstream author/package metadata is not presented as a
+  copyright statement.
+- Canonical license texts are verbatim SPDX `license-list-data`
+  v3.29.0 files. `assets/licenses/SOURCES.md` records the URL and
+  SHA-256 of every text; `--check` verifies them before passing.
+  SPDX MIT/BSD/ISC texts are templates whose holder fields are filled
+  by the per-component notices rather than by a project-wide holder.
+- `@printkit/sdk` is first-party. It has no runtime npm dependencies;
+  its TypeScript/esbuild tooling is development-only and is not shipped.
+
+## Third-party components
+
+- **@babel/helper-string-parser** `7.29.13` — MIT — <https://www.npmjs.com/package/@babel/helper-string-parser>
+- **@babel/helper-validator-identifier** `7.29.7` — MIT — <https://www.npmjs.com/package/@babel/helper-validator-identifier>
+- **@babel/parser** `7.29.13` — MIT — <https://www.npmjs.com/package/@babel/parser>
+- **@babel/types** `7.29.11` — MIT — <https://www.npmjs.com/package/@babel/types>
+- **@ctrl/tinycolor** `4.3.0` — MIT — <https://www.npmjs.com/package/@ctrl/tinycolor>
+- **@element-plus/icons-vue** `2.3.2` — MIT — <https://www.npmjs.com/package/@element-plus/icons-vue>
+- **@floating-ui/core** `1.8.0` — MIT — <https://www.npmjs.com/package/@floating-ui/core>
+- **@floating-ui/dom** `1.8.0` — MIT — <https://www.npmjs.com/package/@floating-ui/dom>
+- **@floating-ui/utils** `0.2.12` — MIT — <https://www.npmjs.com/package/@floating-ui/utils>
+- **@jridgewell/sourcemap-codec** `1.6.0` — MIT — <https://www.npmjs.com/package/@jridgewell/sourcemap-codec>
+- **@sxzz/popperjs-es** `2.11.8` — MIT — <https://www.npmjs.com/package/@sxzz/popperjs-es>
+- **@tauri-apps/api** `2.12.4` — Apache-2.0 OR MIT — <https://www.npmjs.com/package/@tauri-apps/api>
+- **@types/lodash** `4.17.27` — MIT — <https://www.npmjs.com/package/@types/lodash>
+- **@types/lodash-es** `4.17.12` — MIT — <https://www.npmjs.com/package/@types/lodash-es>
+- **@types/web-bluetooth** `0.0.21` — MIT — <https://www.npmjs.com/package/@types/web-bluetooth>
+- **@vue/compiler-core** `3.5.45` — MIT — <https://www.npmjs.com/package/@vue/compiler-core>
+- **@vue/compiler-dom** `3.5.45` — MIT — <https://www.npmjs.com/package/@vue/compiler-dom>
+- **@vue/compiler-sfc** `3.5.45` — MIT — <https://www.npmjs.com/package/@vue/compiler-sfc>
+- **@vue/compiler-ssr** `3.5.45` — MIT — <https://www.npmjs.com/package/@vue/compiler-ssr>
+- **@vue/reactivity** `3.5.45` — MIT — <https://www.npmjs.com/package/@vue/reactivity>
+- **@vue/runtime-core** `3.5.45` — MIT — <https://www.npmjs.com/package/@vue/runtime-core>
+- **@vue/runtime-dom** `3.5.45` — MIT — <https://www.npmjs.com/package/@vue/runtime-dom>
+- **@vue/server-renderer** `3.5.45` — MIT — <https://www.npmjs.com/package/@vue/server-renderer>
+- **@vue/shared** `3.5.45` — MIT — <https://www.npmjs.com/package/@vue/shared>
+- **@vueuse/core** `15.0.0` — MIT — <https://www.npmjs.com/package/@vueuse/core>
+- **@vueuse/metadata** `15.0.0` — MIT — <https://www.npmjs.com/package/@vueuse/metadata>
+- **@vueuse/shared** `15.0.0` — MIT — <https://www.npmjs.com/package/@vueuse/shared>
+- **adler2** `2.0.1` — 0BSD OR MIT OR Apache-2.0 — author: Jonas Schievink <jonasschievink@gmail.com>, oyvindln <oyvindln@users.noreply.github.com> — <https://github.com/oyvindln/adler2>
+- **aead** `0.5.2` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/traits>
+- **aes** `0.8.4` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/block-ciphers>
+- **aes** `0.9.2` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/block-ciphers>
+- **aes-gcm** `0.10.3` — Apache-2.0 OR MIT — author: RustCrypto Developers — <https://github.com/RustCrypto/AEADs>
+- **aho-corasick** `1.1.5` — Unlicense OR MIT — author: Andrew Gallant <jamslam@gmail.com> — <https://github.com/BurntSushi/aho-corasick>
+- **alloc-no-stdlib** `2.0.4` — BSD-3-Clause — author: Daniel Reiter Horn <danielrh@dropbox.com> — <https://github.com/dropbox/rust-alloc-no-stdlib>
+- **alloc-no-stdlib** `3.0.0` — BSD-3-Clause — author: Daniel Reiter Horn <danielrh@dropbox.com> — <https://github.com/dropbox/rust-alloc-no-stdlib>
+- **alloc-stdlib** `0.2.4` — BSD-3-Clause — author: Daniel Reiter Horn <danielrh@dropbox.com> — <https://github.com/dropbox/rust-alloc-no-stdlib>
+- **alloc-stdlib** `0.3.0` — BSD-3-Clause — author: Daniel Reiter Horn <danielrh@dropbox.com> — <https://github.com/dropbox/rust-alloc-no-stdlib>
+- **android_system_properties** `0.1.6` — MIT OR Apache-2.0 — author: Nicolas Silva <nical@fastmail.com> — <https://github.com/nical/android_system_properties>
+- **anstream** `1.0.0` — MIT OR Apache-2.0 — <https://github.com/rust-cli/anstyle.git>
+- **anstyle** `1.0.14` — MIT OR Apache-2.0 — <https://github.com/rust-cli/anstyle.git>
+- **anstyle-parse** `1.0.0` — MIT OR Apache-2.0 — <https://github.com/rust-cli/anstyle.git>
+- **anstyle-query** `1.1.5` — MIT OR Apache-2.0 — <https://github.com/rust-cli/anstyle.git>
+- **anstyle-wincon** `3.0.11` — MIT OR Apache-2.0 — <https://github.com/rust-cli/anstyle.git>
+- **anyhow** `1.0.104` — MIT OR Apache-2.0 — author: David Tolnay <dtolnay@gmail.com> — <https://github.com/dtolnay/anyhow>
+- **async-broadcast** `0.7.2` — MIT OR Apache-2.0 — author: Stjepan Glavina <stjepang@gmail.com>, Yoshua Wuyts <yoshuawuyts@gmail.com>, Zeeshan Ali Khan <zeeshanak@gnome.org> — <https://github.com/smol-rs/async-broadcast>
+- **async-channel** `2.5.0` — Apache-2.0 OR MIT — author: Stjepan Glavina <stjepang@gmail.com> — <https://github.com/smol-rs/async-channel>
+- **async-executor** `1.14.1` — Apache-2.0 OR MIT — author: Stjepan Glavina <stjepang@gmail.com>, John Nunley <dev@notgull.net> — <https://github.com/smol-rs/async-executor>
+- **async-io** `2.6.0` — Apache-2.0 OR MIT — author: Stjepan Glavina <stjepang@gmail.com> — <https://github.com/smol-rs/async-io>
+- **async-lock** `3.5.0` — Apache-2.0 OR MIT — author: Stjepan Glavina <stjepang@gmail.com> — <https://github.com/smol-rs/async-lock>
+- **async-process** `2.5.0` — Apache-2.0 OR MIT — author: Stjepan Glavina <stjepang@gmail.com> — <https://github.com/smol-rs/async-process>
+- **async-recursion** `1.2.0` — MIT OR Apache-2.0 — author: Robert Usher <266585+dcchut@users.noreply.github.com> — <https://github.com/dcchut/async-recursion>
+- **async-signal** `0.2.14` — Apache-2.0 OR MIT — author: John Nunley <dev@notgull.net> — <https://github.com/smol-rs/async-signal>
+- **async-task** `4.7.1` — Apache-2.0 OR MIT — author: Stjepan Glavina <stjepang@gmail.com> — <https://github.com/smol-rs/async-task>
+- **async-trait** `0.1.92` — MIT OR Apache-2.0 — author: David Tolnay <dtolnay@gmail.com> — <https://github.com/dtolnay/async-trait>
+- **async-validator** `4.2.5` — MIT — <https://www.npmjs.com/package/async-validator>
+- **atk** `0.18.2` — MIT — author: The gtk-rs Project Developers — <https://github.com/gtk-rs/gtk3-rs>
+- **atk-sys** `0.18.2` — MIT — author: The gtk-rs Project Developers — <https://github.com/gtk-rs/gtk3-rs>
+- **atomic-waker** `1.1.2` — Apache-2.0 OR MIT — author: Stjepan Glavina <stjepang@gmail.com>, Contributors to futures-rs — <https://github.com/smol-rs/atomic-waker>
+- **autocfg** `1.5.1` — Apache-2.0 OR MIT — author: Josh Stone <cuviper@gmail.com> — <https://github.com/cuviper/autocfg>
+- **base64** `0.21.7` — MIT OR Apache-2.0 — author: Alice Maz <alice@alicemaz.com>, Marshall Pierce <marshall@mpierce.org> — <https://github.com/marshallpierce/rust-base64>
+- **base64** `0.22.1` — MIT OR Apache-2.0 — author: Marshall Pierce <marshall@mpierce.org> — <https://github.com/marshallpierce/rust-base64>
+- **base64** `0.23.1` — MIT OR Apache-2.0 — author: Marshall Pierce <marshall@mpierce.org> — <https://github.com/marshallpierce/rust-base64>
+- **bit-set** `0.8.0` — Apache-2.0 OR MIT — author: Alexis Beingessner <a.beingessner@gmail.com> — <https://github.com/contain-rs/bit-set>
+- **bit-vec** `0.8.0` — Apache-2.0 OR MIT — author: Alexis Beingessner <a.beingessner@gmail.com> — <https://github.com/contain-rs/bit-vec>
+- **bitflags** `1.3.2` — MIT OR Apache-2.0 — author: The Rust Project Developers — <https://github.com/bitflags/bitflags>
+- **bitflags** `2.13.2` — MIT OR Apache-2.0 — author: The Rust Project Developers — <https://github.com/bitflags/bitflags>
+- **block-buffer** `0.10.4` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/utils>
+- **block-buffer** `0.12.1` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/utils>
+- **block-padding** `0.4.2` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/utils>
+- **block2** `0.6.2` — MIT — author: Mads Marquart <mads@marquart.dk> — <https://github.com/madsmtm/objc2>
+- **blocking** `1.7.0` — Apache-2.0 OR MIT — <https://github.com/smol-rs/blocking>
+- **brotli** `8.0.4` — BSD-3-Clause AND MIT — author: Daniel Reiter Horn <danielrh@dropbox.com>, The Brotli Authors — <https://github.com/dropbox/rust-brotli>
+- **brotli** `9.1.1` — BSD-3-Clause AND MIT — author: Daniel Reiter Horn <danielrh@dropbox.com>, The Brotli Authors — <https://github.com/dropbox/rust-brotli>
+- **brotli-decompressor** `5.0.3` — BSD-3-Clause OR MIT — author: Daniel Reiter Horn <danielrh@dropbox.com>, The Brotli Authors — <https://github.com/dropbox/rust-brotli-decompressor>
+- **brotli-decompressor** `6.3.0` — BSD-3-Clause OR MIT — author: Daniel Reiter Horn <danielrh@dropbox.com>, The Brotli Authors — <https://github.com/dropbox/rust-brotli-decompressor>
+- **bs58** `0.5.1` — MIT OR Apache-2.0 — <https://github.com/Nullus157/bs58-rs>
+- **bumpalo** `3.20.3` — MIT OR Apache-2.0 — author: Nick Fitzgerald <fitzgen@gmail.com> — <https://github.com/fitzgen/bumpalo>
+- **bytemuck** `1.25.2` — Zlib OR Apache-2.0 OR MIT — author: Lokathor <zefria@gmail.com> — <https://github.com/Lokathor/bytemuck>
+- **byteorder** `1.5.0` — Unlicense OR MIT — author: Andrew Gallant <jamslam@gmail.com> — <https://github.com/BurntSushi/byteorder>
+- **bytes** `1.12.1` — MIT — author: Carl Lerche <me@carllerche.com>, Sean McArthur <sean@seanmonstar.com> — <https://github.com/tokio-rs/bytes>
+- **cairo-rs** `0.18.5` — MIT — author: The gtk-rs Project Developers — <https://github.com/gtk-rs/gtk-rs-core>
+- **cairo-sys-rs** `0.18.2` — MIT — author: The gtk-rs Project Developers — <https://github.com/gtk-rs/gtk-rs-core>
+- **camino** `1.2.6` — MIT OR Apache-2.0 — author: Without Boats <saoirse@without.boats>, Ashley Williams <ashley666ashley@gmail.com>, Steve Klabnik <steve@steveklabnik.com>, Rain <rain@sunshowers.io> — <https://github.com/camino-rs/camino>
+- **cargo-platform** `0.1.9` — MIT OR Apache-2.0 — <https://github.com/rust-lang/cargo>
+- **cargo_metadata** `0.19.2` — MIT — author: Oliver Schneider <git-spam-no-reply9815368754983@oli-obk.de> — <https://github.com/oli-obk/cargo_metadata>
+- **cargo_toml** `1.0.1` — Apache-2.0 OR MIT — author: Kornel <kornel@geekhood.net> — <https://gitlab.com/lib.rs/cargo_toml>
+- **cbc** `0.2.1` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/block-modes>
+- **cc** `1.11.1` — MIT OR Apache-2.0 — <https://github.com/rust-lang/cc-rs>
+- **cesu8** `1.1.0` — Apache-2.0 OR MIT — author: Eric Kidd <git@randomhacks.net> — <https://github.com/emk/cesu8-rs>
+- **cfb** `0.14.0` — MIT — author: Matthew D. Steele <mdsteele@alum.mit.edu> — <https://github.com/mdsteele/rust-cfb>
+- **cfg-expr** `0.15.8` — MIT OR Apache-2.0 — author: Embark <opensource@embark-studios.com>, Jake Shadle <jake.shadle@embark-studios.com> — <https://github.com/EmbarkStudios/cfg-expr>
+- **cfg-if** `1.0.5` — MIT OR Apache-2.0 — author: Alex Crichton <alex@alexcrichton.com> — <https://github.com/rust-lang/cfg-if>
+- **cfg_aliases** `0.2.2` — MIT — author: Zicklag <zicklag@katharostech.com> — <https://github.com/katharostech/cfg_aliases>
+- **chacha20** `0.10.2` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/stream-ciphers>
+- **chardetng** `0.1.17` — Apache-2.0 OR MIT — author: Henri Sivonen <hsivonen@hsivonen.fi> — <https://github.com/hsivonen/chardetng>
+- **chrono** `0.4.45` — MIT OR Apache-2.0 — <https://github.com/chronotope/chrono>
+- **cipher** `0.4.4` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/traits>
+- **cipher** `0.5.2` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/traits>
+- **clap** `4.6.7` — MIT OR Apache-2.0 — <https://github.com/clap-rs/clap>
+- **clap_builder** `4.6.7` — MIT OR Apache-2.0 — <https://github.com/clap-rs/clap>
+- **clap_derive** `4.6.7` — MIT OR Apache-2.0 — <https://github.com/clap-rs/clap>
+- **clap_lex** `1.1.1` — MIT OR Apache-2.0 — <https://github.com/clap-rs/clap>
+- **codepage-437** `0.1.0` — MIT — author: nabijaczleweli <nabijaczleweli@gmail.com> — <https://github.com/nabijaczleweli/codepage-437>
+- **colorchoice** `1.0.5` — MIT OR Apache-2.0 — <https://github.com/rust-cli/anstyle.git>
+- **combine** `4.6.9` — MIT — author: Markus Westerlind <marwes91@gmail.com> — <https://github.com/Marwes/combine>
+- **concurrent-queue** `2.5.0` — Apache-2.0 OR MIT — author: Stjepan Glavina <stjepang@gmail.com>, Taiki Endo <te316e89@gmail.com>, John Nunley <dev@notgull.net> — <https://github.com/smol-rs/concurrent-queue>
+- **const-oid** `0.10.2` — Apache-2.0 OR MIT — author: RustCrypto Developers — <https://github.com/RustCrypto/formats>
+- **content_inspector** `0.2.4` — MIT OR Apache-2.0 — author: David Peter <mail@david-peter.de> — <https://github.com/sharkdp/content_inspector>
+- **cookie** `0.18.2` — MIT OR Apache-2.0 — author: Sergio Benitez <sb@sergio.bz>, Alex Crichton <alex@alexcrichton.com> — <https://github.com/SergioBenitez/cookie-rs>
+- **core-foundation** `0.10.1` — MIT OR Apache-2.0 — author: The Servo Project Developers — <https://github.com/servo/core-foundation-rs>
+- **core-foundation-sys** `0.8.7` — MIT OR Apache-2.0 — author: The Servo Project Developers — <https://github.com/servo/core-foundation-rs>
+- **core-graphics** `0.25.0` — MIT OR Apache-2.0 — author: The Servo Project Developers — <https://github.com/servo/core-foundation-rs>
+- **core-graphics-types** `0.2.0` — MIT OR Apache-2.0 — author: The Servo Project Developers — <https://github.com/servo/core-foundation-rs>
+- **core_detect** `1.0.0` — MIT OR Apache-2.0 — author: Thom Chiovoloni <chiovolonit@gmail.com> — <https://github.com/thomcc/core_detect>
+- **cpubits** `0.1.1` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/utils>
+- **cpufeatures** `0.2.17` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/utils>
+- **cpufeatures** `0.3.1` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/utils>
+- **crc32fast** `1.5.4` — MIT OR Apache-2.0 — author: Sam Rijs <srijs@airpost.net>, Alex Crichton <alex@alexcrichton.com> — <https://github.com/srijs/rust-crc32fast>
+- **crossbeam-channel** `0.5.17` — MIT OR Apache-2.0 — <https://github.com/crossbeam-rs/crossbeam>
+- **crossbeam-deque** `0.8.8` — MIT OR Apache-2.0 — <https://github.com/crossbeam-rs/crossbeam>
+- **crossbeam-epoch** `0.9.21` — MIT OR Apache-2.0 — <https://github.com/crossbeam-rs/crossbeam>
+- **crossbeam-utils** `0.8.23` — MIT OR Apache-2.0 — <https://github.com/crossbeam-rs/crossbeam>
+- **crypto-common** `0.1.7` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/traits>
+- **crypto-common** `0.2.2` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/traits>
+- **cssparser** `0.37.0` — MPL-2.0 — author: Simon Sapin <simon.sapin@exyr.org> — <https://github.com/servo/rust-cssparser>
+- **cssparser-macros** `0.7.1` — MPL-2.0 — author: Simon Sapin <simon.sapin@exyr.org> — <https://github.com/servo/rust-cssparser>
+- **csstype** `3.2.3` — MIT — <https://www.npmjs.com/package/csstype>
+- **csv** `1.4.0` — Unlicense OR MIT — author: Andrew Gallant <jamslam@gmail.com> — <https://github.com/BurntSushi/rust-csv>
+- **csv-core** `0.1.13` — Unlicense OR MIT — author: Andrew Gallant <jamslam@gmail.com> — <https://github.com/BurntSushi/rust-csv>
+- **ctor** `1.0.13` — Apache-2.0 OR MIT — author: Matt Mastracci <matthew@mastracci.com> — <https://github.com/mmastrac/linktime>
+- **ctr** `0.9.2` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/block-modes>
+- **darling** `0.24.1` — MIT — author: Ted Driggs <ted.driggs@outlook.com> — <https://github.com/TedDriggs/darling>
+- **darling_core** `0.24.1` — MIT — author: Ted Driggs <ted.driggs@outlook.com> — <https://github.com/TedDriggs/darling>
+- **darling_macro** `0.24.1` — MIT — author: Ted Driggs <ted.driggs@outlook.com> — <https://github.com/TedDriggs/darling>
+- **dayjs** `1.11.23` — MIT — <https://www.npmjs.com/package/dayjs>
+- **dbus** `0.9.12` — Apache-2.0 OR MIT — author: David Henningsson <diwic@ubuntu.com> — <https://github.com/diwic/dbus-rs>
+- **deranged** `0.5.9` — MIT OR Apache-2.0 — author: Jacob Pratt <jacob@jhpratt.dev> — <https://github.com/jhpratt/deranged>
+- **derive_more** `2.1.1` — MIT — author: Jelte Fennema <github-tech@jeltef.nl> — <https://github.com/JelteF/derive_more>
+- **derive_more-impl** `2.1.1` — MIT — author: Jelte Fennema <github-tech@jeltef.nl> — <https://github.com/JelteF/derive_more>
+- **digest** `0.10.7` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/traits>
+- **digest** `0.11.3` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/traits>
+- **dirs** `7.0.0` — MIT OR Apache-2.0 — author: Simon Ochsenreither <simon@ochsenreither.de> — <https://codeberg.org/dirs/dirs-rs>
+- **dirs-sys** `0.5.0` — MIT OR Apache-2.0 — author: Simon Ochsenreither <simon@ochsenreither.de> — <https://github.com/dirs-dev/dirs-sys-rs>
+- **dispatch2** `0.3.1` — Zlib OR Apache-2.0 OR MIT — author: Mads Marquart <mads@marquart.dk>, Mary <mary@mary.zone> — <https://github.com/madsmtm/objc2>
+- **displaydoc** `0.2.7` — MIT OR Apache-2.0 — author: Jane Lusby <jlusby@yaah.dev> — <https://github.com/yaahc/displaydoc>
+- **dlopen2** `0.8.2` — MIT — author: Szymon Wieloch <szymon.wieloch@gmail.com>, Ahmed Masud <ahmed.masud@saf.ai>, OpenByte <development.openbyte@gmail.com> — <https://github.com/OpenByteDev/dlopen2>
+- **dlopen2_derive** `0.4.3` — MIT — author: Szymon Wieloch <szymon.wieloch@gmail.com>, OpenByte <development.openbyte@gmail.com> — <https://github.com/OpenByteDev/dlopen2>
+- **dom_query** `0.28.0` — MIT — author: niklak <morgenpurple@gmail.com>, importcjj <importcjj@gmail.com> — <https://github.com/niklak/dom_query>
+- **dpi** `0.1.2` — Apache-2.0 AND MIT — <https://github.com/rust-windowing/winit>
+- **dtoa** `1.0.11` — MIT OR Apache-2.0 — author: David Tolnay <dtolnay@gmail.com> — <https://github.com/dtolnay/dtoa>
+- **dtoa-short** `0.3.5` — MPL-2.0 — author: Xidorn Quan <me@upsuper.org> — <https://github.com/upsuper/dtoa-short>
+- **dunce** `1.0.5` — CC0-1.0 OR MIT-0 OR Apache-2.0 — author: Kornel <kornel@geekhood.net> — <https://gitlab.com/kornelski/dunce>
+- **dyn-clone** `1.0.20` — MIT OR Apache-2.0 — author: David Tolnay <dtolnay@gmail.com> — <https://github.com/dtolnay/dyn-clone>
+- **ecb** `0.2.1` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/block-modes>
+- **either** `1.19.0` — MIT OR Apache-2.0 — <https://github.com/rayon-rs/either>
+- **element-plus** `2.14.8` — MIT — <https://www.npmjs.com/package/element-plus>
+- **embed-resource** `3.0.12` — MIT — author: наб <nabijaczleweli@nabijaczleweli.xyz>, Cat Plus Plus <piotrlegnica@piotrl.pl>, Liigo <liigo@qq.com>, azyobuzin <azyobuzin@users.sourceforge.jp>, Peter Atashian <retep998@gmail.com>, pravic <ehysta@gmail.com>, Gabriel Majeri <gabriel.majeri6@gmail.com>, SonnyX, Johan Andersson <repi@repi.se>, Jordan Poles <jpdev.noreply@gmail.com>, MSxDOS <melcodos@gmail.com>, Jim McGrath <jimmc2@gmail.com>, roblabla <unfiltered@roblab.la>, Jasper Bekkers <jasper@traverseresearch.nl>, Richard Markiewicz <rmarkiewicz@devolutions.net>, Emerson de Freitas Barcelos <emersonfxbx@gmail.com>, Li Keqing <me@kaze.ai>, Alexis Bourget <alexis.bourget@gmail.com>, Michael Farrell <micolous+git@gmail.com>, Jacob Okamoto <oko@oko.io>, Marijn Suijten <marijn@traverseresearch.nl>, Lucas Nogueira <lucas@tauri.app>, CharlesChen0823 <yongchen0823@gmail.com>, Daniel Schaefer <dhs@frame.work>, Rene Leonhardt, ssrlive, Kan-Ru Chen <kanru@kanru.info>, Tony <legendmastertony@gmail.com>, Berrysoft <Strawberry_Str@hotmail.com>, Marcus Ahlberg <marcus.ahlberg@kvaser.com>, Thomas Eizinger <thomas@eizinger.io> — <https://github.com/nabijaczleweli/rust-embed-resource>
+- **embed_plist** `1.2.2` — MIT OR Apache-2.0 — author: Nikolai Vazquez <hello@nikolaivazquez.com> — <https://github.com/nvzqz/embed-plist-rs>
+- **encoding_rs** `0.8.42` — (Apache-2.0 OR MIT) AND BSD-3-Clause — author: Henri Sivonen <hsivonen@hsivonen.fi> — <https://github.com/hsivonen/encoding_rs>
+- **encoding_rs** `0.8.44` — (Apache-2.0 OR MIT) AND BSD-3-Clause — author: Henri Sivonen <hsivonen@hsivonen.fi> — <https://github.com/hsivonen/encoding_rs>
+- **endi** `1.1.1` — MIT — author: Zeeshan Ali Khan <zeenix@gmail.com> — <https://github.com/zeenix/endi>
+- **entities** `7.0.1` — BSD-2-Clause — <https://www.npmjs.com/package/entities>
+- **enumflags2** `0.7.12` — MIT OR Apache-2.0 — author: maik klein <maikklein@googlemail.com>, Maja Kądziołka <maya@compilercrim.es> — <https://github.com/meithecatte/enumflags2>
+- **enumflags2_derive** `0.7.12` — MIT OR Apache-2.0 — author: maik klein <maikklein@googlemail.com>, Maja Kądziołka <maya@compilercrim.es> — <https://github.com/meithecatte/enumflags2>
+- **equivalent** `1.0.3` — Apache-2.0 OR MIT — <https://github.com/indexmap-rs/equivalent>
+- **erased-serde** `0.4.11` — MIT OR Apache-2.0 — author: David Tolnay <dtolnay@gmail.com> — <https://github.com/dtolnay/erased-serde>
+- **errno** `0.3.14` — MIT OR Apache-2.0 — author: Chris Wong <lambda.fairy@gmail.com>, Dan Gohman <dev@sunfishcode.online> — <https://github.com/lambda-fairy/rust-errno>
+- **estree-walker** `2.0.2` — MIT — <https://www.npmjs.com/package/estree-walker>
+- **etag** `4.0.0` — BSL-1.0 — author: Douman <douman@gmx.se> — <https://github.com/DoumanAsh/etag-rs>
+- **event-listener** `5.4.2` — Apache-2.0 OR MIT — author: Stjepan Glavina <stjepang@gmail.com>, John Nunley <dev@notgull.net> — <https://github.com/smol-rs/event-listener>
+- **event-listener-strategy** `0.5.4` — Apache-2.0 OR MIT — author: John Nunley <dev@notgull.net> — <https://github.com/smol-rs/event-listener-strategy>
+- **fallible-iterator** `0.3.0` — MIT OR Apache-2.0 — author: Steven Fackler <sfackler@gmail.com> — <https://github.com/sfackler/rust-fallible-iterator>
+- **fallible-streaming-iterator** `0.1.9` — MIT OR Apache-2.0 — author: Steven Fackler <sfackler@gmail.com> — <https://github.com/sfackler/fallible-streaming-iterator>
+- **fastrand** `2.5.0` — Apache-2.0 OR MIT — author: Stjepan Glavina <stjepang@gmail.com> — <https://github.com/smol-rs/fastrand>
+- **fdeflate** `0.3.7` — MIT OR Apache-2.0 — author: The image-rs Developers — <https://github.com/image-rs/fdeflate>
+- **field-offset** `0.3.6` — MIT OR Apache-2.0 — author: Diggory Blake <diggsey@googlemail.com> — <https://github.com/Diggsey/rust-field-offset>
+- **find-msvc-tools** `0.1.15` — MIT OR Apache-2.0 — <https://github.com/rust-lang/cc-rs>
+- **flate2** `1.1.11` — MIT OR Apache-2.0 — author: Alex Crichton <alex@alexcrichton.com>, Josh Triplett <josh@joshtriplett.org> — <https://github.com/rust-lang/flate2-rs>
+- **fnv** `1.0.7` — Apache-2.0 OR MIT — author: Alex Crichton <alex@alexcrichton.com> — <https://github.com/servo/rust-fnv>
+- **foldhash** `0.2.0` — Zlib — author: Orson Peters <orsonpeters@gmail.com> — <https://github.com/orlp/foldhash>
+- **foreign-types** `0.5.0` — MIT OR Apache-2.0 — author: Steven Fackler <sfackler@gmail.com> — <https://github.com/sfackler/foreign-types>
+- **foreign-types-macros** `0.2.4` — MIT OR Apache-2.0 — author: Steven Fackler <sfackler@gmail.com> — <https://github.com/sfackler/foreign-types>
+- **foreign-types-shared** `0.3.1` — MIT OR Apache-2.0 — author: Steven Fackler <sfackler@gmail.com> — <https://github.com/sfackler/foreign-types>
+- **form_urlencoded** `1.2.3` — MIT OR Apache-2.0 — author: The rust-url developers — <https://github.com/servo/rust-url>
+- **fs2** `0.4.3` — MIT OR Apache-2.0 — author: Dan Burkert <dan@danburkert.com> — <https://github.com/danburkert/fs2-rs>
+- **futures** `0.3.34` — MIT OR Apache-2.0 — <https://github.com/rust-lang/futures-rs>
+- **futures-channel** `0.3.34` — MIT OR Apache-2.0 — <https://github.com/rust-lang/futures-rs>
+- **futures-core** `0.3.34` — MIT OR Apache-2.0 — <https://github.com/rust-lang/futures-rs>
+- **futures-executor** `0.3.34` — MIT OR Apache-2.0 — <https://github.com/rust-lang/futures-rs>
+- **futures-io** `0.3.34` — MIT OR Apache-2.0 — <https://github.com/rust-lang/futures-rs>
+- **futures-lite** `2.6.1` — Apache-2.0 OR MIT — author: Stjepan Glavina <stjepang@gmail.com>, Contributors to futures-rs — <https://github.com/smol-rs/futures-lite>
+- **futures-macro** `0.3.34` — MIT OR Apache-2.0 — <https://github.com/rust-lang/futures-rs>
+- **futures-sink** `0.3.34` — MIT OR Apache-2.0 — <https://github.com/rust-lang/futures-rs>
+- **futures-task** `0.3.34` — MIT OR Apache-2.0 — <https://github.com/rust-lang/futures-rs>
+- **futures-util** `0.3.34` — MIT OR Apache-2.0 — <https://github.com/rust-lang/futures-rs>
+- **gdk** `0.18.2` — MIT — author: The gtk-rs Project Developers — <https://github.com/gtk-rs/gtk3-rs>
+- **gdk-pixbuf** `0.18.5` — MIT — author: The gtk-rs Project Developers — <https://github.com/gtk-rs/gtk-rs-core>
+- **gdk-pixbuf-sys** `0.18.0` — MIT — author: The gtk-rs Project Developers — <https://github.com/gtk-rs/gtk-rs-core>
+- **gdk-sys** `0.18.2` — MIT — author: The gtk-rs Project Developers — <https://github.com/gtk-rs/gtk3-rs>
+- **gdkwayland-sys** `0.18.2` — MIT — author: The gtk-rs Project Developers — <https://github.com/gtk-rs/gtk3-rs>
+- **gdkx11** `0.18.2` — MIT — author: The gtk-rs Project Developers — <https://github.com/gtk-rs/gtk3-rs>
+- **gdkx11-sys** `0.18.2` — MIT — author: The gtk-rs Project Developers — <https://github.com/gtk-rs/gtk3-rs>
+- **generic-array** `0.14.7` — MIT — author: Bartłomiej Kamiński <fizyk20@gmail.com>, Aaron Trent <novacrazy@gmail.com> — <https://github.com/fizyk20/generic-array.git>
+- **getrandom** `0.2.17` — MIT OR Apache-2.0 — author: The Rand Project Developers — <https://github.com/rust-random/getrandom>
+- **getrandom** `0.3.4` — MIT OR Apache-2.0 — author: The Rand Project Developers — <https://github.com/rust-random/getrandom>
+- **getrandom** `0.4.3` — MIT OR Apache-2.0 — author: The Rand Project Developers — <https://github.com/rust-random/getrandom>
+- **ghash** `0.5.1` — Apache-2.0 OR MIT — author: RustCrypto Developers — <https://github.com/RustCrypto/universal-hashes>
+- **gio** `0.18.4` — MIT — author: The gtk-rs Project Developers — <https://github.com/gtk-rs/gtk-rs-core>
+- **gio-sys** `0.18.1` — MIT — author: The gtk-rs Project Developers — <https://github.com/gtk-rs/gtk-rs-core>
+- **glib** `0.18.5` — MIT — author: The gtk-rs Project Developers — <https://github.com/gtk-rs/gtk-rs-core>
+- **glib-macros** `0.18.5` — MIT — author: The gtk-rs Project Developers — <https://github.com/gtk-rs/gtk-rs-core>
+- **glib-sys** `0.18.1` — MIT — author: The gtk-rs Project Developers — <https://github.com/gtk-rs/gtk-rs-core>
+- **glob** `0.3.4` — MIT OR Apache-2.0 — author: The Rust Project Developers — <https://github.com/rust-lang/glob>
+- **gobject-sys** `0.18.0` — MIT — author: The gtk-rs Project Developers — <https://github.com/gtk-rs/gtk-rs-core>
+- **gtk** `0.18.2` — MIT — author: The gtk-rs Project Developers — <https://github.com/gtk-rs/gtk3-rs>
+- **gtk-sys** `0.18.2` — MIT — author: The gtk-rs Project Developers — <https://github.com/gtk-rs/gtk3-rs>
+- **gtk3-macros** `0.18.2` — MIT — author: The gtk-rs Project Developers — <https://github.com/gtk-rs/gtk3-rs>
+- **h2** `0.4.20` — MIT — author: Carl Lerche <me@carllerche.com>, Sean McArthur <sean@seanmonstar.com> — <https://github.com/hyperium/h2>
+- **hashbrown** `0.12.3` — MIT OR Apache-2.0 — author: Amanieu d'Antras <amanieu@gmail.com> — <https://github.com/rust-lang/hashbrown>
+- **hashbrown** `0.17.1` — MIT OR Apache-2.0 — <https://github.com/rust-lang/hashbrown>
+- **headers** `0.4.2` — MIT — author: Sean McArthur <sean@seanmonstar.com> — <https://github.com/hyperium/headers>
+- **headers-core** `0.3.0` — MIT — author: Sean McArthur <sean@seanmonstar.com> — <https://github.com/hyperium/headers>
+- **heck** `0.4.1` — MIT OR Apache-2.0 — author: Without Boats <woboats@gmail.com> — <https://github.com/withoutboats/heck>
+- **heck** `0.5.0` — MIT OR Apache-2.0 — <https://github.com/withoutboats/heck>
+- **hermit-abi** `0.5.3` — MIT OR Apache-2.0 — <https://github.com/hermit-os/hermit-rs>
+- **hex** `0.4.3` — MIT OR Apache-2.0 — author: KokaKiwi <kokakiwi@kokakiwi.net> — <https://github.com/KokaKiwi/rust-hex>
+- **hmac** `0.12.1` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/MACs>
+- **html5ever** `0.39.0` — MIT OR Apache-2.0 — author: The html5ever Project Developers — <https://github.com/servo/html5ever>
+- **http** `1.5.0` — MIT OR Apache-2.0 — author: Alex Crichton <alex@alexcrichton.com>, Carl Lerche <me@carllerche.com>, Sean McArthur <sean@seanmonstar.com> — <https://github.com/hyperium/http>
+- **http-body** `1.1.0` — MIT — author: Carl Lerche <me@carllerche.com>, Lucio Franco <luciofranco14@gmail.com>, Sean McArthur <sean@seanmonstar.com> — <https://github.com/hyperium/http-body>
+- **http-body-util** `0.1.5` — MIT — author: Carl Lerche <me@carllerche.com>, Lucio Franco <luciofranco14@gmail.com>, Sean McArthur <sean@seanmonstar.com> — <https://github.com/hyperium/http-body>
+- **httparse** `1.10.1` — MIT OR Apache-2.0 — author: Sean McArthur <sean@seanmonstar.com> — <https://github.com/seanmonstar/httparse>
+- **httpdate** `1.0.3` — MIT OR Apache-2.0 — author: Pyfisch <pyfisch@posteo.org> — <https://github.com/pyfisch/httpdate>
+- **hybrid-array** `0.4.15` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/hybrid-array>
+- **hyper** `1.12.0` — MIT — author: Sean McArthur <sean@seanmonstar.com> — <https://github.com/hyperium/hyper>
+- **hyper-rustls** `0.27.10` — Apache-2.0 OR ISC OR MIT — <https://github.com/rustls/hyper-rustls>
+- **hyper-util** `0.1.21` — MIT — author: Sean McArthur <sean@seanmonstar.com> — <https://github.com/hyperium/hyper-util>
+- **iana-time-zone** `0.1.65` — MIT OR Apache-2.0 — author: Andrew Straw <strawman@astraw.com>, René Kijewski <rene.kijewski@fu-berlin.de>, Ryan Lopopolo <rjl@hyperbo.la> — <https://github.com/strawlab/iana-time-zone>
+- **iana-time-zone-haiku** `0.1.2` — MIT OR Apache-2.0 — author: René Kijewski <crates.io@k6i.de> — <https://github.com/strawlab/iana-time-zone>
+- **ico** `0.6.0` — MIT — author: Matthew D. Steele <mdsteele@alum.mit.edu> — <https://github.com/mdsteele/rust-ico>
+- **icu_collections** `2.4.0` — Unicode-3.0 — author: The ICU4X Project Developers — <https://github.com/unicode-org/icu4x>
+- **icu_locale_core** `2.4.0` — Unicode-3.0 — author: The ICU4X Project Developers — <https://github.com/unicode-org/icu4x>
+- **icu_normalizer** `2.4.0` — Unicode-3.0 — author: The ICU4X Project Developers — <https://github.com/unicode-org/icu4x>
+- **icu_normalizer_data** `2.4.0` — Unicode-3.0 — author: The ICU4X Project Developers — <https://github.com/unicode-org/icu4x>
+- **icu_properties** `2.4.0` — Unicode-3.0 — author: The ICU4X Project Developers — <https://github.com/unicode-org/icu4x>
+- **icu_properties_data** `2.4.0` — Unicode-3.0 — author: The ICU4X Project Developers — <https://github.com/unicode-org/icu4x>
+- **icu_provider** `2.4.0` — Unicode-3.0 — author: The ICU4X Project Developers — <https://github.com/unicode-org/icu4x>
+- **ident_case** `1.0.1` — MIT OR Apache-2.0 — author: Ted Driggs <ted.driggs@outlook.com> — <https://github.com/TedDriggs/ident_case>
+- **idna** `1.1.0` — MIT OR Apache-2.0 — author: The rust-url developers — <https://github.com/servo/rust-url/>
+- **idna_adapter** `1.2.2` — Apache-2.0 OR MIT — author: The rust-url developers — <https://github.com/hsivonen/idna_adapter>
+- **indexmap** `1.9.3` — Apache-2.0 OR MIT — <https://github.com/bluss/indexmap>
+- **indexmap** `2.14.2` — Apache-2.0 OR MIT — <https://github.com/indexmap-rs/indexmap>
+- **infer** `0.22.0` — MIT — author: Bojan <dbojan@gmail.com> — <https://github.com/bojand/infer>
+- **inout** `0.1.4` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/utils>
+- **inout** `0.2.5` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/utils>
+- **ipnet** `2.12.2` — MIT OR Apache-2.0 — author: Kris Price <kris@krisprice.nz> — <https://github.com/krisprice/ipnet>
+- **is-docker** `0.2.0` — MIT — author: Sean Larkin <TheLarkInn@users.noreply.github.com> — <https://github.com/TheLarkInn/is-docker>
+- **is-wsl** `0.4.0` — MIT — author: Sean Larkin <TheLarkInn@users.noreply.github.com> — <https://github.com/TheLarkInn/is-wsl>
+- **is_terminal_polyfill** `1.70.2` — MIT OR Apache-2.0 — <https://github.com/polyfill-rs/is_terminal_polyfill>
+- **itoa** `1.0.18` — MIT OR Apache-2.0 — author: David Tolnay <dtolnay@gmail.com> — <https://github.com/dtolnay/itoa>
+- **javascriptcore-rs** `1.1.2` — MIT — <https://github.com/tauri-apps/javascriptcore-rs>
+- **javascriptcore-rs-sys** `1.1.1` — MIT — author: The Gtk-rs Project Developers — <https://github.com/tauri-apps/javascriptcore-rs>
+- **jiff** `0.2.40` — Unlicense OR MIT — author: Andrew Gallant <jamslam@gmail.com> — <https://github.com/BurntSushi/jiff>
+- **jiff-core** `0.1.3` — Unlicense OR MIT — author: Andrew Gallant <jamslam@gmail.com> — <https://github.com/BurntSushi/jiff>
+- **jiff-static** `0.2.40` — Unlicense OR MIT — author: Andrew Gallant <jamslam@gmail.com> — <https://github.com/BurntSushi/jiff>
+- **jiff-tzdb** `0.1.9` — Unlicense OR MIT — author: Andrew Gallant <jamslam@gmail.com> — <https://github.com/BurntSushi/jiff>
+- **jiff-tzdb-platform** `0.1.3` — Unlicense OR MIT — author: Andrew Gallant <jamslam@gmail.com> — <https://github.com/BurntSushi/jiff>
+- **jni** `0.21.1` — MIT OR Apache-2.0 — author: Josh Chase <josh@prevoty.com> — <https://github.com/jni-rs/jni-rs>
+- **jni** `0.22.4` — MIT OR Apache-2.0 — author: jni team — <https://github.com/jni-rs/jni-rs>
+- **jni-macros** `0.22.4` — MIT OR Apache-2.0 — <https://github.com/jni-rs/jni-rs>
+- **jni-sys** `0.3.1` — MIT OR Apache-2.0 — author: Steven Fackler <sfackler@gmail.com> — <https://github.com/jni-rs/jni-sys>
+- **jni-sys** `0.4.1` — MIT OR Apache-2.0 — author: Steven Fackler <sfackler@gmail.com>, Robert Bragg <robert@sixbynine.org> — <https://github.com/jni-rs/jni-sys>
+- **jni-sys-macros** `0.4.1` — MIT OR Apache-2.0 — author: Robert Bragg <robert@sixbynine.org> — <https://github.com/jni-rs/jni-sys>
+- **jobserver** `0.1.35` — MIT OR Apache-2.0 — author: Alex Crichton <alex@alexcrichton.com> — <https://github.com/rust-lang/jobserver-rs>
+- **js-sys** `0.3.107` — MIT OR Apache-2.0 — author: The wasm-bindgen Developers — <https://github.com/wasm-bindgen/wasm-bindgen/tree/master/crates/js-sys>
+- **json-patch** `4.2.0` — MIT OR Apache-2.0 — author: Ivan Dubrov <dubrov.ivan@gmail.com> — <https://github.com/idubrov/json-patch>
+- **jsonptr** `0.7.1` — MIT OR Apache-2.0 — author: chance dinkins, André Sá de Mello <codasm@pm.me>, Oliver Wangler <oliver@wngr.de> — <https://github.com/chanced/jsonptr>
+- **keyboard-types** `0.8.3` — MIT OR Apache-2.0 — author: Pyfisch <pyfisch@posteo.org> — <https://github.com/rust-windowing/keyboard-types>
+- **libappindicator** `0.9.0` — Apache-2.0 OR MIT — <https://crates.io/crates/libappindicator/0.9.0>
+- **libappindicator-sys** `0.9.0` — Apache-2.0 OR MIT — <https://crates.io/crates/libappindicator-sys/0.9.0>
+- **libc** `0.2.191` — MIT OR Apache-2.0 — <https://github.com/rust-lang/libc>
+- **libdbus-sys** `0.2.7` — Apache-2.0 OR MIT — author: David Henningsson <diwic@ubuntu.com> — <https://github.com/diwic/dbus-rs>
+- **libloading** `0.7.4` — ISC — author: Simonas Kazlauskas <libloading@kazlauskas.me> — <https://github.com/nagisa/rust_libloading/>
+- **libredox** `0.1.25` — MIT — author: 4lDO2 <4lDO2@protonmail.com> — <https://gitlab.redox-os.org/redox-os/libredox.git>
+- **libsqlite3-sys** `0.39.1` — MIT — author: The rusqlite developers — <https://github.com/rusqlite/rusqlite>
+- **linux-raw-sys** `0.12.1` — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT — author: Dan Gohman <dev@sunfishcode.online> — <https://github.com/sunfishcode/linux-raw-sys>
+- **litemap** `0.8.3` — Unicode-3.0 — author: The ICU4X Project Developers — <https://github.com/unicode-org/icu4x>
+- **lock_api** `0.4.14` — MIT OR Apache-2.0 — author: Amanieu d'Antras <amanieu@gmail.com> — <https://github.com/Amanieu/parking_lot>
+- **lodash** `4.18.1` — MIT — <https://www.npmjs.com/package/lodash>
+- **lodash-es** `4.18.1` — MIT — <https://www.npmjs.com/package/lodash-es>
+- **lodash-unified** `1.0.3` — MIT — <https://www.npmjs.com/package/lodash-unified>
+- **log** `0.4.35` — MIT OR Apache-2.0 — author: The Rust Project Developers — <https://github.com/rust-lang/log>
+- **lopdf** `0.47.0` — MIT — author: Junfeng Liu <china.liujunfeng@gmail.com>, Emulator <emulator@hotmail.it> — <https://github.com/J-F-Liu/lopdf.git>
+- **magic-string** `0.30.21` — MIT — <https://www.npmjs.com/package/magic-string>
+- **markup5ever** `0.39.0` — MIT OR Apache-2.0 — author: The html5ever Project Developers — <https://github.com/servo/html5ever>
+- **md-5** `0.11.0` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/hashes>
+- **memchr** `2.8.3` — Unlicense OR MIT — author: Andrew Gallant <jamslam@gmail.com>, bluss — <https://github.com/BurntSushi/memchr>
+- **memoffset** `0.9.1` — MIT — author: Gilad Naaman <gilad.naaman@gmail.com> — <https://github.com/Gilnaa/memoffset>
+- **memoize-one** `6.0.0` — MIT — <https://www.npmjs.com/package/memoize-one>
+- **mime** `0.3.18` — MIT OR Apache-2.0 — author: Sean McArthur <sean@seanmonstar.com> — <https://github.com/hyperium/mime>
+- **mime-infer** `4.0.1` — MIT — author: Austin Bonander <austin.bonander@gmail.com>, Chrislearn Young <chris@acroidea.com> — <https://github.com/salvo-rs/mime-infer>
+- **miniz_oxide** `0.8.9` — MIT OR Zlib OR Apache-2.0 — author: Frommi <daniil.liferenko@gmail.com>, oyvindln <oyvindln@users.noreply.github.com>, Rich Geldreich richgel99@gmail.com — <https://github.com/Frommi/miniz_oxide/tree/master/miniz_oxide>
+- **miniz_oxide** `0.9.1` — MIT OR Zlib OR Apache-2.0 — author: Frommi <daniil.liferenko@gmail.com>, oyvindln <oyvindln@users.noreply.github.com>, Rich Geldreich richgel99@gmail.com — <https://github.com/Frommi/miniz_oxide/tree/master/miniz_oxide>
+- **mio** `1.2.4` — MIT — author: Carl Lerche <me@carllerche.com>, Thomas de Zeeuw <thomasdezeeuw@gmail.com>, Tokio Contributors <team@tokio.rs> — <https://github.com/tokio-rs/mio>
+- **muda** `0.20.0` — Apache-2.0 OR MIT — <https://github.com/tauri-apps/muda>
+- **multer** `3.1.0` — MIT — author: Rousan Ali <hello@rousan.io> — <https://github.com/rwf2/multer>
+- **multimap** `0.10.1` — MIT OR Apache-2.0 — author: Håvar Nøvik <havar.novik@gmail.com> — <https://github.com/havarnov/multimap>
+- **multiversion_no_op** `1.0.0` — Apache-2.0 OR MIT — author: Henri Sivonen <hsivonen@hsivonen.fi> — <https://github.com/hsivonen/multiversion_no_op>
+- **nanoid** `3.3.20` — MIT — <https://www.npmjs.com/package/nanoid>
+- **ndk** `0.9.0` — MIT OR Apache-2.0 — author: The Rust Mobile contributors — <https://github.com/rust-mobile/ndk>
+- **ndk-context** `0.1.1` — MIT OR Apache-2.0 — author: The Rust Windowing contributors — <https://github.com/rust-windowing/android-ndk-rs>
+- **ndk-sys** `0.6.0+11769913` — MIT OR Apache-2.0 — author: The Rust Windowing contributors — <https://github.com/rust-mobile/ndk>
+- **new_debug_unreachable** `1.0.6` — MIT — author: Matt Brubeck <mbrubeck@limpet.net>, Jonathan Reem <jonathan.reem@gmail.com> — <https://github.com/mbrubeck/rust-debug-unreachable>
+- **nix** `0.30.1` — MIT — author: The nix-rust Project Developers — <https://github.com/nix-rust/nix>
+- **nix** `0.31.3` — MIT — <https://github.com/nix-rust/nix>
+- **nom** `8.0.0` — MIT — author: contact@geoffroycouprie.com — <https://github.com/rust-bakery/nom>
+- **normalize-wheel-es** `1.2.0` — BSD-3-Clause — <https://www.npmjs.com/package/normalize-wheel-es>
+- **num** `0.4.3` — MIT OR Apache-2.0 — author: The Rust Project Developers — <https://github.com/rust-num/num>
+- **num-bigint** `0.4.8` — MIT OR Apache-2.0 — author: The Rust Project Developers — <https://github.com/rust-num/num-bigint>
+- **num-complex** `0.4.6` — MIT OR Apache-2.0 — author: The Rust Project Developers — <https://github.com/rust-num/num-complex>
+- **num-conv** `0.2.2` — MIT OR Apache-2.0 — author: Jacob Pratt <jacob@jhpratt.dev> — <https://github.com/jhpratt/num-conv>
+- **num-integer** `0.1.47` — MIT OR Apache-2.0 — author: The Rust Project Developers — <https://github.com/rust-num/num-integer>
+- **num-iter** `0.1.46` — MIT OR Apache-2.0 — author: The Rust Project Developers — <https://github.com/rust-num/num-iter>
+- **num-rational** `0.4.2` — MIT OR Apache-2.0 — author: The Rust Project Developers — <https://github.com/rust-num/num-rational>
+- **num-traits** `0.2.19` — MIT OR Apache-2.0 — author: The Rust Project Developers — <https://github.com/rust-num/num-traits>
+- **num_enum** `0.7.6` — BSD-3-Clause OR MIT OR Apache-2.0 — author: Daniel Wagner-Hall <dawagner@gmail.com>, Daniel Henry-Mantilla <daniel.henry.mantilla@gmail.com>, Vincent Esche <regexident@gmail.com> — <https://github.com/illicitonion/num_enum>
+- **num_enum_derive** `0.7.6` — BSD-3-Clause OR MIT OR Apache-2.0 — author: Daniel Wagner-Hall <dawagner@gmail.com>, Daniel Henry-Mantilla <daniel.henry.mantilla@gmail.com>, Vincent Esche <regexident@gmail.com> — <https://github.com/illicitonion/num_enum>
+- **objc2** `0.6.5` — MIT — author: Mads Marquart <mads@marquart.dk> — <https://github.com/madsmtm/objc2>
+- **objc2-app-kit** `0.3.2` — Zlib OR Apache-2.0 OR MIT — <https://github.com/madsmtm/objc2>
+- **objc2-cloud-kit** `0.3.2` — Zlib OR Apache-2.0 OR MIT — <https://github.com/madsmtm/objc2>
+- **objc2-core-data** `0.3.2` — Zlib OR Apache-2.0 OR MIT — <https://github.com/madsmtm/objc2>
+- **objc2-core-foundation** `0.3.2` — Zlib OR Apache-2.0 OR MIT — <https://github.com/madsmtm/objc2>
+- **objc2-core-graphics** `0.3.2` — Zlib OR Apache-2.0 OR MIT — <https://github.com/madsmtm/objc2>
+- **objc2-core-image** `0.3.2` — Zlib OR Apache-2.0 OR MIT — <https://github.com/madsmtm/objc2>
+- **objc2-core-location** `0.3.2` — Zlib OR Apache-2.0 OR MIT — <https://github.com/madsmtm/objc2>
+- **objc2-core-text** `0.3.2` — Zlib OR Apache-2.0 OR MIT — <https://github.com/madsmtm/objc2>
+- **objc2-encode** `4.1.0` — MIT — author: Mads Marquart <mads@marquart.dk> — <https://github.com/madsmtm/objc2>
+- **objc2-exception-helper** `0.1.1` — Zlib OR Apache-2.0 OR MIT — author: Mads Marquart <mads@marquart.dk> — <https://github.com/madsmtm/objc2>
+- **objc2-foundation** `0.3.2` — MIT — <https://github.com/madsmtm/objc2>
+- **objc2-io-surface** `0.3.2` — Zlib OR Apache-2.0 OR MIT — <https://github.com/madsmtm/objc2>
+- **objc2-quartz-core** `0.3.2` — Zlib OR Apache-2.0 OR MIT — <https://github.com/madsmtm/objc2>
+- **objc2-ui-kit** `0.3.2` — Zlib OR Apache-2.0 OR MIT — <https://github.com/madsmtm/objc2>
+- **objc2-user-notifications** `0.3.2` — Zlib OR Apache-2.0 OR MIT — <https://github.com/madsmtm/objc2>
+- **objc2-web-kit** `0.3.2` — Zlib OR Apache-2.0 OR MIT — <https://github.com/madsmtm/objc2>
+- **once_cell** `1.21.4` — MIT OR Apache-2.0 — author: Aleksey Kladov <aleksey.kladov@gmail.com> — <https://github.com/matklad/once_cell>
+- **once_cell_polyfill** `1.70.2` — MIT OR Apache-2.0 — <https://github.com/polyfill-rs/once_cell_polyfill>
+- **opaque-debug** `0.3.1` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/utils>
+- **open** `5.4.5` — MIT — author: Sebastian Thiel <byronimo@gmail.com> — <https://github.com/Byron/open-rs>
+- **openssl-probe** `0.2.2` — MIT OR Apache-2.0 — author: Alex Crichton <alex@alexcrichton.com> — <https://github.com/rustls/openssl-probe>
+- **option-ext** `0.2.0` — MPL-2.0 — author: Simon Ochsenreither <simon@ochsenreither.de> — <https://github.com/soc/option-ext.git>
+- **ordered-stream** `0.2.0` — MIT OR Apache-2.0 — author: Daniel De Graaf <code@danieldg.net>, Zeeshan Ali Khan <zeeshanak@gnome.org> — <https://github.com/danieldg/ordered-stream>
+- **os_pipe** `1.2.3` — MIT — author: Jack O'Connor — <https://github.com/oconnor663/os_pipe.rs>
+- **pango** `0.18.3` — MIT — author: The gtk-rs Project Developers — <https://github.com/gtk-rs/gtk-rs-core>
+- **pango-sys** `0.18.0` — MIT — author: The gtk-rs Project Developers — <https://github.com/gtk-rs/gtk-rs-core>
+- **parking** `2.2.1` — Apache-2.0 OR MIT — author: Stjepan Glavina <stjepang@gmail.com>, The Rust Project Developers — <https://github.com/smol-rs/parking>
+- **parking_lot** `0.12.5` — MIT OR Apache-2.0 — author: Amanieu d'Antras <amanieu@gmail.com> — <https://github.com/Amanieu/parking_lot>
+- **parking_lot_core** `0.9.12` — MIT OR Apache-2.0 — author: Amanieu d'Antras <amanieu@gmail.com> — <https://github.com/Amanieu/parking_lot>
+- **percent-encoding** `2.3.2` — MIT OR Apache-2.0 — author: The rust-url developers — <https://github.com/servo/rust-url/>
+- **phf** `0.13.1` — MIT — author: Steven Fackler <sfackler@gmail.com> — <https://github.com/rust-phf/rust-phf>
+- **phf_codegen** `0.13.1` — MIT — author: Steven Fackler <sfackler@gmail.com> — <https://github.com/rust-phf/rust-phf>
+- **phf_generator** `0.13.1` — MIT — author: Steven Fackler <sfackler@gmail.com> — <https://github.com/rust-phf/rust-phf>
+- **phf_macros** `0.13.1` — MIT — author: Steven Fackler <sfackler@gmail.com> — <https://github.com/rust-phf/rust-phf>
+- **phf_shared** `0.13.1` — MIT — author: Steven Fackler <sfackler@gmail.com> — <https://github.com/rust-phf/rust-phf>
+- **picocolors** `1.1.1` — ISC — <https://www.npmjs.com/package/picocolors>
+- **pin-project** `1.1.13` — Apache-2.0 OR MIT — <https://github.com/taiki-e/pin-project>
+- **pin-project-internal** `1.1.13` — Apache-2.0 OR MIT — <https://github.com/taiki-e/pin-project>
+- **pin-project-lite** `0.2.17` — Apache-2.0 OR MIT — <https://github.com/taiki-e/pin-project-lite>
+- **piper** `0.2.5` — MIT OR Apache-2.0 — author: Stjepan Glavina <stjepang@gmail.com>, John Nunley <dev@notgull.net> — <https://github.com/smol-rs/piper>
+- **pkg-config** `0.3.34` — MIT OR Apache-2.0 — author: Alex Crichton <alex@alexcrichton.com> — <https://github.com/rust-lang/pkg-config-rs>
+- **plist** `1.10.3` — MIT — author: Ed Barnard <eabarnard@gmail.com> — <https://github.com/ebarnard/rust-plist/>
+- **png** `0.18.1` — MIT OR Apache-2.0 — author: The image-rs Developers — <https://github.com/image-rs/image-png>
+- **polling** `3.11.0` — Apache-2.0 OR MIT — author: Stjepan Glavina <stjepang@gmail.com>, John Nunley <dev@notgull.net> — <https://github.com/smol-rs/polling>
+- **polyval** `0.6.2` — Apache-2.0 OR MIT — author: RustCrypto Developers — <https://github.com/RustCrypto/universal-hashes>
+- **portable-atomic** `1.15.0` — Apache-2.0 OR MIT — <https://github.com/taiki-e/portable-atomic>
+- **portable-atomic-util** `0.2.8` — Apache-2.0 OR MIT — <https://github.com/taiki-e/portable-atomic-util>
+- **postcss** `8.5.32` — MIT — <https://www.npmjs.com/package/postcss>
+- **potential_utf** `0.1.6` — Unicode-3.0 — author: The ICU4X Project Developers — <https://github.com/unicode-org/icu4x>
+- **powerfmt** `0.2.1` — MIT OR Apache-2.0 — author: Jacob Pratt <jacob@jhpratt.dev> — <https://github.com/jhpratt/powerfmt>
+- **ppv-lite86** `0.2.21` — MIT OR Apache-2.0 — author: The CryptoCorrosion Contributors — <https://github.com/cryptocorrosion/cryptocorrosion>
+- **precomputed-hash** `0.1.1` — MIT — author: Emilio Cobos Álvarez <emilio@crisal.io> — <https://github.com/emilio/precomputed-hash>
+- **proc-macro-crate** `1.3.1` — MIT OR Apache-2.0 — author: Bastian Köcher <git@kchr.de> — <https://github.com/bkchr/proc-macro-crate>
+- **proc-macro-crate** `2.0.2` — MIT OR Apache-2.0 — author: Bastian Köcher <git@kchr.de> — <https://github.com/bkchr/proc-macro-crate>
+- **proc-macro-crate** `3.5.0` — MIT OR Apache-2.0 — author: Bastian Köcher <git@kchr.de> — <https://github.com/bkchr/proc-macro-crate>
+- **proc-macro-error** `1.0.4` — MIT OR Apache-2.0 — author: CreepySkeleton <creepy-skeleton@yandex.ru> — <https://gitlab.com/CreepySkeleton/proc-macro-error>
+- **proc-macro-error-attr** `1.0.4` — MIT OR Apache-2.0 — author: CreepySkeleton <creepy-skeleton@yandex.ru> — <https://gitlab.com/CreepySkeleton/proc-macro-error>
+- **proc-macro2** `1.0.107` — MIT OR Apache-2.0 — author: David Tolnay <dtolnay@gmail.com>, Alex Crichton <alex@alexcrichton.com> — <https://github.com/dtolnay/proc-macro2>
+- **quick-xml** `0.42.0` — MIT — <https://github.com/tafia/quick-xml>
+- **quote** `1.0.47` — MIT OR Apache-2.0 — author: David Tolnay <dtolnay@gmail.com> — <https://github.com/dtolnay/quote>
+- **r-efi** `5.3.0` — MIT OR Apache-2.0 OR LGPL-2.1-or-later — <https://github.com/r-efi/r-efi>
+- **r-efi** `6.0.0` — MIT OR Apache-2.0 OR LGPL-2.1-or-later — <https://github.com/r-efi/r-efi>
+- **rand** `0.10.3` — MIT OR Apache-2.0 — author: The Rand Project Developers, The Rust Project Developers — <https://github.com/rust-random/rand>
+- **rand** `0.8.8` — MIT OR Apache-2.0 — author: The Rand Project Developers, The Rust Project Developers — <https://github.com/rust-random/rand>
+- **rand** `0.9.5` — MIT OR Apache-2.0 — author: The Rand Project Developers, The Rust Project Developers — <https://github.com/rust-random/rand>
+- **rand_chacha** `0.3.1` — MIT OR Apache-2.0 — author: The Rand Project Developers, The Rust Project Developers, The CryptoCorrosion Contributors — <https://github.com/rust-random/rand>
+- **rand_chacha** `0.9.0` — MIT OR Apache-2.0 — author: The Rand Project Developers, The Rust Project Developers, The CryptoCorrosion Contributors — <https://github.com/rust-random/rand>
+- **rand_core** `0.10.1` — MIT OR Apache-2.0 — author: The Rand Project Developers — <https://github.com/rust-random/rand_core>
+- **rand_core** `0.6.4` — MIT OR Apache-2.0 — author: The Rand Project Developers, The Rust Project Developers — <https://github.com/rust-random/rand>
+- **rand_core** `0.9.5` — MIT OR Apache-2.0 — author: The Rand Project Developers, The Rust Project Developers — <https://github.com/rust-random/rand>
+- **rangemap** `1.8.0` — MIT OR Apache-2.0 — author: Jeff Parsons <jeff@parsons.io> — <https://github.com/jeffparsons/rangemap>
+- **raw-window-handle** `0.6.2` — MIT OR Apache-2.0 OR Zlib — author: Osspial <osspial@gmail.com> — <https://github.com/rust-windowing/raw-window-handle>
+- **rayon** `1.12.0` — MIT OR Apache-2.0 — <https://github.com/rayon-rs/rayon>
+- **rayon-core** `1.13.0` — MIT OR Apache-2.0 — <https://github.com/rayon-rs/rayon>
+- **redox_syscall** `0.5.18` — MIT — author: Jeremy Soller <jackpot51@gmail.com> — <https://gitlab.redox-os.org/redox-os/syscall>
+- **redox_users** `0.5.3` — MIT — author: Jose Narvaez <goyox86@gmail.com>, Wesley Hershberger <mggmugginsmc@gmail.com> — <https://gitlab.redox-os.org/redox-os/users>
+- **ref-cast** `1.0.27` — MIT OR Apache-2.0 — author: David Tolnay <dtolnay@gmail.com> — <https://github.com/dtolnay/ref-cast>
+- **ref-cast-impl** `1.0.27` — MIT OR Apache-2.0 — author: David Tolnay <dtolnay@gmail.com> — <https://github.com/dtolnay/ref-cast>
+- **regex** `1.13.1` — MIT OR Apache-2.0 — author: The Rust Project Developers, Andrew Gallant <jamslam@gmail.com> — <https://github.com/rust-lang/regex>
+- **regex-automata** `0.4.18` — MIT OR Apache-2.0 — author: The Rust Project Developers, Andrew Gallant <jamslam@gmail.com> — <https://github.com/rust-lang/regex>
+- **regex-syntax** `0.8.11` — MIT OR Apache-2.0 — author: The Rust Project Developers, Andrew Gallant <jamslam@gmail.com> — <https://github.com/rust-lang/regex>
+- **reqwest** `0.13.5` — MIT OR Apache-2.0 — author: Sean McArthur <sean@seanmonstar.com> — <https://github.com/seanmonstar/reqwest>
+- **ring** `0.17.14` — Apache-2.0 AND ISC — <https://github.com/briansmith/ring>
+- **rusqlite** `0.41.1` — MIT — author: The rusqlite developers — <https://github.com/rusqlite/rusqlite>
+- **rustc-hash** `2.1.3` — Apache-2.0 OR MIT — author: The Rust Project Developers — <https://github.com/rust-lang/rustc-hash>
+- **rustc_version** `0.4.1` — MIT OR Apache-2.0 — <https://github.com/djc/rustc-version-rs>
+- **rustix** `1.1.6` — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT — author: Dan Gohman <dev@sunfishcode.online>, Jakub Konka <kubkon@jakubkonka.com> — <https://github.com/bytecodealliance/rustix>
+- **rustls** `0.23.46` — Apache-2.0 OR ISC OR MIT — <https://github.com/rustls/rustls>
+- **rustls-native-certs** `0.8.5` — Apache-2.0 OR ISC OR MIT — <https://github.com/rustls/rustls-native-certs>
+- **rustls-pemfile** `2.2.0` — Apache-2.0 OR ISC OR MIT — <https://github.com/rustls/pemfile>
+- **rustls-pki-types** `1.15.1` — MIT OR Apache-2.0 — <https://github.com/rustls/pki-types>
+- **rustls-platform-verifier** `0.7.1` — MIT OR Apache-2.0 — <https://github.com/rustls/rustls-platform-verifier>
+- **rustls-platform-verifier-android** `0.2.0` — MIT OR Apache-2.0 — <https://github.com/rustls/rustls-platform-verifier>
+- **rustls-webpki** `0.103.16` — ISC — <https://github.com/rustls/webpki>
+- **rustversion** `1.0.23` — MIT OR Apache-2.0 — author: David Tolnay <dtolnay@gmail.com> — <https://github.com/dtolnay/rustversion>
+- **rxing** `0.9.3` — Apache-2.0 — <https://github.com/rxing-core/rxing>
+- **rxing-one-d-proc-derive** `0.9.1` — Apache-2.0 — <https://github.com/rxing-core/rxing/tree/main/crates/one-d-proc-derive>
+- **ryu** `1.0.23` — Apache-2.0 OR BSL-1.0 — author: David Tolnay <dtolnay@gmail.com> — <https://github.com/dtolnay/ryu>
+- **salvo** `0.85.0` — MIT OR Apache-2.0 — author: Chrislearn Young <chris@acroidea.com> — <https://github.com/salvo-rs/salvo>
+- **salvo-serde-util** `0.85.0` — MIT OR Apache-2.0 — author: Chrislearn Young <chris@acroidea.com> — <https://github.com/salvo-rs/salvo>
+- **salvo_core** `0.85.0` — MIT OR Apache-2.0 — author: Chrislearn Young <chris@acroidea.com>, driftluo <driftluo@foxmail.com> — <https://github.com/salvo-rs/salvo>
+- **salvo_extra** `0.85.0` — MIT OR Apache-2.0 — author: Chrislearn Young <chris@acroidea.com> — <https://github.com/salvo-rs/salvo>
+- **salvo_macros** `0.85.0` — MIT OR Apache-2.0 — author: Chrislearn Young <chris@acroidea.com>, driftluo <driftluo@foxmail.com> — <https://github.com/salvo-rs/salvo>
+- **same-file** `1.0.6` — Unlicense OR MIT — author: Andrew Gallant <jamslam@gmail.com> — <https://github.com/BurntSushi/same-file>
+- **schannel** `0.1.30` — MIT — author: Steven Fackler <sfackler@gmail.com>, Steffen Butzer <steffen.butzer@outlook.com> — <https://github.com/steffengy/schannel-rs>
+- **schemars** `0.8.22` — MIT — author: Graham Esau <gesau@hotmail.co.uk> — <https://github.com/GREsau/schemars>
+- **schemars** `0.9.0` — MIT — author: Graham Esau <gesau@hotmail.co.uk> — <https://github.com/GREsau/schemars>
+- **schemars** `1.2.3` — MIT — author: Graham Esau <gesau@hotmail.co.uk> — <https://github.com/GREsau/schemars>
+- **schemars_derive** `0.8.22` — MIT — author: Graham Esau <gesau@hotmail.co.uk> — <https://github.com/GREsau/schemars>
+- **schemars_derive** `1.2.3` — MIT — author: Graham Esau <gesau@hotmail.co.uk> — <https://github.com/GREsau/schemars>
+- **scopeguard** `1.2.0` — MIT OR Apache-2.0 — author: bluss — <https://github.com/bluss/scopeguard>
+- **security-framework** `3.7.0` — MIT OR Apache-2.0 — author: Steven Fackler <sfackler@gmail.com>, Kornel <kornel@geekhood.net> — <https://github.com/kornelski/rust-security-framework>
+- **security-framework-sys** `2.17.0` — MIT OR Apache-2.0 — author: Steven Fackler <sfackler@gmail.com>, Kornel <kornel@geekhood.net> — <https://github.com/kornelski/rust-security-framework>
+- **selectors** `0.38.0` — MPL-2.0 — author: The Servo Project Developers — <https://github.com/servo/stylo>
+- **semver** `1.0.28` — MIT OR Apache-2.0 — author: David Tolnay <dtolnay@gmail.com> — <https://github.com/dtolnay/semver>
+- **serde** `1.0.229` — MIT OR Apache-2.0 — author: Erick Tryzelaar <erick.tryzelaar@gmail.com>, David Tolnay <dtolnay@gmail.com> — <https://github.com/serde-rs/serde>
+- **serde-untagged** `0.1.9` — MIT OR Apache-2.0 — author: David Tolnay <dtolnay@gmail.com> — <https://github.com/dtolnay/serde-untagged>
+- **serde-xml-rs** `0.8.2` — MIT — author: Ingvar Stepanyan <me@rreverser.com>, William Bartlett <bartlettstarman@gmail.com> — <https://github.com/RReverser/serde-xml-rs>
+- **serde_core** `1.0.229` — MIT OR Apache-2.0 — author: Erick Tryzelaar <erick.tryzelaar@gmail.com>, David Tolnay <dtolnay@gmail.com> — <https://github.com/serde-rs/serde>
+- **serde_derive** `1.0.229` — MIT OR Apache-2.0 — author: Erick Tryzelaar <erick.tryzelaar@gmail.com>, David Tolnay <dtolnay@gmail.com> — <https://github.com/serde-rs/serde>
+- **serde_derive_internals** `0.29.1` — MIT OR Apache-2.0 — author: Erick Tryzelaar <erick.tryzelaar@gmail.com>, David Tolnay <dtolnay@gmail.com> — <https://github.com/serde-rs/serde>
+- **serde_derive_internals** `0.30.0` — MIT OR Apache-2.0 — author: Erick Tryzelaar <erick.tryzelaar@gmail.com>, David Tolnay <dtolnay@gmail.com> — <https://github.com/serde-rs/serde>
+- **serde_json** `1.0.154` — MIT OR Apache-2.0 — <https://github.com/serde-rs/json>
+- **serde_path_to_error** `0.1.20` — MIT OR Apache-2.0 — author: David Tolnay <dtolnay@gmail.com> — <https://github.com/dtolnay/path-to-error>
+- **serde_repr** `0.1.21` — MIT OR Apache-2.0 — author: David Tolnay <dtolnay@gmail.com> — <https://github.com/dtolnay/serde-repr>
+- **serde_spanned** `0.6.9` — MIT OR Apache-2.0 — <https://github.com/toml-rs/toml>
+- **serde_spanned** `1.1.2` — MIT OR Apache-2.0 — <https://github.com/toml-rs/toml>
+- **serde_spanned** `1.1.3` — MIT OR Apache-2.0 — <https://github.com/toml-rs/toml>
+- **serde_urlencoded** `0.7.1` — MIT OR Apache-2.0 — author: Anthony Ramine <n.oxyde@gmail.com> — <https://github.com/nox/serde_urlencoded>
+- **serde_with** `3.24.0` — MIT OR Apache-2.0 — author: Jonas Bushart, Marcin Kaźmierczak — <https://github.com/jonasbb/serde_with/>
+- **serde_with_macros** `3.24.0` — MIT OR Apache-2.0 — author: Jonas Bushart — <https://github.com/jonasbb/serde_with/>
+- **serialize-to-javascript** `0.1.2` — MIT OR Apache-2.0 — author: Chip Reed <chip@chip.sh> — <https://github.com/chippers/serialize-to-javascript>
+- **serialize-to-javascript-impl** `0.1.2` — MIT OR Apache-2.0 — author: Chip Reed <chip@chip.sh> — <https://github.com/chippers/serialize-to-javascript>
+- **servo_arc** `0.4.3` — MIT OR Apache-2.0 — author: The Servo Project Developers — <https://github.com/servo/stylo>
+- **sha1** `0.10.7` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/hashes>
+- **sha2** `0.10.9` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/hashes>
+- **sha2** `0.11.1` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/hashes>
+- **shared_child** `1.1.2` — MIT — <https://github.com/oconnor663/shared_child.rs>
+- **shlex** `2.0.1` — MIT OR Apache-2.0 — author: comex <comexk@gmail.com>, Fenhl <fenhl@fenhl.net>, Adrian Taylor <adetaylor@chromium.org>, Alex Touchet <alextouchet@outlook.com>, Daniel Parks <dp+git@oxidized.org>, Garrett Berg <googberg@gmail.com> — <https://github.com/comex/rust-shlex>
+- **signal-hook-registry** `1.4.8` — MIT OR Apache-2.0 — author: Michal 'vorner' Vaner <vorner@vorner.cz>, Masaki Hara <ackie.h.gmai@gmail.com> — <https://github.com/vorner/signal-hook>
+- **simd-adler32** `0.3.10` — MIT — author: Marvin Countryman <me@maar.vin> — <https://github.com/mcountryman/simd-adler32>
+- **simd_cesu8** `1.2.0` — Apache-2.0 OR MIT — author: Sean C. Roach <me@seancroach.dev> — <https://github.com/seancroach/simd_cesu8>
+- **simdutf8** `0.1.5` — MIT OR Apache-2.0 — author: Hans Kratz <hans@appfour.com> — <https://github.com/rusticstuff/simdutf8>
+- **siphasher** `1.0.4` — MIT OR Apache-2.0 — author: Frank Denis <github@pureftpd.org> — <https://github.com/jedisct1/rust-siphash>
+- **slab** `0.4.12` — MIT — author: Carl Lerche <me@carllerche.com> — <https://github.com/tokio-rs/slab>
+- **smallvec** `1.16.5` — MIT OR Apache-2.0 — author: The Servo Project Developers — <https://github.com/servo/rust-smallvec>
+- **socket2** `0.6.5` — MIT OR Apache-2.0 — author: Alex Crichton <alex@alexcrichton.com>, Thomas de Zeeuw <thomasdezeeuw@gmail.com> — <https://github.com/rust-lang/socket2>
+- **softbuffer** `0.4.8` — MIT OR Apache-2.0 — <https://github.com/rust-windowing/softbuffer>
+- **soup3** `0.5.0` — MIT — <https://gitlab.gnome.org/World/Rust/soup3-rs>
+- **soup3-sys** `0.5.0` — MIT — author: The Gtk-rs Project Developers — <https://gitlab.gnome.org/World/Rust/soup3-rs>
+- **source-map-js** `1.2.2` — BSD-3-Clause — <https://www.npmjs.com/package/source-map-js>
+- **spin** `0.9.9` — MIT — author: Mathijs van de Nes <git@mathijs.vd-nes.nl>, John Ericson <git@JohnEricson.me>, Joshua Barretto <joshua.s.barretto@gmail.com> — <https://github.com/mvdnes/spin-rs.git>
+- **stable_deref_trait** `1.2.1` — MIT OR Apache-2.0 — author: Robert Grosse <n210241048576@gmail.com> — <https://github.com/storyyeller/stable_deref_trait>
+- **static_vcruntime** `3.0.0` — MIT OR Apache-2.0 OR Zlib — <https://github.com/ChrisDenton/static_vcruntime>
+- **str-buf** `3.0.3` — BSL-1.0 — author: Douman <douman@gmx.se> — <https://github.com/DoumanAsh/str-buf>
+- **string_cache** `0.9.0` — MIT OR Apache-2.0 — author: The Servo Project Developers — <https://github.com/servo/string-cache>
+- **string_cache_codegen** `0.6.1` — MIT OR Apache-2.0 — author: The Servo Project Developers — <https://github.com/servo/string-cache>
+- **stringprep** `0.1.5` — MIT OR Apache-2.0 — author: Steven Fackler <sfackler@gmail.com> — <https://github.com/sfackler/rust-stringprep>
+- **strsim** `0.11.1` — MIT — author: Danny Guo <danny@dannyguo.com>, maxbachmann <oss@maxbachmann.de> — <https://github.com/rapidfuzz/strsim-rs>
+- **subtle** `2.6.1` — BSD-3-Clause — author: Isis Lovecruft <isis@patternsinthevoid.net>, Henry de Valence <hdevalence@hdevalence.ca> — <https://github.com/dalek-cryptography/subtle>
+- **swift-rs** `1.0.9` — MIT OR Apache-2.0 — author: The swift-rs contributors — <https://github.com/Brendonovich/swift-rs>
+- **syn** `1.0.109` — MIT OR Apache-2.0 — author: David Tolnay <dtolnay@gmail.com> — <https://github.com/dtolnay/syn>
+- **syn** `2.0.119` — MIT OR Apache-2.0 — author: David Tolnay <dtolnay@gmail.com> — <https://github.com/dtolnay/syn>
+- **syn** `3.0.9` — MIT OR Apache-2.0 — author: David Tolnay <dtolnay@gmail.com> — <https://github.com/dtolnay/syn>
+- **sync_wrapper** `1.0.2` — Apache-2.0 — author: Actyx AG <developer@actyx.io> — <https://github.com/Actyx/sync_wrapper>
+- **synstructure** `0.14.0` — MIT — author: Nika Layzell <nika@thelayzells.com> — <https://github.com/mystor/synstructure>
+- **system-deps** `6.2.2` — MIT OR Apache-2.0 — author: Guillaume Desmottes <guillaume.desmottes@collabora.com>, Josh Triplett <josh@joshtriplett.org> — <https://github.com/gdesmott/system-deps>
+- **tao** `0.37.2` — Apache-2.0 — author: Tauri Programme within The Commons Conservancy, The winit contributors — <https://github.com/tauri-apps/tao>
+- **tao-macros** `0.1.4` — MIT OR Apache-2.0 — author: Tauri Programme within The Commons Conservancy — <https://github.com/tauri-apps/tao>
+- **target-lexicon** `0.12.16` — Apache-2.0 WITH LLVM-exception — author: Dan Gohman <sunfish@mozilla.com> — <https://github.com/bytecodealliance/target-lexicon>
+- **tauri** `2.12.5` — Apache-2.0 OR MIT — author: Tauri Programme within The Commons Conservancy — <https://github.com/tauri-apps/tauri>
+- **tauri-build** `2.7.4` — Apache-2.0 OR MIT — author: Tauri Programme within The Commons Conservancy — <https://github.com/tauri-apps/tauri>
+- **tauri-codegen** `2.7.4` — Apache-2.0 OR MIT — author: Tauri Programme within The Commons Conservancy — <https://github.com/tauri-apps/tauri>
+- **tauri-macros** `2.7.4` — Apache-2.0 OR MIT — author: Tauri Programme within The Commons Conservancy — <https://github.com/tauri-apps/tauri>
+- **tauri-plugin** `2.7.2` — Apache-2.0 OR MIT — author: Tauri Programme within The Commons Conservancy — <https://github.com/tauri-apps/tauri>
+- **tauri-plugin-shell** `2.6.0` — Apache-2.0 OR MIT — author: Tauri Programme within The Commons Conservancy — <https://github.com/tauri-apps/plugins-workspace>
+- **tauri-plugin-single-instance** `2.5.5` — Apache-2.0 OR MIT — author: Tauri Programme within The Commons Conservancy — <https://github.com/tauri-apps/plugins-workspace>
+- **tauri-runtime** `2.12.2` — Apache-2.0 OR MIT — author: Tauri Programme within The Commons Conservancy — <https://github.com/tauri-apps/tauri>
+- **tauri-runtime-wry** `2.12.3` — Apache-2.0 OR MIT — author: Tauri Programme within The Commons Conservancy — <https://github.com/tauri-apps/tauri>
+- **tauri-utils** `2.10.2` — Apache-2.0 OR MIT — author: Tauri Programme within The Commons Conservancy — <https://github.com/tauri-apps/tauri>
+- **tauri-winres** `0.3.7` — MIT — author: Tauri Programme within The Commons Conservancy, Max Resch <resch.max@gmail.com> — <https://github.com/tauri-apps/winres>
+- **tempfile** `3.27.0` — MIT OR Apache-2.0 — author: Steven Allen <steven@stebalien.com>, The Rust Project Developers, Ashley Mannix <ashleymannix@live.com.au>, Jason White <me@jasonwhite.io> — <https://github.com/Stebalien/tempfile>
+- **tendril** `0.5.1` — MIT OR Apache-2.0 — author: Keegan McAllister <mcallister.keegan@gmail.com>, Simon Sapin <simon.sapin@exyr.org>, Chris Morgan <me@chrismorgan.info> — <https://github.com/servo/html5ever>
+- **termcolor** `1.4.1` — Unlicense OR MIT — author: Andrew Gallant <jamslam@gmail.com> — <https://github.com/BurntSushi/termcolor>
+- **thiserror** `1.0.69` — MIT OR Apache-2.0 — author: David Tolnay <dtolnay@gmail.com> — <https://github.com/dtolnay/thiserror>
+- **thiserror** `2.0.21` — MIT OR Apache-2.0 — author: David Tolnay <dtolnay@gmail.com> — <https://github.com/dtolnay/thiserror>
+- **thiserror-impl** `1.0.69` — MIT OR Apache-2.0 — author: David Tolnay <dtolnay@gmail.com> — <https://github.com/dtolnay/thiserror>
+- **thiserror-impl** `2.0.21` — MIT OR Apache-2.0 — author: David Tolnay <dtolnay@gmail.com> — <https://github.com/dtolnay/thiserror>
+- **time** `0.3.55` — MIT OR Apache-2.0 — author: Jacob Pratt <open-source@jhpratt.dev>, Time contributors — <https://github.com/time-rs/time>
+- **time-core** `0.1.9` — MIT OR Apache-2.0 — author: Jacob Pratt <open-source@jhpratt.dev>, Time contributors — <https://github.com/time-rs/time>
+- **time-macros** `0.2.32` — MIT OR Apache-2.0 — author: Jacob Pratt <open-source@jhpratt.dev>, Time contributors — <https://github.com/time-rs/time>
+- **tinystr** `0.8.5` — Unicode-3.0 — author: The ICU4X Project Developers — <https://github.com/unicode-org/icu4x>
+- **tinyvec** `1.13.3` — Zlib OR Apache-2.0 OR MIT — author: Lokathor <zefria@gmail.com> — <https://github.com/Lokathor/tinyvec>
+- **tokio** `1.54.1` — MIT — author: Tokio Contributors <team@tokio.rs> — <https://github.com/tokio-rs/tokio>
+- **tokio-macros** `2.7.2` — MIT — author: Tokio Contributors <team@tokio.rs> — <https://github.com/tokio-rs/tokio>
+- **tokio-rustls** `0.26.6` — MIT OR Apache-2.0 — <https://github.com/rustls/tokio-rustls>
+- **tokio-tungstenite** `0.28.0` — MIT — author: Daniel Abramov <dabramov@snapview.de>, Alexey Galakhov <agalakhov@snapview.de> — <https://github.com/snapview/tokio-tungstenite>
+- **tokio-util** `0.7.20` — MIT — author: Tokio Contributors <team@tokio.rs> — <https://github.com/tokio-rs/tokio>
+- **toml** `0.8.2` — MIT OR Apache-2.0 — author: Alex Crichton <alex@alexcrichton.com> — <https://github.com/toml-rs/toml>
+- **toml** `0.9.12+spec-1.1.0` — MIT OR Apache-2.0 — <https://github.com/toml-rs/toml>
+- **toml** `1.2.1+spec-1.1.0` — MIT OR Apache-2.0 — <https://github.com/toml-rs/toml>
+- **toml_datetime** `0.6.3` — MIT OR Apache-2.0 — author: Alex Crichton <alex@alexcrichton.com> — <https://github.com/toml-rs/toml>
+- **toml_datetime** `0.7.5+spec-1.1.0` — MIT OR Apache-2.0 — <https://github.com/toml-rs/toml>
+- **toml_datetime** `1.1.3+spec-1.1.0` — MIT OR Apache-2.0 — <https://github.com/toml-rs/toml>
+- **toml_edit** `0.19.15` — MIT OR Apache-2.0 — author: Andronik Ordian <write@reusable.software>, Ed Page <eopage@gmail.com> — <https://github.com/toml-rs/toml>
+- **toml_edit** `0.20.2` — MIT OR Apache-2.0 — author: Andronik Ordian <write@reusable.software>, Ed Page <eopage@gmail.com> — <https://github.com/toml-rs/toml>
+- **toml_edit** `0.25.19+spec-1.1.0` — MIT OR Apache-2.0 — <https://github.com/toml-rs/toml>
+- **toml_parser** `1.1.5+spec-1.1.0` — MIT OR Apache-2.0 — <https://github.com/toml-rs/toml>
+- **toml_writer** `1.2.0+spec-1.1.0` — MIT OR Apache-2.0 — <https://github.com/toml-rs/toml>
+- **tower** `0.5.3` — MIT — author: Tower Maintainers <team@tower-rs.com> — <https://github.com/tower-rs/tower>
+- **tower-http** `0.6.11` — MIT — author: Tower Maintainers <team@tower-rs.com> — <https://github.com/tower-rs/tower-http>
+- **tower-layer** `0.3.3` — MIT — author: Tower Maintainers <team@tower-rs.com> — <https://github.com/tower-rs/tower>
+- **tower-service** `0.3.3` — MIT — author: Tower Maintainers <team@tower-rs.com> — <https://github.com/tower-rs/tower>
+- **tracing** `0.1.44` — MIT — author: Eliza Weisman <eliza@buoyant.io>, Tokio Contributors <team@tokio.rs> — <https://github.com/tokio-rs/tracing>
+- **tracing-attributes** `0.1.31` — MIT — author: Tokio Contributors <team@tokio.rs>, Eliza Weisman <eliza@buoyant.io>, David Barsky <dbarsky@amazon.com> — <https://github.com/tokio-rs/tracing>
+- **tracing-core** `0.1.36` — MIT — author: Tokio Contributors <team@tokio.rs> — <https://github.com/tokio-rs/tracing>
+- **tray-icon** `0.25.1` — MIT OR Apache-2.0 — <https://github.com/tauri-apps/tray-icon>
+- **try-lock** `0.2.5` — MIT — author: Sean McArthur <sean@seanmonstar.com> — <https://github.com/seanmonstar/try-lock>
+- **ts-rs** `11.1.0` — MIT — author: Moritz Bischof <moritz.bischof1@gmail.com> — <https://github.com/Aleph-Alpha/ts-rs>
+- **ts-rs-macros** `11.1.0` — MIT — author: Moritz Bischof <moritz.bischof1@gmail.com> — <https://github.com/Aleph-Alpha/ts-rs>
+- **tungstenite** `0.28.0` — MIT OR Apache-2.0 — author: Alexey Galakhov, Daniel Abramov — <https://github.com/snapview/tungstenite-rs>
+- **typed-path** `0.13.0` — MIT OR Apache-2.0 — author: Chip Senkbeil <chip@senkbeil.org> — <https://github.com/chipsenkbeil/typed-path>
+- **typeid** `1.0.3` — MIT OR Apache-2.0 — author: David Tolnay <dtolnay@gmail.com> — <https://github.com/dtolnay/typeid>
+- **typenum** `1.20.1` — MIT OR Apache-2.0 — <https://github.com/paholg/typenum>
+- **typescript** `5.9.3` — Apache-2.0 — <https://www.npmjs.com/package/typescript>
+- **uds_windows** `1.2.1` — MIT — author: Azure IoT Edge Devs, Harald Hoyer <harald@redhat.com> — <https://github.com/haraldh/rust_uds_windows>
+- **ulid** `1.2.1` — MIT — author: dylanhart <dylan96hart@gmail.com> — <https://github.com/dylanhart/ulid-rs>
+- **unicase** `2.10.0` — MIT OR Apache-2.0 — author: Sean McArthur <sean@seanmonstar.com> — <https://github.com/seanmonstar/unicase>
+- **unicode-bidi** `0.3.18` — MIT OR Apache-2.0 — author: The Servo Project Developers — <https://github.com/servo/unicode-bidi>
+- **unicode-ident** `1.0.27` — (MIT OR Apache-2.0) AND Unicode-3.0 — author: David Tolnay <dtolnay@gmail.com> — <https://github.com/dtolnay/unicode-ident>
+- **unicode-normalization** `0.1.26` — (MIT OR Apache-2.0) AND Unicode-3.0 — author: kwantam <kwantam@gmail.com>, Manish Goregaokar <manishsmail@gmail.com> — <https://github.com/unicode-rs/unicode-normalization>
+- **unicode-properties** `0.1.5` — (MIT OR Apache-2.0) AND Unicode-3.0 — author: Charles Lew <crlf0710@gmail.com>, Manish Goregaokar <manishsmail@gmail.com> — <https://github.com/unicode-rs/unicode-properties>
+- **unicode-segmentation** `1.13.3` — MIT OR Apache-2.0 — author: kwantam <kwantam@gmail.com>, Manish Goregaokar <manishsmail@gmail.com> — <https://github.com/unicode-rs/unicode-segmentation>
+- **universal-hash** `0.5.1` — MIT OR Apache-2.0 — author: RustCrypto Developers — <https://github.com/RustCrypto/traits>
+- **untrusted** `0.9.0` — ISC — author: Brian Smith <brian@briansmith.org> — <https://github.com/briansmith/untrusted>
+- **ureq** `3.5.1` — MIT OR Apache-2.0 — author: Martin Algesten <martin@algesten.se>, Jacob Hoffman-Andrews <ureq@hoffman-andrews.com> — <https://github.com/algesten/ureq>
+- **ureq-proto** `0.7.1` — MIT OR Apache-2.0 — author: Martin Algesten <martin@algesten.se> — <https://github.com/algesten/ureq-proto>
+- **url** `2.5.9` — MIT OR Apache-2.0 — author: The rust-url developers — <https://github.com/servo/rust-url>
+- **urlpattern** `0.6.0` — MIT — author: the Deno authors, crowlKats <crowlkats@toaxl.com> — <https://github.com/denoland/rust-urlpattern>
+- **utf-8** `0.7.6` — MIT OR Apache-2.0 — author: Simon Sapin <simon.sapin@exyr.org> — <https://github.com/SimonSapin/rust-utf8>
+- **utf8-zero** `0.8.1` — MIT OR Apache-2.0 — author: Simon Sapin <simon.sapin@exyr.org>, Martin Algesten <martin@algesten.se> — <https://github.com/algesten/utf8-zero>
+- **utf8_iter** `1.1.0` — Apache-2.0 OR MIT — author: Henri Sivonen <hsivonen@hsivonen.fi> — <https://github.com/hsivonen/utf8_iter>
+- **utf8parse** `0.2.2` — Apache-2.0 OR MIT — author: Joe Wilm <joe@jwilm.com>, Christian Duerr <contact@christianduerr.com> — <https://github.com/alacritty/vte>
+- **utf_types** `1.0.0` — Apache-2.0 OR MIT — author: Henri Sivonen <hsivonen@hsivonen.fi> — <https://github.com/hsivonen/utf_types>
+- **uuid** `1.29.1` — Apache-2.0 OR MIT — <https://github.com/uuid-rs/uuid>
+- **vcpkg** `0.2.15` — MIT OR Apache-2.0 — author: Jim McGrath <jimmc2@gmail.com> — <https://github.com/mcgoo/vcpkg-rs>
+- **version-compare** `0.2.1` — MIT — author: Tim Visee <3a4fb3964f@sinenomine.email> — <https://gitlab.com/timvisee/version-compare>
+- **version_check** `0.9.5` — MIT OR Apache-2.0 — author: Sergio Benitez <sb@sergio.bz> — <https://github.com/SergioBenitez/version_check>
+- **vswhom** `0.1.0` — MIT — author: nabijaczleweli <nabijaczleweli@gmail.com> — <https://github.com/nabijaczleweli/vswhom.rs>
+- **vswhom-sys** `0.1.3` — MIT — author: наб <nabijaczleweli@nabijaczleweli.xyz>, forrestsmithfb <forrest.smith@fb.com> — <https://github.com/nabijaczleweli/vswhom-sys.rs>
+- **vue** `3.5.45` — MIT — <https://www.npmjs.com/package/vue>
+- **vue-component-type-helpers** `3.3.14` — MIT — <https://www.npmjs.com/package/vue-component-type-helpers>
+- **walkdir** `2.5.0` — Unlicense OR MIT — author: Andrew Gallant <jamslam@gmail.com> — <https://github.com/BurntSushi/walkdir>
+- **want** `0.3.2` — MIT — author: Sean McArthur <sean@seanmonstar.com> — <https://github.com/seanmonstar/want>
+- **wasi** `0.11.1+wasi-snapshot-preview1` — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT — author: The Cranelift Project Developers — <https://github.com/bytecodealliance/wasi>
+- **wasip2** `1.0.4+wasi-0.2.12` — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT — <https://github.com/bytecodealliance/wasi-rs>
+- **wasm-bindgen** `0.2.130` — MIT OR Apache-2.0 — author: The wasm-bindgen Developers — <https://github.com/wasm-bindgen/wasm-bindgen>
+- **wasm-bindgen-futures** `0.4.80` — MIT OR Apache-2.0 — author: The wasm-bindgen Developers — <https://github.com/wasm-bindgen/wasm-bindgen/tree/master/crates/futures>
+- **wasm-bindgen-macro** `0.2.130` — MIT OR Apache-2.0 — author: The wasm-bindgen Developers — <https://github.com/wasm-bindgen/wasm-bindgen/tree/master/crates/macro>
+- **wasm-bindgen-macro-support** `0.2.130` — MIT OR Apache-2.0 — author: The wasm-bindgen Developers — <https://github.com/wasm-bindgen/wasm-bindgen/tree/main/crates/macro-support>
+- **wasm-bindgen-shared** `0.2.130` — MIT OR Apache-2.0 — author: The wasm-bindgen Developers — <https://github.com/wasm-bindgen/wasm-bindgen/tree/master/crates/shared>
+- **wasm-streams** `0.5.0` — MIT OR Apache-2.0 — author: Mattias Buelens <mattias@buelens.com> — <https://github.com/MattiasBuelens/wasm-streams/>
+- **web-sys** `0.3.107` — MIT OR Apache-2.0 — author: The wasm-bindgen Developers — <https://github.com/wasm-bindgen/wasm-bindgen/tree/master/crates/web-sys>
+- **web-time** `1.1.0` — MIT OR Apache-2.0 — <https://github.com/daxpedda/web-time>
+- **web_atoms** `0.2.6` — MIT OR Apache-2.0 — author: The html5ever Project Developers — <https://github.com/servo/html5ever>
+- **webkit2gtk** `2.0.2` — MIT — <https://github.com/tauri-apps/webkit2gtk-rs>
+- **webkit2gtk-sys** `2.0.2` — MIT — <https://github.com/tauri-apps/webkit2gtk-rs>
+- **webpki-root-certs** `1.0.11` — CDLA-Permissive-2.0 — <https://github.com/rustls/webpki-roots>
+- **webview2-com** `0.39.1` — MIT — <https://github.com/wravery/webview2-rs>
+- **webview2-com-macros** `0.8.1` — MIT — <https://github.com/wravery/webview2-rs>
+- **webview2-com-sys** `0.39.1` — MIT — <https://github.com/wravery/webview2-rs>
+- **weezl** `0.2.1` — MIT OR Apache-2.0 — author: The image-rs Developers — <https://github.com/image-rs/weezl>
+- **winapi** `0.3.9` — MIT OR Apache-2.0 — author: Peter Atashian <retep998@gmail.com> — <https://github.com/retep998/winapi-rs>
+- **winapi-i686-pc-windows-gnu** `0.4.0` — MIT OR Apache-2.0 — author: Peter Atashian <retep998@gmail.com> — <https://github.com/retep998/winapi-rs>
+- **winapi-util** `0.1.11` — Unlicense OR MIT — author: Andrew Gallant <jamslam@gmail.com> — <https://github.com/BurntSushi/winapi-util>
+- **winapi-x86_64-pc-windows-gnu** `0.4.0` — MIT OR Apache-2.0 — author: Peter Atashian <retep998@gmail.com> — <https://github.com/retep998/winapi-rs>
+- **window-vibrancy** `0.8.1` — Apache-2.0 OR MIT — author: Tauri Programme within The Commons Conservancy — <https://github.com/tauri-apps/tauri-plugin-vibrancy>
+- **windows** `0.62.2` — MIT OR Apache-2.0 — <https://github.com/microsoft/windows-rs>
+- **windows-collections** `0.3.2` — MIT OR Apache-2.0 — <https://github.com/microsoft/windows-rs>
+- **windows-core** `0.62.2` — MIT OR Apache-2.0 — <https://github.com/microsoft/windows-rs>
+- **windows-future** `0.3.2` — MIT OR Apache-2.0 — <https://github.com/microsoft/windows-rs>
+- **windows-implement** `0.60.2` — MIT OR Apache-2.0 — <https://github.com/microsoft/windows-rs>
+- **windows-interface** `0.59.3` — MIT OR Apache-2.0 — <https://github.com/microsoft/windows-rs>
+- **windows-link** `0.2.1` — MIT OR Apache-2.0 — <https://github.com/microsoft/windows-rs>
+- **windows-numerics** `0.3.1` — MIT OR Apache-2.0 — <https://github.com/microsoft/windows-rs>
+- **windows-result** `0.4.1` — MIT OR Apache-2.0 — <https://github.com/microsoft/windows-rs>
+- **windows-strings** `0.5.1` — MIT OR Apache-2.0 — <https://github.com/microsoft/windows-rs>
+- **windows-sys** `0.45.0` — MIT OR Apache-2.0 — author: Microsoft — <https://github.com/microsoft/windows-rs>
+- **windows-sys** `0.52.0` — MIT OR Apache-2.0 — author: Microsoft — <https://github.com/microsoft/windows-rs>
+- **windows-sys** `0.60.2` — MIT OR Apache-2.0 — author: Microsoft — <https://github.com/microsoft/windows-rs>
+- **windows-sys** `0.61.2` — MIT OR Apache-2.0 — <https://github.com/microsoft/windows-rs>
+- **windows-targets** `0.42.2` — MIT OR Apache-2.0 — author: Microsoft — <https://github.com/microsoft/windows-rs>
+- **windows-targets** `0.52.6` — MIT OR Apache-2.0 — author: Microsoft — <https://github.com/microsoft/windows-rs>
+- **windows-targets** `0.53.5` — MIT OR Apache-2.0 — <https://github.com/microsoft/windows-rs>
+- **windows-threading** `0.2.1` — MIT OR Apache-2.0 — <https://github.com/microsoft/windows-rs>
+- **windows-version** `0.1.7` — MIT OR Apache-2.0 — <https://github.com/microsoft/windows-rs>
+- **windows_aarch64_gnullvm** `0.42.2` — MIT OR Apache-2.0 — author: Microsoft — <https://github.com/microsoft/windows-rs>
+- **windows_aarch64_gnullvm** `0.52.6` — MIT OR Apache-2.0 — author: Microsoft — <https://github.com/microsoft/windows-rs>
+- **windows_aarch64_gnullvm** `0.53.1` — MIT OR Apache-2.0 — <https://github.com/microsoft/windows-rs>
+- **windows_aarch64_msvc** `0.42.2` — MIT OR Apache-2.0 — author: Microsoft — <https://github.com/microsoft/windows-rs>
+- **windows_aarch64_msvc** `0.52.6` — MIT OR Apache-2.0 — author: Microsoft — <https://github.com/microsoft/windows-rs>
+- **windows_aarch64_msvc** `0.53.1` — MIT OR Apache-2.0 — <https://github.com/microsoft/windows-rs>
+- **windows_i686_gnu** `0.42.2` — MIT OR Apache-2.0 — author: Microsoft — <https://github.com/microsoft/windows-rs>
+- **windows_i686_gnu** `0.52.6` — MIT OR Apache-2.0 — author: Microsoft — <https://github.com/microsoft/windows-rs>
+- **windows_i686_gnu** `0.53.1` — MIT OR Apache-2.0 — <https://github.com/microsoft/windows-rs>
+- **windows_i686_gnullvm** `0.52.6` — MIT OR Apache-2.0 — author: Microsoft — <https://github.com/microsoft/windows-rs>
+- **windows_i686_gnullvm** `0.53.1` — MIT OR Apache-2.0 — <https://github.com/microsoft/windows-rs>
+- **windows_i686_msvc** `0.42.2` — MIT OR Apache-2.0 — author: Microsoft — <https://github.com/microsoft/windows-rs>
+- **windows_i686_msvc** `0.52.6` — MIT OR Apache-2.0 — author: Microsoft — <https://github.com/microsoft/windows-rs>
+- **windows_i686_msvc** `0.53.1` — MIT OR Apache-2.0 — <https://github.com/microsoft/windows-rs>
+- **windows_x86_64_gnu** `0.42.2` — MIT OR Apache-2.0 — author: Microsoft — <https://github.com/microsoft/windows-rs>
+- **windows_x86_64_gnu** `0.52.6` — MIT OR Apache-2.0 — author: Microsoft — <https://github.com/microsoft/windows-rs>
+- **windows_x86_64_gnu** `0.53.1` — MIT OR Apache-2.0 — <https://github.com/microsoft/windows-rs>
+- **windows_x86_64_gnullvm** `0.42.2` — MIT OR Apache-2.0 — author: Microsoft — <https://github.com/microsoft/windows-rs>
+- **windows_x86_64_gnullvm** `0.52.6` — MIT OR Apache-2.0 — author: Microsoft — <https://github.com/microsoft/windows-rs>
+- **windows_x86_64_gnullvm** `0.53.1` — MIT OR Apache-2.0 — <https://github.com/microsoft/windows-rs>
+- **windows_x86_64_msvc** `0.42.2` — MIT OR Apache-2.0 — author: Microsoft — <https://github.com/microsoft/windows-rs>
+- **windows_x86_64_msvc** `0.52.6` — MIT OR Apache-2.0 — author: Microsoft — <https://github.com/microsoft/windows-rs>
+- **windows_x86_64_msvc** `0.53.1` — MIT OR Apache-2.0 — <https://github.com/microsoft/windows-rs>
+- **winnow** `0.5.40` — MIT — <https://github.com/winnow-rs/winnow>
+- **winnow** `0.7.15` — MIT — <https://github.com/winnow-rs/winnow>
+- **winnow** `1.0.5` — MIT — <https://github.com/winnow-rs/winnow>
+- **winreg** `0.56.0` — MIT — author: Igor Shaula <gentoo90@gmail.com> — <https://github.com/gentoo90/winreg-rs>
+- **wit-bindgen** `0.57.1` — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT — author: Alex Crichton <alex@alexcrichton.com> — <https://github.com/bytecodealliance/wit-bindgen>
+- **writeable** `0.6.4` — Unicode-3.0 — author: The ICU4X Project Developers — <https://github.com/unicode-org/icu4x>
+- **wry** `0.57.1` — Apache-2.0 OR MIT — author: Tauri Programme within The Commons Conservancy — <https://github.com/tauri-apps/wry>
+- **x11** `2.21.0` — MIT — author: daggerbot <daggerbot@gmail.com>, Erle Pereira <erle@erlepereira.com>, AltF02 <contact@altf2.dev> — <https://github.com/AltF02/x11-rs.git>
+- **x11-dl** `2.21.0` — MIT — author: daggerbot <daggerbot@gmail.com>, Erle Pereira <erle@erlepereira.com>, AltF02 <contact@altf2.dev> — <https://github.com/AltF02/x11-rs.git>
+- **xml** `1.4.0` — MIT — author: Vladimir Matveev <vmatveev@citrine.cc>, Kornel (https://github.com/kornelski) — <https://github.com/kornelski/xml-rs>
+- **xxhash-rust** `0.8.19` — BSL-1.0 — author: Douman <douman@gmx.se> — <https://github.com/DoumanAsh/xxhash-rust>
+- **yoke** `0.8.4` — Unicode-3.0 — author: Manish Goregaokar <manishsmail@gmail.com> — <https://github.com/unicode-org/icu4x>
+- **yoke-derive** `0.8.4` — Unicode-3.0 — author: Manish Goregaokar <manishsmail@gmail.com> — <https://github.com/unicode-org/icu4x>
+- **zbus** `5.19.0` — MIT — author: Zeeshan Ali Khan <zeeshanak@gnome.org> — <https://github.com/z-galaxy/zbus/>
+- **zbus_macros** `5.19.0` — MIT — author: Marc-André Lureau <marcandre.lureau@redhat.com>, Zeeshan Ali Khan <zeeshanak@gnome.org> — <https://github.com/z-galaxy/zbus/>
+- **zbus_names** `4.3.5` — MIT — author: Zeeshan Ali Khan <zeeshanak@gnome.org> — <https://github.com/z-galaxy/zbus/>
+- **zcheapstr** `1.2.0` — MIT — author: Zeeshan Ali Khan <zeeshanak@gnome.org> — <https://github.com/z-galaxy/zcheapstr/>
+- **zerocopy** `0.8.63` — BSD-2-Clause OR Apache-2.0 OR MIT — <https://github.com/google/zerocopy>
+- **zerocopy-derive** `0.8.63` — BSD-2-Clause OR Apache-2.0 OR MIT — <https://github.com/google/zerocopy>
+- **zerofrom** `0.1.8` — Unicode-3.0 — author: The ICU4X Project Developers — <https://github.com/unicode-org/icu4x>
+- **zerofrom-derive** `0.1.8` — Unicode-3.0 — author: Manish Goregaokar <manishsmail@gmail.com> — <https://github.com/unicode-org/icu4x>
+- **zeroize** `1.9.1` — Apache-2.0 OR MIT — author: The RustCrypto Project Developers — <https://github.com/RustCrypto/utils>
+- **zerotrie** `0.2.5` — Unicode-3.0 — author: The ICU4X Project Developers — <https://github.com/unicode-org/icu4x>
+- **zerovec** `0.11.9` — Unicode-3.0 — author: The ICU4X Project Developers — <https://github.com/unicode-org/icu4x>
+- **zerovec-derive** `0.11.7` — Unicode-3.0 — author: Manish Goregaokar <manishsmail@gmail.com> — <https://github.com/unicode-org/icu4x>
+- **zip** `9.4.1` — MIT — author: Mathijs van de Nes <git@mathijs.vd-nes.nl>, Marli Frost <marli@frost.red>, Ryan Levick <ryan.levick@gmail.com>, Chris Hennick <hennickc@amazon.com> — <https://github.com/zip-rs/zip2>
+- **zlib-rs** `0.6.8` — Zlib — <https://github.com/trifectatechfoundation/zlib-rs>
+- **zmij** `1.0.23` — MIT — author: David Tolnay <dtolnay@gmail.com> — <https://github.com/dtolnay/zmij>
+- **zopfli** `0.8.4` — Apache-2.0 — <https://github.com/zopfli-rs/zopfli>
+- **zstd** `0.13.4` — BSD-3-Clause — author: Alexandre Bury <alexandre.bury@gmail.com> — <https://github.com/gyscos/zstd-rs>
+- **zstd-safe** `7.4.0` — BSD-3-Clause — author: Alexandre Bury <alexandre.bury@gmail.com> — <https://github.com/gyscos/zstd-rs>
+- **zstd-sys** `2.1.2+zstd.1.5.7` — BSD-3-Clause — author: Alexandre Bury <alexandre.bury@gmail.com> — <https://github.com/gyscos/zstd-rs>
+- **zvariant** `5.15.1` — MIT — author: Zeeshan Ali Khan <zeeshanak@gnome.org> — <https://github.com/z-galaxy/zbus/>
+- **zvariant_derive** `5.15.1` — MIT — author: Zeeshan Ali Khan <zeeshanak@gnome.org> — <https://github.com/z-galaxy/zbus/>
+- **zvariant_utils** `4.2.0` — MIT — author: Zeeshan Ali Khan <zeeshanak@gnome.org>, turbocooler <turbocooler@cocaine.ninja> — <https://github.com/z-galaxy/zbus/>
+
+## First-party components
+
+- **@printkit/i18n** `0.2.1` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit** `0.2.1` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-barcode** `0.2.1` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-core** `0.2.1` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-engine** `0.2.1` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-facade** `0.2.1` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-pdf** `0.2.1` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-platform** `0.2.1` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-platform-mac** `0.2.1` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-platform-win** `0.2.1` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-plugin-api** `1.0.0` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-plugin-host** `0.2.1` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-plugin-observability** `0.2.1` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-plugin-records** `0.2.1` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-protocol** `0.2.1` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-render** `0.2.1` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-schema** `0.2.1` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-store** `0.2.1` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-trace** `0.2.1` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+
+## Per-component copyright notices
+
+- **@babel/helper-string-parser** `7.29.13` — Copyright (c) 2014-present Sebastian McKenzie and other contributors
+- **@babel/helper-validator-identifier** `7.29.7` — Copyright (c) 2014-present Sebastian McKenzie and other contributors
+- **@babel/parser** `7.29.13` — Copyright (C) 2012-2014 by various contributors (see AUTHORS)
+- **@babel/types** `7.29.11` — Copyright (c) 2014-present Sebastian McKenzie and other contributors
+- **@ctrl/tinycolor** `4.3.0` — Copyright (c) Scott Cooper <scttcper@gmail.com>
+- **@element-plus/icons-vue** `2.3.2` — Copyright (c) 2020-PRESENT Element Plus (https://github.com/element-plus)
+- **@floating-ui/core** `1.8.0` — Copyright (c) 2021-present Floating UI contributors
+- **@floating-ui/dom** `1.8.0` — Copyright (c) 2021-present Floating UI contributors
+- **@floating-ui/utils** `0.2.12` — Copyright (c) 2021-present Floating UI contributors
+- **@jridgewell/sourcemap-codec** `1.6.0` — Copyright 2024 Justin Ridgewell <justin@ridgewell.name>
+- **@sxzz/popperjs-es** `2.11.8` — Copyright (c) 2019 Federico Zivolo
+- **@tauri-apps/api** `2.12.4` — Copyright (c) 2017 - Present Tauri Apps Contributors
+- **@types/lodash** `4.17.27` — Copyright (c) Microsoft Corporation.
+- **@types/lodash-es** `4.17.12` — Copyright (c) Microsoft Corporation.
+- **@types/web-bluetooth** `0.0.21` — Copyright (c) Microsoft Corporation.
+- **@vue/compiler-core** `3.5.45` — Copyright (c) 2018-present, Yuxi (Evan) You
+- **@vue/compiler-dom** `3.5.45` — Copyright (c) 2018-present, Yuxi (Evan) You
+- **@vue/compiler-sfc** `3.5.45` — Copyright (c) 2018-present, Yuxi (Evan) You
+- **@vue/compiler-ssr** `3.5.45` — Copyright (c) 2018-present, Yuxi (Evan) You
+- **@vue/reactivity** `3.5.45` — Copyright (c) 2018-present, Yuxi (Evan) You
+- **@vue/runtime-core** `3.5.45` — Copyright (c) 2018-present, Yuxi (Evan) You
+- **@vue/runtime-dom** `3.5.45` — Copyright (c) 2018-present, Yuxi (Evan) You
+- **@vue/server-renderer** `3.5.45` — Copyright (c) 2018-present, Yuxi (Evan) You
+- **@vue/shared** `3.5.45` — Copyright (c) 2018-present, Yuxi (Evan) You
+- **@vueuse/core** `15.0.0` — Copyright (c) 2019-PRESENT Anthony Fu<https://github.com/antfu>
+- **@vueuse/metadata** `15.0.0` — Copyright (c) 2019-PRESENT Anthony Fu<https://github.com/antfu>
+- **@vueuse/shared** `15.0.0` — Copyright (c) 2019-PRESENT Anthony Fu<https://github.com/antfu>
+- **adler2** `2.0.1` — Copyright (C) Jonas Schievink <jonasschievink@gmail.com>
+- **aead** `0.5.2` — Copyright (c) 2019 The RustCrypto Project Developers / Copyright (c) 2019 MobileCoin, LLC
+- **aes** `0.8.4` — Copyright (c) 2018 Artyom Pavlov
+- **aes** `0.9.2` — Copyright (c) 2018-2024 The RustCrypto Project Developers / Copyright (c) 2018 Artyom Pavlov
+- **aes-gcm** `0.10.3` — Copyright (c) 2019 The RustCrypto Project Developers
+- **aho-corasick** `1.1.5` — Copyright (c) 2015 Andrew Gallant
+- **alloc-no-stdlib** `2.0.4` — Copyright (c) 2016 Dropbox, Inc.
+- **alloc-no-stdlib** `3.0.0` — Copyright (c) 2016 Dropbox, Inc.
+- **alloc-stdlib** `0.2.4` — [packaged metadata has no copyright line; see upstream source]
+- **alloc-stdlib** `0.3.0` — [packaged metadata has no copyright line; see upstream source]
+- **android_system_properties** `0.1.6` — Copyright 2016 Nicolas Silva / Copyright (c) 2013 Nicolas Silva
+- **anstream** `1.0.0` — Copyright (c) Individual contributors
+- **anstyle** `1.0.14` — Copyright (c) Individual contributors
+- **anstyle-parse** `1.0.0` — Copyright (c) Individual contributors
+- **anstyle-query** `1.1.5` — Copyright (c) Individual contributors
+- **anstyle-wincon** `3.0.11` — Copyright (c) Individual contributors
+- **anyhow** `1.0.104` — [packaged metadata has no copyright line; see upstream source]
+- **async-broadcast** `0.7.2` — Copyright 2020 Yoshua Wuyts / Copyright (c) 2020 Yoshua Wuyts
+- **async-channel** `2.5.0` — [packaged metadata has no copyright line; see upstream source]
+- **async-executor** `1.14.1` — [packaged metadata has no copyright line; see upstream source]
+- **async-io** `2.6.0` — [packaged metadata has no copyright line; see upstream source]
+- **async-lock** `3.5.0` — [packaged metadata has no copyright line; see upstream source]
+- **async-process** `2.5.0` — [packaged metadata has no copyright line; see upstream source]
+- **async-recursion** `1.2.0` — [packaged metadata has no copyright line; see upstream source]
+- **async-signal** `0.2.14` — [packaged metadata has no copyright line; see upstream source]
+- **async-task** `4.7.1` — [packaged metadata has no copyright line; see upstream source]
+- **async-trait** `0.1.92` — [packaged metadata has no copyright line; see upstream source]
+- **async-validator** `4.2.5` — Copyright (c) 2014-present yiminghe
+- **atk** `0.18.2` — [packaged metadata has no copyright line; see upstream source]
+- **atk-sys** `0.18.2` — [packaged metadata has no copyright line; see upstream source]
+- **atomic-waker** `1.1.2` — Copyright (c) 2016 Alex Crichton / Copyright (c) 2017 The Tokio Authors
+- **autocfg** `1.5.1` — Copyright (c) 2018 Josh Stone
+- **base64** `0.21.7` — Copyright (c) 2015 Alice Maz
+- **base64** `0.22.1` — Copyright (c) 2015 Alice Maz
+- **base64** `0.23.1` — Copyright (c) 2025 Alice Maz, Marshall Pierce
+- **bit-set** `0.8.0` — Copyright (c) 2023 The Rust Project Developers
+- **bit-vec** `0.8.0` — Copyright (c) 2023 The Rust Project Developers
+- **bitflags** `1.3.2` — Copyright (c) 2014 The Rust Project Developers
+- **bitflags** `2.13.2` — Copyright (c) 2014 The Rust Project Developers
+- **block-buffer** `0.10.4` — Copyright (c) 2018-2019 The RustCrypto Project Developers
+- **block-buffer** `0.12.1` — Copyright (c) 2018-2025 The RustCrypto Project Developers
+- **block-padding** `0.4.2` — Copyright (c) 2018-2025 The RustCrypto Project Developers
+- **block2** `0.6.2` — [packaged metadata has no copyright line; see upstream source]
+- **blocking** `1.7.0` — [packaged metadata has no copyright line; see upstream source]
+- **brotli** `8.0.4` — Copyright (c) 2016 Dropbox, Inc. / Copyright (c) 2009, 2010, 2013-2016 by the Brotli Authors.
+- **brotli** `9.1.1` — Copyright (c) 2016 Dropbox, Inc. / Copyright (c) 2009, 2010, 2013-2016 by the Brotli Authors.
+- **brotli-decompressor** `5.0.3` — Copyright (c) 2016 Dropbox, Inc.
+- **brotli-decompressor** `6.3.0` — Copyright (c) 2016 Dropbox, Inc.
+- **bs58** `0.5.1` — Copyright (c) 2016 The roaring-rs developers.
+- **bumpalo** `3.20.3` — Copyright (c) 2019 Nick Fitzgerald
+- **bytemuck** `1.25.2` — Copyright (c) 2019 Daniel "Lokathor" Gee.
+- **byteorder** `1.5.0` — Copyright (c) 2015 Andrew Gallant
+- **bytes** `1.12.1` — Copyright (c) 2018 Carl Lerche
+- **cairo-rs** `0.18.5` — [packaged metadata has no copyright line; see upstream source]
+- **cairo-sys-rs** `0.18.2` — [packaged metadata has no copyright line; see upstream source]
+- **camino** `1.2.6` — [packaged metadata has no copyright line; see upstream source]
+- **cargo-platform** `0.1.9` — [packaged metadata has no copyright line; see upstream source]
+- **cargo_metadata** `0.19.2` — [packaged metadata has no copyright line; see upstream source]
+- **cargo_toml** `1.0.1` — © Kornel Lesiński
+- **cbc** `0.2.1` — Copyright (c) 2018-2022 RustCrypto Developers / Copyright (c) 2018 Artyom Pavlov
+- **cc** `1.11.1` — Copyright (c) 2014 Alex Crichton
+- **cesu8** `1.1.0` — Copyright (C) 2000-2010 Julian Seward. All rights / Copyright (c) 2003-2013 University of Illinois at / Copyright (c) 2009-2014 by the contributors listed in / Copyright (C) 2008-2010 Tachyon Technologies. / Copyright (c) 2008, Natacha Porté / Copyright (c) 2011, Vicent Martí / Copyright (c) 2013, Devin Torres and the Hoedown authors / Copyright (C) 2012-2014 Free Software Foundation, Inc.
+- **cfb** `0.14.0` — Copyright (c) 2017 Matthew D. Steele
+- **cfg-expr** `0.15.8` — Copyright (c) 2019 Embark Studios
+- **cfg-if** `1.0.5` — Copyright (c) 2014 Alex Crichton
+- **cfg_aliases** `0.2.2` — Copyright (c) 2020 Katharos Technology
+- **chacha20** `0.10.2` — Copyright (c) 2019-2026 The RustCrypto Project Developers
+- **chardetng** `0.1.17` — Copyright Mozilla Foundation
+- **chrono** `0.4.45` — Copyright (c) 2014, Kang Seonghoon.
+- **cipher** `0.4.4` — Copyright (c) 2016-2020 RustCrypto Developers
+- **cipher** `0.5.2` — Copyright (c) 2016-2025 RustCrypto Developers
+- **clap** `4.6.7` — Copyright Individual contributors / Copyright (c) Individual contributors
+- **clap_builder** `4.6.7` — Copyright Individual contributors / Copyright (c) Individual contributors
+- **clap_derive** `4.6.7` — Copyright Individual contributors / Copyright (c) Individual contributors
+- **clap_lex** `1.1.1` — Copyright Individual contributors / Copyright (c) Individual contributors
+- **codepage-437** `0.1.0` — Copyright (c) 2018 nabijaczleweli
+- **colorchoice** `1.0.5` — Copyright (c) Individual contributors
+- **combine** `4.6.9` — Copyright (c) 2015 Markus Westerlind
+- **concurrent-queue** `2.5.0` — [packaged metadata has no copyright line; see upstream source]
+- **const-oid** `0.10.2` — Copyright (c) 2020-2026 The RustCrypto Project Developers
+- **content_inspector** `0.2.4` — [packaged metadata has no copyright line; see upstream source]
+- **cookie** `0.18.2` — Copyright 2017 Sergio Benitez / Copyright 2014 Alex Chricton / Copyright (c) 2017 Sergio Benitez / Copyright (c) 2014 Alex Crichton
+- **core-foundation** `0.10.1` — Copyright (c) 2012-2013 Mozilla Foundation
+- **core-foundation-sys** `0.8.7` — Copyright (c) 2012-2013 Mozilla Foundation
+- **core-graphics** `0.25.0` — Copyright (c) 2012-2013 Mozilla Foundation
+- **core-graphics-types** `0.2.0` — Copyright (c) 2012-2013 Mozilla Foundation
+- **core_detect** `1.0.0` — Copyright (c) 2017-2020 The Rust Project Developers
+- **cpubits** `0.1.1` — Copyright (c) 2023-2026 The RustCrypto Project Developers
+- **cpufeatures** `0.2.17` — Copyright (c) 2020-2025 The RustCrypto Project Developers
+- **cpufeatures** `0.3.1` — Copyright (c) 2020-2026 The RustCrypto Project Developers
+- **crc32fast** `1.5.4` — Copyright (c) 2018 Sam Rijs, Alex Crichton and contributors
+- **crossbeam-channel** `0.5.17` — Copyright (c) 2019 The Crossbeam Project Developers / COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK OTHER THAN AS / Copyright (c) 2009 The Go Authors. All rights reserved.
+- **crossbeam-deque** `0.8.8` — Copyright (c) 2019 The Crossbeam Project Developers
+- **crossbeam-epoch** `0.9.21` — Copyright (c) 2019 The Crossbeam Project Developers
+- **crossbeam-utils** `0.8.23` — Copyright (c) 2019 The Crossbeam Project Developers
+- **crypto-common** `0.1.7` — Copyright (c) 2021 RustCrypto Developers
+- **crypto-common** `0.2.2` — Copyright (c) 2021-2026 RustCrypto Developers
+- **cssparser** `0.37.0` — [packaged metadata has no copyright line; see upstream source]
+- **cssparser-macros** `0.7.1` — [packaged metadata has no copyright line; see upstream source]
+- **csstype** `3.2.3` — Copyright (c) 2017-2018 Fredrik Nicol
+- **csv** `1.4.0` — Copyright (c) 2015 Andrew Gallant
+- **csv-core** `0.1.13` — Copyright (c) 2015 Andrew Gallant
+- **ctor** `1.0.13` — [packaged metadata has no copyright line; see upstream source]
+- **ctr** `0.9.2` — Copyright (c) 2018-2022 RustCrypto Developers / Copyright (c) 2018 Artyom Pavlov
+- **darling** `0.24.1` — Copyright (c) 2017 Ted Driggs
+- **darling_core** `0.24.1` — Copyright (c) 2017 Ted Driggs
+- **darling_macro** `0.24.1` — Copyright (c) 2017 Ted Driggs
+- **dayjs** `1.11.23` — Copyright (c) 2018-present, iamkun
+- **dbus** `0.9.12` — Copyright 2014-2018 David Henningsson <diwic@ubuntu.com> and other contributors / Copyright (c) 2014-2018 David Henningsson <diwic@ubuntu.com> and other contributors
+- **deranged** `0.5.9` — Copyright 2024 Jacob Pratt et al. / Copyright (c) 2024 Jacob Pratt et al.
+- **derive_more** `2.1.1` — Copyright (c) 2016 Jelte Fennema
+- **derive_more-impl** `2.1.1` — Copyright (c) 2016 Jelte Fennema
+- **digest** `0.10.7` — Copyright (c) 2017 Artyom Pavlov
+- **digest** `0.11.3` — Copyright (c) 2017-2025 RustCrypto Developers / Copyright (c) 2017 Artyom Pavlov
+- **dirs** `7.0.0` — Copyright (c) 2018-2019 dirs-rs contributors
+- **dirs-sys** `0.5.0` — Copyright (c) 2018-2019 dirs-rs contributors
+- **dispatch2** `0.3.1` — [packaged metadata has no copyright line; see upstream source]
+- **displaydoc** `0.2.7` — [packaged metadata has no copyright line; see upstream source]
+- **dlopen2** `0.8.2` — [packaged metadata has no copyright line; see upstream source]
+- **dlopen2_derive** `0.4.3` — [packaged metadata has no copyright line; see upstream source]
+- **dom_query** `0.28.0` — Copyright (c) 2023 Mykola Humanov
+- **dpi** `0.1.2` — Copyright (c) 2018 Jorge Aparicio / Copyright © 2005-2020 Rich Felker, et al. / Copyright © 1993,2004 Sun Microsystems or / Copyright © 2003-2011 David Schultz or / Copyright © 2003-2009 Steven G. Kargl or / Copyright © 2003-2009 Bruce D. Evans or / Copyright © 2008 Stephen L. Moshier or / Copyright © 2017-2018 Arm Limited
+- **dtoa** `1.0.11` — [packaged metadata has no copyright line; see upstream source]
+- **dtoa-short** `0.3.5` — [packaged metadata has no copyright line; see upstream source]
+- **dunce** `1.0.5` — [packaged metadata has no copyright line; see upstream source]
+- **dyn-clone** `1.0.20` — [packaged metadata has no copyright line; see upstream source]
+- **ecb** `0.2.1` — Copyright (c) 2026 RustCrypto Developers
+- **either** `1.19.0` — Copyright (c) 2015
+- **element-plus** `2.14.8` — Copyright (c) 2020-PRESENT Element Plus
+- **embed-resource** `3.0.12` — Copyright (c) 2017 nabijaczleweli
+- **embed_plist** `1.2.2` — Copyright (c) 2020 Nikolai Vazquez
+- **encoding_rs** `0.8.42` — Copyright Mozilla Foundation / Copyright © WHATWG (Apple, Google, Mozilla, Microsoft).
+- **encoding_rs** `0.8.44` — Copyright Mozilla Foundation / Copyright © WHATWG (Apple, Google, Mozilla, Microsoft).
+- **endi** `1.1.1` — [packaged metadata has no copyright line; see upstream source]
+- **entities** `7.0.1` — Copyright (c) Felix Böhm
+- **enumflags2** `0.7.12` — Copyright 2017-2023 Maik Klein, Maja Kądziołka / Copyright (c) 2017-2023 Maik Klein, Maja Kądziołka
+- **enumflags2_derive** `0.7.12` — Copyright [2017] [Maik Klein] / Copyright (c) 2017 Maik Klein
+- **equivalent** `1.0.3` — Copyright (c) 2016--2023
+- **erased-serde** `0.4.11` — [packaged metadata has no copyright line; see upstream source]
+- **errno** `0.3.14` — Copyright (c) 2014 Chris Wong
+- **estree-walker** `2.0.2` — Copyright (c) 2015-20 [these people](https://github.com/Rich-Harris/estree-walker/graphs/contributors)
+- **etag** `4.0.0` — [packaged metadata has no copyright line; see upstream source]
+- **event-listener** `5.4.2` — [packaged metadata has no copyright line; see upstream source]
+- **event-listener-strategy** `0.5.4` — [packaged metadata has no copyright line; see upstream source]
+- **fallible-iterator** `0.3.0` — Copyright (c) 2015 The rust-openssl-verify Developers
+- **fallible-streaming-iterator** `0.1.9` — Copyright (c) 2016 The fallible-streaming-iterator Developers
+- **fastrand** `2.5.0` — [packaged metadata has no copyright line; see upstream source]
+- **fdeflate** `0.3.7` — [packaged metadata has no copyright line; see upstream source]
+- **field-offset** `0.3.6` — Copyright (c) 2016-2021 Diggory Blake, and other contributors.
+- **find-msvc-tools** `0.1.15` — Copyright (c) 2014 Alex Crichton
+- **flate2** `1.1.11` — Copyright (c) 2014-2026 Alex Crichton
+- **fnv** `1.0.7` — Copyright (c) 2017 Contributors
+- **foldhash** `0.2.0` — Copyright (c) 2024 Orson Peters
+- **foreign-types** `0.5.0` — Copyright (c) 2017 The foreign-types Developers
+- **foreign-types-macros** `0.2.4` — Copyright (c) 2017 The foreign-types Developers
+- **foreign-types-shared** `0.3.1` — Copyright (c) 2017 The foreign-types Developers
+- **form_urlencoded** `1.2.3` — Copyright (c) 2013-2016 The rust-url developers
+- **fs2** `0.4.3` — Copyright (c) 2015 The Rust Project Developers
+- **futures** `0.3.34` — Copyright (c) 2016 Alex Crichton / Copyright (c) 2017 The Tokio Authors
+- **futures-channel** `0.3.34` — Copyright (c) 2016 Alex Crichton / Copyright (c) 2017 The Tokio Authors
+- **futures-core** `0.3.34` — Copyright (c) 2016 Alex Crichton / Copyright (c) 2017 The Tokio Authors
+- **futures-executor** `0.3.34` — Copyright (c) 2016 Alex Crichton / Copyright (c) 2017 The Tokio Authors
+- **futures-io** `0.3.34` — Copyright (c) 2016 Alex Crichton / Copyright (c) 2017 The Tokio Authors
+- **futures-lite** `2.6.1` — Copyright (c) 2016 Alex Crichton / Copyright (c) 2017 The Tokio Authors
+- **futures-macro** `0.3.34` — Copyright (c) 2016 Alex Crichton / Copyright (c) 2017 The Tokio Authors
+- **futures-sink** `0.3.34` — Copyright (c) 2016 Alex Crichton / Copyright (c) 2017 The Tokio Authors
+- **futures-task** `0.3.34` — Copyright (c) 2016 Alex Crichton / Copyright (c) 2017 The Tokio Authors
+- **futures-util** `0.3.34` — Copyright (c) 2016 Alex Crichton / Copyright (c) 2017 The Tokio Authors
+- **gdk** `0.18.2` — [packaged metadata has no copyright line; see upstream source]
+- **gdk-pixbuf** `0.18.5` — [packaged metadata has no copyright line; see upstream source]
+- **gdk-pixbuf-sys** `0.18.0` — [packaged metadata has no copyright line; see upstream source]
+- **gdk-sys** `0.18.2` — [packaged metadata has no copyright line; see upstream source]
+- **gdkwayland-sys** `0.18.2` — [packaged metadata has no copyright line; see upstream source]
+- **gdkx11** `0.18.2` — [packaged metadata has no copyright line; see upstream source]
+- **gdkx11-sys** `0.18.2` — [packaged metadata has no copyright line; see upstream source]
+- **generic-array** `0.14.7` — Copyright (c) 2015 Bartłomiej Kamiński
+- **getrandom** `0.2.17` — Copyright (c) 2018-2024 The rust-random Project Developers / Copyright (c) 2014 The Rust Project Developers
+- **getrandom** `0.3.4` — Copyright (c) 2018-2025 The rust-random Project Developers / Copyright (c) 2014 The Rust Project Developers
+- **getrandom** `0.4.3` — Copyright (c) 2018-2026 The rust-random Project Developers / Copyright (c) 2014 The Rust Project Developers
+- **ghash** `0.5.1` — Copyright (c) 2019 RustCrypto Developers
+- **gio** `0.18.4` — [packaged metadata has no copyright line; see upstream source]
+- **gio-sys** `0.18.1` — [packaged metadata has no copyright line; see upstream source]
+- **glib** `0.18.5` — [packaged metadata has no copyright line; see upstream source]
+- **glib-macros** `0.18.5` — [packaged metadata has no copyright line; see upstream source]
+- **glib-sys** `0.18.1` — [packaged metadata has no copyright line; see upstream source]
+- **glob** `0.3.4` — Copyright (c) 2014 The Rust Project Developers
+- **gobject-sys** `0.18.0` — [packaged metadata has no copyright line; see upstream source]
+- **gtk** `0.18.2` — [packaged metadata has no copyright line; see upstream source]
+- **gtk-sys** `0.18.2` — [packaged metadata has no copyright line; see upstream source]
+- **gtk3-macros** `0.18.2` — [packaged metadata has no copyright line; see upstream source]
+- **h2** `0.4.20` — Copyright (c) 2017 h2 authors
+- **hashbrown** `0.12.3` — Copyright (c) 2016 Amanieu d'Antras
+- **hashbrown** `0.17.1` — Copyright (c) 2016 Amanieu d'Antras
+- **headers** `0.4.2` — Copyright (c) 2014-2025 Sean McArthur
+- **headers-core** `0.3.0` — Copyright (c) 2014-2023 Sean McArthur
+- **heck** `0.4.1` — Copyright (c) 2015 The Rust Project Developers
+- **heck** `0.5.0` — Copyright (c) 2015 The Rust Project Developers
+- **hermit-abi** `0.5.3` — [packaged metadata has no copyright line; see upstream source]
+- **hex** `0.4.3` — Copyright (c) 2013-2014 The Rust Project Developers. / Copyright (c) 2015-2020 The rust-hex Developers
+- **hmac** `0.12.1` — Copyright (c) 2017 Artyom Pavlov
+- **html5ever** `0.39.0` — Copyright (c) 2014 The html5ever Project Developers
+- **http** `1.5.0` — Copyright 2017 http-rs authors / Copyright (c) 2017 http-rs authors
+- **http-body** `1.1.0` — Copyright (c) 2019-2026 Sean McArthur & Hyper Contributors
+- **http-body-util** `0.1.5` — Copyright (c) 2019-2026 Sean McArthur & Hyper Contributors
+- **httparse** `1.10.1` — Copyright (c) 2015-2025 Sean McArthur
+- **httpdate** `1.0.3` — Copyright (c) 2016 Pyfisch
+- **hybrid-array** `0.4.15` — Copyright (c) 2022-2026 The RustCrypto Project Developers
+- **hyper** `1.12.0` — Copyright (c) 2014-2026 Sean McArthur
+- **hyper-rustls** `0.27.10` — Copyright (c) 2016, Joseph Birr-Pixton <jpixton@gmail.com> / Copyright (c) 2016 Joseph Birr-Pixton <jpixton@gmail.com>
+- **hyper-util** `0.1.21` — Copyright (c) 2023-2025 Sean McArthur
+- **iana-time-zone** `0.1.65` — Copyright 2020 Andrew Straw / Copyright (c) 2020 Andrew D. Straw
+- **iana-time-zone-haiku** `0.1.2` — Copyright 2020 Andrew Straw / Copyright (c) 2020 Andrew D. Straw
+- **ico** `0.6.0` — Copyright (c) 2018 Matthew D. Steele
+- **icu_collections** `2.4.0` — COPYRIGHT AND PERMISSION NOTICE / Copyright © 2020-2024 Unicode, Inc.
+- **icu_locale_core** `2.4.0` — COPYRIGHT AND PERMISSION NOTICE / Copyright © 2020-2024 Unicode, Inc.
+- **icu_normalizer** `2.4.0` — COPYRIGHT AND PERMISSION NOTICE / Copyright © 2020-2024 Unicode, Inc.
+- **icu_normalizer_data** `2.4.0` — COPYRIGHT AND PERMISSION NOTICE / Copyright © 2020-2024 Unicode, Inc.
+- **icu_properties** `2.4.0` — COPYRIGHT AND PERMISSION NOTICE / Copyright © 2020-2024 Unicode, Inc.
+- **icu_properties_data** `2.4.0` — COPYRIGHT AND PERMISSION NOTICE / Copyright © 2020-2024 Unicode, Inc.
+- **icu_provider** `2.4.0` — COPYRIGHT AND PERMISSION NOTICE / Copyright © 2020-2024 Unicode, Inc.
+- **ident_case** `1.0.1` — [packaged metadata has no copyright line; see upstream source]
+- **idna** `1.1.0` — Copyright (c) 2013-2025 The rust-url developers
+- **idna_adapter** `1.2.2` — Copyright (c) The rust-url developers
+- **indexmap** `1.9.3` — Copyright (c) 2016--2017
+- **indexmap** `2.14.2` — Copyright (c) 2016--2017
+- **infer** `0.22.0` — Copyright (c) 2019 Bojan
+- **inout** `0.1.4` — Copyright (c) 2022 The RustCrypto Project Developers / Copyright (c) 2022 Artyom Pavlov
+- **inout** `0.2.5` — Copyright (c) 2022-2025 The RustCrypto Project Developers / Copyright (c) 2022 Artyom Pavlov
+- **ipnet** `2.12.2` — Copyright 2017 Juniper Networks, Inc.
+- **is-docker** `0.2.0` — Copyright (c) 2023 Sean Larkin
+- **is-wsl** `0.4.0` — Copyright (c) 2023 Sean Larkin
+- **is_terminal_polyfill** `1.70.2` — Copyright (c) Individual contributors
+- **itoa** `1.0.18` — [packaged metadata has no copyright line; see upstream source]
+- **javascriptcore-rs** `1.1.2` — Copyright (c) 2013-2021, The Gtk-rs Project Developers. / Copyright (c) 2021, Tauri Programme within The Commons Conservancy.
+- **javascriptcore-rs-sys** `1.1.1` — Copyright (c) 2013-2017, The Gtk-rs Project Developers.
+- **jiff** `0.2.40` — Copyright (c) 2015 Andrew Gallant
+- **jiff-core** `0.1.3` — Copyright (c) 2015 Andrew Gallant
+- **jiff-static** `0.2.40` — Copyright (c) 2015 Andrew Gallant
+- **jiff-tzdb** `0.1.9` — Copyright (c) 2015 Andrew Gallant
+- **jiff-tzdb-platform** `0.1.3` — Copyright (c) 2015 Andrew Gallant
+- **jni** `0.21.1` — Copyright (c) 2016 Prevoty, Inc. and jni-rs contributors
+- **jni** `0.22.4` — [packaged metadata has no copyright line; see upstream source]
+- **jni-macros** `0.22.4` — [packaged metadata has no copyright line; see upstream source]
+- **jni-sys** `0.3.1` — Copyright (c) 2015 The rust-jni-sys Developers
+- **jni-sys** `0.4.1` — Copyright (c) 2015 The rust-jni-sys Developers
+- **jni-sys-macros** `0.4.1` — [packaged metadata has no copyright line; see upstream source]
+- **jobserver** `0.1.35` — Copyright (c) 2014 Alex Crichton
+- **js-sys** `0.3.107` — Copyright (c) 2014 Alex Crichton
+- **json-patch** `4.2.0` — Copyright (c) 2017 Ivan Dubrov
+- **jsonptr** `0.7.1` — Copyright 2024 Chance Dinkins / Copyright (c) 2022 Chance Dinkins
+- **keyboard-types** `0.8.3` — Copyright (c) 2017 Pyfisch
+- **libappindicator** `0.9.0` — Copyright (c) 2017-2021 qDot / Copyright (c) 2021 Tauri Apps Contributors
+- **libappindicator-sys** `0.9.0` — [packaged metadata has no copyright line; see upstream source]
+- **libc** `0.2.191` — Copyright (c) The Rust Project Developers
+- **libdbus-sys** `0.2.7` — Copyright 2014-2018 David Henningsson <diwic@ubuntu.com> and other contributors / Copyright (c) 2014-2018 David Henningsson <diwic@ubuntu.com> and other contributors
+- **libloading** `0.7.4` — Copyright © 2015, Simonas Kazlauskas
+- **libredox** `0.1.25` — Copyright (c) 2023 4lDO2
+- **libsqlite3-sys** `0.39.1` — Copyright (c) 2014 The rusqlite developers
+- **linux-raw-sys** `0.12.1` — [packaged metadata has no copyright line; see upstream source]
+- **litemap** `0.8.3` — COPYRIGHT AND PERMISSION NOTICE / Copyright © 2020-2024 Unicode, Inc.
+- **lock_api** `0.4.14` — Copyright (c) 2016 The Rust Project Developers
+- **lodash** `4.18.1` — Copyright OpenJS Foundation and other contributors <https://openjsf.org/> / Copyright and related rights for sample code are waived via CC0. Sample
+- **lodash-es** `4.18.1` — Copyright OpenJS Foundation and other contributors <https://openjsf.org/> / Copyright and related rights for sample code are waived via CC0. Sample
+- **lodash-unified** `1.0.3` — [packaged metadata has no copyright line; see upstream source]
+- **log** `0.4.35` — Copyright (c) 2014 The Rust Project Developers
+- **lopdf** `0.47.0` — Copyright (c) 2016 Junfeng Liu
+- **magic-string** `0.30.21` — Copyright 2018 Rich Harris
+- **markup5ever** `0.39.0` — Copyright (c) 2014 The html5ever Project Developers
+- **md-5** `0.11.0` — Copyright (c) 2016-2026 The RustCrypto Project Developers / Copyright (c) 2016 Artyom Pavlov / Copyright (c) 2009-2013 Mozilla Foundation / Copyright (c) 2006-2009 Graydon Hoare
+- **memchr** `2.8.3` — Copyright (c) 2015 Andrew Gallant
+- **memoffset** `0.9.1` — Copyright (c) 2017 Gilad Naaman
+- **memoize-one** `6.0.0` — Copyright (c) 2019 Alexander Reardon
+- **mime** `0.3.18` — Copyright (c) 2014 Sean McArthur
+- **mime-infer** `4.0.1` — Copyright (c) 2015 Austin Bonander
+- **miniz_oxide** `0.8.9` — Copyright 2013-2014 RAD Game Tools and Valve Software / Copyright 2010-2014 Rich Geldreich and Tenacious Software LLC / Copyright (c) 2017 Frommi / Copyright (c) 2017-2024 oyvindln / Copyright (c) 2020 Frommi
+- **miniz_oxide** `0.9.1` — Copyright 2013-2014 RAD Game Tools and Valve Software / Copyright 2010-2014 Rich Geldreich and Tenacious Software LLC / Copyright (c) 2017 Frommi / Copyright (c) 2017-2024 oyvindln / Copyright (c) 2020 Frommi
+- **mio** `1.2.4` — Copyright (c) 2014 Carl Lerche and other MIO contributors
+- **muda** `0.20.0` — Copyright (c) 2022-2022 Tauri Programme within The Commons Conservancy
+- **multer** `3.1.0` — Copyright (c) 2020 Rousan Ali
+- **multimap** `0.10.1` — Copyright (c) 2016 multimap developers
+- **multiversion_no_op** `1.0.0` — Copyright Mozilla Foundation
+- **nanoid** `3.3.20` — Copyright 2017 Andrey Sitnik <andrey@sitnik.ru>
+- **ndk** `0.9.0` — [packaged metadata has no copyright line; see upstream source]
+- **ndk-context** `0.1.1` — [packaged metadata has no copyright line; see upstream source]
+- **ndk-sys** `0.6.0+11769913` — [packaged metadata has no copyright line; see upstream source]
+- **new_debug_unreachable** `1.0.6` — Copyright (c) 2015 Jonathan Reem
+- **nix** `0.30.1` — Copyright (c) 2015 Carl Lerche + nix-rust Authors
+- **nix** `0.31.3` — Copyright (c) 2015 Carl Lerche + nix-rust Authors
+- **nom** `8.0.0` — Copyright (c) 2014-2019 Geoffroy Couprie
+- **normalize-wheel-es** `1.2.0` — Copyright (c) 2015, Facebook, Inc. All rights reserved.
+- **num** `0.4.3` — Copyright (c) 2014 The Rust Project Developers
+- **num-bigint** `0.4.8` — Copyright (c) 2014 The Rust Project Developers
+- **num-complex** `0.4.6` — Copyright (c) 2014 The Rust Project Developers
+- **num-conv** `0.2.2` — Copyright (c) Jacob Pratt
+- **num-integer** `0.1.47` — Copyright (c) 2014 The Rust Project Developers
+- **num-iter** `0.1.46` — Copyright (c) 2014 The Rust Project Developers
+- **num-rational** `0.4.2` — Copyright (c) 2014 The Rust Project Developers
+- **num-traits** `0.2.19` — Copyright (c) 2014 The Rust Project Developers
+- **num_enum** `0.7.6` — Copyright (c) 2018, Daniel Wagner-Hall
+- **num_enum_derive** `0.7.6` — Copyright (c) 2018, Daniel Wagner-Hall
+- **objc2** `0.6.5` — [packaged metadata has no copyright line; see upstream source]
+- **objc2-app-kit** `0.3.2` — [packaged metadata has no copyright line; see upstream source]
+- **objc2-cloud-kit** `0.3.2` — [packaged metadata has no copyright line; see upstream source]
+- **objc2-core-data** `0.3.2` — [packaged metadata has no copyright line; see upstream source]
+- **objc2-core-foundation** `0.3.2` — [packaged metadata has no copyright line; see upstream source]
+- **objc2-core-graphics** `0.3.2` — [packaged metadata has no copyright line; see upstream source]
+- **objc2-core-image** `0.3.2` — [packaged metadata has no copyright line; see upstream source]
+- **objc2-core-location** `0.3.2` — [packaged metadata has no copyright line; see upstream source]
+- **objc2-core-text** `0.3.2` — [packaged metadata has no copyright line; see upstream source]
+- **objc2-encode** `4.1.0` — [packaged metadata has no copyright line; see upstream source]
+- **objc2-exception-helper** `0.1.1` — [packaged metadata has no copyright line; see upstream source]
+- **objc2-foundation** `0.3.2` — [packaged metadata has no copyright line; see upstream source]
+- **objc2-io-surface** `0.3.2` — [packaged metadata has no copyright line; see upstream source]
+- **objc2-quartz-core** `0.3.2` — [packaged metadata has no copyright line; see upstream source]
+- **objc2-ui-kit** `0.3.2` — [packaged metadata has no copyright line; see upstream source]
+- **objc2-user-notifications** `0.3.2` — [packaged metadata has no copyright line; see upstream source]
+- **objc2-web-kit** `0.3.2` — [packaged metadata has no copyright line; see upstream source]
+- **once_cell** `1.21.4` — [packaged metadata has no copyright line; see upstream source]
+- **once_cell_polyfill** `1.70.2` — Copyright (c) Individual contributors
+- **opaque-debug** `0.3.1` — Copyright (c) 2018-2024 The RustCrypto Project Developers
+- **open** `5.4.5` — Copyright © `2015` `Sebastian Thiel`
+- **openssl-probe** `0.2.2` — Copyright (c) 2014 Alex Crichton
+- **option-ext** `0.2.0` — [packaged metadata has no copyright line; see upstream source]
+- **ordered-stream** `0.2.0` — [packaged metadata has no copyright line; see upstream source]
+- **os_pipe** `1.2.3` — [packaged metadata has no copyright line; see upstream source]
+- **pango** `0.18.3` — [packaged metadata has no copyright line; see upstream source]
+- **pango-sys** `0.18.0` — [packaged metadata has no copyright line; see upstream source]
+- **parking** `2.2.1` — Copyright 2014-2020 The Rust Project Developers
+- **parking_lot** `0.12.5` — Copyright (c) 2016 The Rust Project Developers
+- **parking_lot_core** `0.9.12` — Copyright (c) 2016 The Rust Project Developers
+- **percent-encoding** `2.3.2` — Copyright (c) 2013-2025 The rust-url developers
+- **phf** `0.13.1` — Copyright (c) 2014-2022 Steven Fackler, Yuki Okushi
+- **phf_codegen** `0.13.1` — Copyright (c) 2014-2022 Steven Fackler, Yuki Okushi
+- **phf_generator** `0.13.1` — Copyright (c) 2014-2022 Steven Fackler, Yuki Okushi
+- **phf_macros** `0.13.1` — Copyright (c) 2014-2022 Steven Fackler, Yuki Okushi
+- **phf_shared** `0.13.1` — Copyright (c) 2014-2022 Steven Fackler, Yuki Okushi
+- **picocolors** `1.1.1` — Copyright (c) 2021-2024 Oleksii Raspopov, Kostiantyn Denysov, Anton Verinov
+- **pin-project** `1.1.13` — [packaged metadata has no copyright line; see upstream source]
+- **pin-project-internal** `1.1.13` — [packaged metadata has no copyright line; see upstream source]
+- **pin-project-lite** `0.2.17` — [packaged metadata has no copyright line; see upstream source]
+- **piper** `0.2.5` — [packaged metadata has no copyright line; see upstream source]
+- **pkg-config** `0.3.34` — Copyright (c) 2014 Alex Crichton
+- **plist** `1.10.3` — Copyright (c) 2015 Edward Barnard
+- **png** `0.18.1` — Copyright (c) 2015 nwin
+- **polling** `3.11.0` — [packaged metadata has no copyright line; see upstream source]
+- **polyval** `0.6.2` — Copyright (c) 2019-2023 RustCrypto Developers
+- **portable-atomic** `1.15.0` — [packaged metadata has no copyright line; see upstream source]
+- **portable-atomic-util** `0.2.8` — [packaged metadata has no copyright line; see upstream source]
+- **postcss** `8.5.32` — Copyright 2013 Andrey Sitnik <andrey@sitnik.es>
+- **potential_utf** `0.1.6` — COPYRIGHT AND PERMISSION NOTICE / Copyright © 2020-2024 Unicode, Inc.
+- **powerfmt** `0.2.1` — Copyright 2023 Jacob Pratt et al. / Copyright (c) 2023 Jacob Pratt et al.
+- **ppv-lite86** `0.2.21` — Copyright 2019 The CryptoCorrosion Contributors / Copyright (c) 2019 The CryptoCorrosion Contributors
+- **precomputed-hash** `0.1.1` — Copyright (c) 2017 Emilio Cobos Álvarez
+- **proc-macro-crate** `1.3.1` — [packaged metadata has no copyright line; see upstream source]
+- **proc-macro-crate** `2.0.2` — [packaged metadata has no copyright line; see upstream source]
+- **proc-macro-crate** `3.5.0` — [packaged metadata has no copyright line; see upstream source]
+- **proc-macro-error** `1.0.4` — Copyright 2019-2020 CreepySkeleton <creepy-skeleton@yandex.ru> / Copyright (c) 2019-2020 CreepySkeleton
+- **proc-macro-error-attr** `1.0.4` — Copyright 2019-2020 CreepySkeleton <creepy-skeleton@yandex.ru> / Copyright (c) 2019-2020 CreepySkeleton
+- **proc-macro2** `1.0.107` — [packaged metadata has no copyright line; see upstream source]
+- **quick-xml** `0.42.0` — Copyright (c) 2016 Johann Tuffe
+- **quote** `1.0.47` — [packaged metadata has no copyright line; see upstream source]
+- **r-efi** `5.3.0` — Copyright (C) 1991, 1999 Free Software Foundation, Inc. / Copyright (C) year name of author
+- **r-efi** `6.0.0` — Copyright (C) 1991, 1999 Free Software Foundation, Inc. / Copyright (C) year name of author
+- **rand** `0.10.3` — Copyright 2018 Developers of the Rand project / Copyright (c) 2014 The Rust Project Developers
+- **rand** `0.8.8` — Copyright 2018 Developers of the Rand project / Copyright (c) 2014 The Rust Project Developers
+- **rand** `0.9.5` — Copyright 2018 Developers of the Rand project / Copyright (c) 2014 The Rust Project Developers
+- **rand_chacha** `0.3.1` — Copyright 2018 Developers of the Rand project / Copyright (c) 2014 The Rust Project Developers
+- **rand_chacha** `0.9.0` — Copyright 2018 Developers of the Rand project / Copyright (c) 2014 The Rust Project Developers
+- **rand_core** `0.10.1` — Copyright (c) 2018-2026 The Rand Project Developers
+- **rand_core** `0.6.4` — Copyright 2018 Developers of the Rand project / Copyright (c) 2014 The Rust Project Developers
+- **rand_core** `0.9.5` — Copyright 2018 Developers of the Rand project / Copyright (c) 2014 The Rust Project Developers
+- **rangemap** `1.8.0` — Copyright 2019-2022 Jeff Parsons, and [contributors](https://github.com/jeffparsons/rangemap/contributors) / Copyright 2019 Jeffrey Parsons
+- **raw-window-handle** `0.6.2` — Copyright (c) 2019 Osspial / Copyright (c) 2020 Osspial
+- **rayon** `1.12.0` — Copyright (c) 2010 The Rust Project Developers
+- **rayon-core** `1.13.0` — Copyright (c) 2010 The Rust Project Developers
+- **redox_syscall** `0.5.18` — Copyright (c) 2017 Redox OS Developers
+- **redox_users** `0.5.3` — Copyright (c) 2017 Jose Narvaez
+- **ref-cast** `1.0.27` — [packaged metadata has no copyright line; see upstream source]
+- **ref-cast-impl** `1.0.27` — [packaged metadata has no copyright line; see upstream source]
+- **regex** `1.13.1` — Copyright (c) 2014 The Rust Project Developers
+- **regex-automata** `0.4.18` — Copyright (c) 2014 The Rust Project Developers
+- **regex-syntax** `0.8.11` — Copyright (c) 2014 The Rust Project Developers
+- **reqwest** `0.13.5` — Copyright 2016 Sean McArthur / Copyright (c) 2016-2026 Sean McArthur
+- **ring** `0.17.14` — Copyright (c) 2009 The Go Authors. All rights reserved. / Copyright 2015 The Chromium Authors. All rights reserved. / Copyright 2015-2025 Brian Smith.
+- **rusqlite** `0.41.1` — Copyright (c) 2014 The rusqlite developers
+- **rustc-hash** `2.1.3` — [packaged metadata has no copyright line; see upstream source]
+- **rustc_version** `0.4.1` — Copyright (c) 2016 The Rust Project Developers
+- **rustix** `1.1.6` — [packaged metadata has no copyright line; see upstream source]
+- **rustls** `0.23.46` — Copyright (c) 2016, Joseph Birr-Pixton <jpixton@gmail.com> / Copyright (c) 2016 Joseph Birr-Pixton <jpixton@gmail.com>
+- **rustls-native-certs** `0.8.5` — Copyright (c) 2016, Joseph Birr-Pixton <jpixton@gmail.com> / Copyright (c) 2016 Joseph Birr-Pixton <jpixton@gmail.com>
+- **rustls-pemfile** `2.2.0` — Copyright (c) 2016, Joseph Birr-Pixton <jpixton@gmail.com> / Copyright (c) 2016 Joseph Birr-Pixton <jpixton@gmail.com>
+- **rustls-pki-types** `1.15.1` — Copyright 2023 Dirkjan Ochtman / Copyright (c) 2023 Dirkjan Ochtman <dirkjan@ochtman.nl>
+- **rustls-platform-verifier** `0.7.1` — Copyright (c) 2022 1Password
+- **rustls-platform-verifier-android** `0.2.0` — [packaged metadata has no copyright line; see upstream source]
+- **rustls-webpki** `0.103.16` — Copyright 2015 Brian Smith.
+- **rustversion** `1.0.23` — [packaged metadata has no copyright line; see upstream source]
+- **rxing** `0.9.3` — Copyright [2019-2026] [rxing developers]
+- **rxing-one-d-proc-derive** `0.9.1` — [packaged metadata has no copyright line; see upstream source]
+- **ryu** `1.0.23` — [packaged metadata has no copyright line; see upstream source]
+- **salvo** `0.85.0` — [packaged metadata has no copyright line; see upstream source]
+- **salvo-serde-util** `0.85.0` — [packaged metadata has no copyright line; see upstream source]
+- **salvo_core** `0.85.0` — [packaged metadata has no copyright line; see upstream source]
+- **salvo_extra** `0.85.0` — [packaged metadata has no copyright line; see upstream source]
+- **salvo_macros** `0.85.0` — [packaged metadata has no copyright line; see upstream source]
+- **same-file** `1.0.6` — Copyright (c) 2017 Andrew Gallant
+- **schannel** `0.1.30` — Copyright (c) 2015 steffengy
+- **schemars** `0.8.22` — Copyright (c) 2019 Graham Esau
+- **schemars** `0.9.0` — Copyright (c) 2019 Graham Esau
+- **schemars** `1.2.3` — Copyright (c) 2019 Graham Esau
+- **schemars_derive** `0.8.22` — Copyright (c) 2019 Graham Esau
+- **schemars_derive** `1.2.3` — Copyright (c) 2019 Graham Esau
+- **scopeguard** `1.2.0` — Copyright (c) 2016-2019 Ulrik Sverdrup "bluss" and scopeguard developers
+- **security-framework** `3.7.0` — Copyright (c) 2015 Steven Fackler
+- **security-framework-sys** `2.17.0` — Copyright (c) 2015 Steven Fackler
+- **selectors** `0.38.0` — [packaged metadata has no copyright line; see upstream source]
+- **semver** `1.0.28` — [packaged metadata has no copyright line; see upstream source]
+- **serde** `1.0.229` — [packaged metadata has no copyright line; see upstream source]
+- **serde-untagged** `0.1.9` — [packaged metadata has no copyright line; see upstream source]
+- **serde-xml-rs** `0.8.2` — Copyright (c) 2017 Ingvar Stepanyan
+- **serde_core** `1.0.229` — [packaged metadata has no copyright line; see upstream source]
+- **serde_derive** `1.0.229` — [packaged metadata has no copyright line; see upstream source]
+- **serde_derive_internals** `0.29.1` — [packaged metadata has no copyright line; see upstream source]
+- **serde_derive_internals** `0.30.0` — [packaged metadata has no copyright line; see upstream source]
+- **serde_json** `1.0.154` — [packaged metadata has no copyright line; see upstream source]
+- **serde_path_to_error** `0.1.20` — [packaged metadata has no copyright line; see upstream source]
+- **serde_repr** `0.1.21` — [packaged metadata has no copyright line; see upstream source]
+- **serde_spanned** `0.6.9` — Copyright (c) Individual contributors
+- **serde_spanned** `1.1.2` — Copyright Individual contributors / Copyright (c) Individual contributors
+- **serde_spanned** `1.1.3` — Copyright Individual contributors / Copyright (c) Individual contributors
+- **serde_urlencoded** `0.7.1` — Copyright (c) 2016 Anthony Ramine
+- **serde_with** `3.24.0` — Copyright (c) 2015
+- **serde_with_macros** `3.24.0` — Copyright (c) 2015
+- **serialize-to-javascript** `0.1.2` — Copyright (c) 2021 Chip Reed
+- **serialize-to-javascript-impl** `0.1.2` — Copyright (c) 2021 Chip Reed
+- **servo_arc** `0.4.3` — [packaged metadata has no copyright line; see upstream source]
+- **sha1** `0.10.7` — Copyright (c) 2006-2009 Graydon Hoare / Copyright (c) 2009-2013 Mozilla Foundation / Copyright (c) 2016 Artyom Pavlov
+- **sha2** `0.10.9` — Copyright (c) 2006-2009 Graydon Hoare / Copyright (c) 2009-2013 Mozilla Foundation / Copyright (c) 2016 Artyom Pavlov
+- **sha2** `0.11.1` — Copyright (c) 2016-2026 The RustCrypto Project Developers / Copyright (c) 2016 Artyom Pavlov / Copyright (c) 2009-2013 Mozilla Foundation / Copyright (c) 2006-2009 Graydon Hoare
+- **shared_child** `1.1.2` — [packaged metadata has no copyright line; see upstream source]
+- **shlex** `2.0.1` — Copyright 2015 Nicholas Allegra (comex). / Copyright (c) 2015 Nicholas Allegra (comex).
+- **signal-hook-registry** `1.4.8` — Copyright (c) 2017 tokio-jsonrpc developers
+- **simd-adler32** `0.3.10` — Copyright (c) [2021] [Marvin Countryman]
+- **simd_cesu8** `1.2.0` — [packaged metadata has no copyright line; see upstream source]
+- **simdutf8** `0.1.5` — [packaged metadata has no copyright line; see upstream source]
+- **siphasher** `1.0.4` — Copyright 2012-2016 The Rust Project Developers. / Copyright 2016-2026 Frank Denis.
+- **slab** `0.4.12` — Copyright (c) 2019 Carl Lerche
+- **smallvec** `1.16.5` — Copyright (c) 2018 The Servo Project Developers
+- **socket2** `0.6.5` — Copyright (c) 2014 Alex Crichton
+- **softbuffer** `0.4.8` — Copyright 2022 Kirill Chibisov
+- **soup3** `0.5.0` — Copyright (c) 2013-2017, The Gtk-rs Project Developers.
+- **soup3-sys** `0.5.0` — Copyright (c) 2013-2017, The Gtk-rs Project Developers.
+- **source-map-js** `1.2.2` — Copyright (c) 2009-2011, Mozilla Foundation and contributors
+- **spin** `0.9.9` — Copyright (c) 2014 Mathijs van de Nes
+- **stable_deref_trait** `1.2.1` — Copyright (c) 2017 Robert Grosse
+- **static_vcruntime** `3.0.0` — Copyright (c) 2021 Chris Denton.
+- **str-buf** `3.0.3` — [packaged metadata has no copyright line; see upstream source]
+- **string_cache** `0.9.0` — Copyright (c) 2012-2013 Mozilla Foundation
+- **string_cache_codegen** `0.6.1` — Copyright (c) 2012-2013 Mozilla Foundation
+- **stringprep** `0.1.5` — Copyright (c) 2017 The rust-stringprep Developers
+- **strsim** `0.11.1` — Copyright (c) 2015 Danny Guo / Copyright (c) 2016 Titus Wormer <tituswormer@gmail.com> / Copyright (c) 2018 Akash Kurdekar
+- **subtle** `2.6.1` — Copyright (c) 2016-2017 Isis Agora Lovecruft, Henry de Valence. All rights reserved. / Copyright (c) 2016-2024 Isis Agora Lovecruft. All rights reserved.
+- **swift-rs** `1.0.9` — Copyright 2023 The swift-rs developers / Copyright (c) 2023 The swift-rs Developers
+- **syn** `1.0.109` — [packaged metadata has no copyright line; see upstream source]
+- **syn** `2.0.119` — [packaged metadata has no copyright line; see upstream source]
+- **syn** `3.0.9` — [packaged metadata has no copyright line; see upstream source]
+- **sync_wrapper** `1.0.2` — [packaged metadata has no copyright line; see upstream source]
+- **synstructure** `0.14.0` — Copyright 2016 Nika Layzell
+- **system-deps** `6.2.2` — [packaged metadata has no copyright line; see upstream source]
+- **tao** `0.37.2` — [packaged metadata has no copyright line; see upstream source]
+- **tao-macros** `0.1.4` — Copyright (c) 2022 - Present Tauri Apps Contributors
+- **target-lexicon** `0.12.16` — [packaged metadata has no copyright line; see upstream source]
+- **tauri** `2.12.5` — Copyright (c) 2017 - Present Tauri Apps Contributors
+- **tauri-build** `2.7.4` — Copyright (c) 2017 - Present Tauri Apps Contributors
+- **tauri-codegen** `2.7.4` — Copyright (c) 2017 - Present Tauri Apps Contributors
+- **tauri-macros** `2.7.4` — Copyright (c) 2017 - Present Tauri Apps Contributors
+- **tauri-plugin** `2.7.2` — [packaged metadata has no copyright line; see upstream source]
+- **tauri-plugin-shell** `2.6.0` — Copyright (c) 2017 - Present Tauri Apps Contributors
+- **tauri-plugin-single-instance** `2.5.5` — Copyright (c) 2017 - Present The Tauri Programme in the Commons Conservancy
+- **tauri-runtime** `2.12.2` — Copyright (c) 2017 - Present Tauri Apps Contributors
+- **tauri-runtime-wry** `2.12.3` — Copyright (c) 2017 - Present Tauri Apps Contributors
+- **tauri-utils** `2.10.2` — Copyright (c) 2017 - Present Tauri Apps Contributors
+- **tauri-winres** `0.3.7` — Copyright (c) 2023 - Present Tauri Apps Contributors / Copyright (c) 2016 Max Resch
+- **tempfile** `3.27.0` — Copyright (c) 2015 Steven Allen
+- **tendril** `0.5.1` — Copyright (c) 2015 Keegan McAllister
+- **termcolor** `1.4.1` — Copyright (c) 2015 Andrew Gallant
+- **thiserror** `1.0.69` — [packaged metadata has no copyright line; see upstream source]
+- **thiserror** `2.0.21` — [packaged metadata has no copyright line; see upstream source]
+- **thiserror-impl** `1.0.69` — [packaged metadata has no copyright line; see upstream source]
+- **thiserror-impl** `2.0.21` — [packaged metadata has no copyright line; see upstream source]
+- **time** `0.3.55` — Copyright (c) Jacob Pratt et al.
+- **time-core** `0.1.9` — Copyright (c) Jacob Pratt et al.
+- **time-macros** `0.2.32` — Copyright (c) Jacob Pratt et al.
+- **tinystr** `0.8.5` — COPYRIGHT AND PERMISSION NOTICE / Copyright © 2020-2024 Unicode, Inc.
+- **tinyvec** `1.13.3` — Copyright (c) 2019 Daniel "Lokathor" Gee.
+- **tokio** `1.54.1` — Copyright (c) Tokio Contributors
+- **tokio-macros** `2.7.2` — Copyright (c) 2019 Yoshua Wuyts / Copyright (c) Tokio Contributors
+- **tokio-rustls** `0.26.6` — Copyright 2017 quininer kel / Copyright (c) 2017 quininer kel
+- **tokio-tungstenite** `0.28.0` — Copyright (c) 2017 Daniel Abramov / Copyright (c) 2017 Alexey Galakhov
+- **tokio-util** `0.7.20` — Copyright (c) Tokio Contributors
+- **toml** `0.8.2` — Copyright (c) Individual contributors
+- **toml** `0.9.12+spec-1.1.0` — Copyright (c) Individual contributors
+- **toml** `1.2.1+spec-1.1.0` — Copyright Individual contributors / Copyright (c) Individual contributors
+- **toml_datetime** `0.6.3` — Copyright (c) 2014 Alex Crichton
+- **toml_datetime** `0.7.5+spec-1.1.0` — Copyright (c) Individual contributors
+- **toml_datetime** `1.1.3+spec-1.1.0` — Copyright Individual contributors / Copyright (c) Individual contributors
+- **toml_edit** `0.19.15` — Copyright (c) Individual contributors
+- **toml_edit** `0.20.2` — Copyright (c) Individual contributors
+- **toml_edit** `0.25.19+spec-1.1.0` — Copyright Individual contributors / Copyright (c) Individual contributors
+- **toml_parser** `1.1.5+spec-1.1.0` — Copyright Individual contributors / Copyright (c) Individual contributors
+- **toml_writer** `1.2.0+spec-1.1.0` — Copyright Individual contributors / Copyright (c) Individual contributors
+- **tower** `0.5.3` — Copyright (c) 2019 Tower Contributors
+- **tower-http** `0.6.11` — Copyright (c) 2019-2021 Tower Contributors
+- **tower-layer** `0.3.3` — Copyright (c) 2019 Tower Contributors
+- **tower-service** `0.3.3` — Copyright (c) 2019 Tower Contributors
+- **tracing** `0.1.44` — Copyright (c) 2019 Tokio Contributors
+- **tracing-attributes** `0.1.31` — Copyright (c) 2019 Tokio Contributors
+- **tracing-core** `0.1.36` — Copyright (c) 2019 Tokio Contributors
+- **tray-icon** `0.25.1` — Copyright (c) 2022-2022 Tauri Programme within The Commons Conservancy
+- **try-lock** `0.2.5` — Copyright (c) 2018-2023 Sean McArthur / Copyright (c) 2016 Alex Crichton
+- **ts-rs** `11.1.0` — [packaged metadata has no copyright line; see upstream source]
+- **ts-rs-macros** `11.1.0` — [packaged metadata has no copyright line; see upstream source]
+- **tungstenite** `0.28.0` — Copyright (c) 2017 Alexey Galakhov / Copyright (c) 2016 Jason Housley
+- **typed-path** `0.13.0` — [packaged metadata has no copyright line; see upstream source]
+- **typeid** `1.0.3` — [packaged metadata has no copyright line; see upstream source]
+- **typenum** `1.20.1` — Copyright 2014 Paho Lurie-Gregg / Copyright (c) 2014 Paho Lurie-Gregg
+- **typescript** `5.9.3` — [packaged metadata has no copyright line; see upstream source]
+- **uds_windows** `1.2.1` — Copyright (c) Microsoft Corporation. All rights reserved.
+- **ulid** `1.2.1` — Copyright (c) 2017 Dylan Hart
+- **unicase** `2.10.0` — Copyright (c) 2014-2026 Sean McArthur
+- **unicode-bidi** `0.3.18` — Copyright (c) 2015 The Rust Project Developers
+- **unicode-ident** `1.0.27` — COPYRIGHT AND PERMISSION NOTICE / Copyright © 1991-2023 Unicode, Inc.
+- **unicode-normalization** `0.1.26` — Copyright (c) 2015 The Rust Project Developers / COPYRIGHT AND PERMISSION NOTICE / Copyright © 1991-2023 Unicode, Inc.
+- **unicode-properties** `0.1.5` — Copyright (c) 2015 The Rust Project Developers / COPYRIGHT AND PERMISSION NOTICE / Copyright © 1991-2026 Unicode, Inc.
+- **unicode-segmentation** `1.13.3` — Copyright (c) 2015 The Rust Project Developers
+- **universal-hash** `0.5.1` — Copyright (c) 2019-2020 RustCrypto Developers
+- **untrusted** `0.9.0` — Copyright 2015-2016 Brian Smith.
+- **ureq** `3.5.1` — Copyright (c) 2019 Martin Algesten
+- **ureq-proto** `0.7.1` — Copyright 2022 Martin Algesten
+- **url** `2.5.9` — Copyright (c) 2013-2025 The rust-url developers
+- **urlpattern** `0.6.0` — Copyright (c) 2021 the Deno authors
+- **utf-8** `0.7.6` — [packaged metadata has no copyright line; see upstream source]
+- **utf8-zero** `0.8.1` — [packaged metadata has no copyright line; see upstream source]
+- **utf8_iter** `1.1.0` — Copyright Mozilla Foundation
+- **utf8parse** `0.2.2` — Copyright (c) 2016 Joe Wilm
+- **utf_types** `1.0.0` — Copyright Mozilla Foundation
+- **uuid** `1.29.1` — Copyright (c) 2014 The Rust Project Developers / Copyright (c) 2018 Ashley Mannix, Christopher Armstrong, Dylan DPC, Hunar Roop Kahlon
+- **vcpkg** `0.2.15` — Copyright (c) 2017 Jim McGrath
+- **version-compare** `0.2.1` — Copyright (c) 2017 Tim Visée
+- **version_check** `0.9.5` — Copyright (c) 2017-2018 Sergio Benitez
+- **vswhom** `0.1.0` — Copyright (c) 2019 nabijaczleweli
+- **vswhom-sys** `0.1.3` — Copyright (c) 2019 nabijaczleweli
+- **vue** `3.5.45` — Copyright (c) 2018-present, Yuxi (Evan) You
+- **vue-component-type-helpers** `3.3.14` — Copyright (c) 2023-present Johnson Chu
+- **walkdir** `2.5.0` — Copyright (c) 2015 Andrew Gallant
+- **want** `0.3.2` — Copyright (c) 2018-2019 Sean McArthur
+- **wasi** `0.11.1+wasi-snapshot-preview1` — [packaged metadata has no copyright line; see upstream source]
+- **wasip2** `1.0.4+wasi-0.2.12` — [packaged metadata has no copyright line; see upstream source]
+- **wasm-bindgen** `0.2.130` — Copyright (c) 2014 Alex Crichton
+- **wasm-bindgen-futures** `0.4.80` — Copyright (c) 2014 Alex Crichton
+- **wasm-bindgen-macro** `0.2.130` — Copyright (c) 2014 Alex Crichton
+- **wasm-bindgen-macro-support** `0.2.130` — Copyright (c) 2014 Alex Crichton
+- **wasm-bindgen-shared** `0.2.130` — Copyright (c) 2014 Alex Crichton
+- **wasm-streams** `0.5.0` — [packaged metadata has no copyright line; see upstream source]
+- **web-sys** `0.3.107` — Copyright (c) 2014 Alex Crichton
+- **web-time** `1.1.0` — Copyright 2023 dAxpeDDa / Copyright (c) 2023 dAxpeDDa
+- **web_atoms** `0.2.6` — Copyright (c) 2014 The html5ever Project Developers
+- **webkit2gtk** `2.0.2` — Copyright (c) 2016 Boucher, Antoni <bouanto@zoho.com> / Copyright (c) 2017-2021, The Gtk-rs Project Developers. / Copyright (c) 2021, Tauri Programme within The Commons Conservancy
+- **webkit2gtk-sys** `2.0.2` — Copyright (c) 2016 Boucher, Antoni <bouanto@zoho.com>
+- **webpki-root-certs** `1.0.11` — [packaged metadata has no copyright line; see upstream source]
+- **webview2-com** `0.39.1` — [packaged metadata has no copyright line; see upstream source]
+- **webview2-com-macros** `0.8.1` — [packaged metadata has no copyright line; see upstream source]
+- **webview2-com-sys** `0.39.1` — [packaged metadata has no copyright line; see upstream source]
+- **weezl** `0.2.1` — Copyright (c) HeroicKatora 2020
+- **winapi** `0.3.9` — Copyright (c) 2015-2018 The winapi-rs Developers
+- **winapi-i686-pc-windows-gnu** `0.4.0` — [packaged metadata has no copyright line; see upstream source]
+- **winapi-util** `0.1.11` — Copyright (c) 2017 Andrew Gallant
+- **winapi-x86_64-pc-windows-gnu** `0.4.0` — [packaged metadata has no copyright line; see upstream source]
+- **window-vibrancy** `0.8.1` — Copyright (c) 2020-2022 Tauri Programme within The Commons Conservancy
+- **windows** `0.62.2` — Copyright (c) Microsoft Corporation.
+- **windows-collections** `0.3.2` — Copyright (c) Microsoft Corporation.
+- **windows-core** `0.62.2` — Copyright (c) Microsoft Corporation.
+- **windows-future** `0.3.2` — Copyright (c) Microsoft Corporation.
+- **windows-implement** `0.60.2` — Copyright (c) Microsoft Corporation.
+- **windows-interface** `0.59.3` — Copyright (c) Microsoft Corporation.
+- **windows-link** `0.2.1` — Copyright (c) Microsoft Corporation.
+- **windows-numerics** `0.3.1` — Copyright (c) Microsoft Corporation.
+- **windows-result** `0.4.1` — Copyright (c) Microsoft Corporation.
+- **windows-strings** `0.5.1` — Copyright (c) Microsoft Corporation.
+- **windows-sys** `0.45.0` — Copyright (c) Microsoft Corporation.
+- **windows-sys** `0.52.0` — Copyright (c) Microsoft Corporation.
+- **windows-sys** `0.60.2` — Copyright (c) Microsoft Corporation.
+- **windows-sys** `0.61.2` — Copyright (c) Microsoft Corporation.
+- **windows-targets** `0.42.2` — Copyright (c) Microsoft Corporation.
+- **windows-targets** `0.52.6` — Copyright (c) Microsoft Corporation.
+- **windows-targets** `0.53.5` — Copyright (c) Microsoft Corporation.
+- **windows-threading** `0.2.1` — Copyright (c) Microsoft Corporation.
+- **windows-version** `0.1.7` — Copyright (c) Microsoft Corporation.
+- **windows_aarch64_gnullvm** `0.42.2` — Copyright (c) Microsoft Corporation.
+- **windows_aarch64_gnullvm** `0.52.6` — Copyright (c) Microsoft Corporation.
+- **windows_aarch64_gnullvm** `0.53.1` — Copyright (c) Microsoft Corporation.
+- **windows_aarch64_msvc** `0.42.2` — Copyright (c) Microsoft Corporation.
+- **windows_aarch64_msvc** `0.52.6` — Copyright (c) Microsoft Corporation.
+- **windows_aarch64_msvc** `0.53.1` — Copyright (c) Microsoft Corporation.
+- **windows_i686_gnu** `0.42.2` — Copyright (c) Microsoft Corporation.
+- **windows_i686_gnu** `0.52.6` — Copyright (c) Microsoft Corporation.
+- **windows_i686_gnu** `0.53.1` — Copyright (c) Microsoft Corporation.
+- **windows_i686_gnullvm** `0.52.6` — Copyright (c) Microsoft Corporation.
+- **windows_i686_gnullvm** `0.53.1` — Copyright (c) Microsoft Corporation.
+- **windows_i686_msvc** `0.42.2` — Copyright (c) Microsoft Corporation.
+- **windows_i686_msvc** `0.52.6` — Copyright (c) Microsoft Corporation.
+- **windows_i686_msvc** `0.53.1` — Copyright (c) Microsoft Corporation.
+- **windows_x86_64_gnu** `0.42.2` — Copyright (c) Microsoft Corporation.
+- **windows_x86_64_gnu** `0.52.6` — Copyright (c) Microsoft Corporation.
+- **windows_x86_64_gnu** `0.53.1` — Copyright (c) Microsoft Corporation.
+- **windows_x86_64_gnullvm** `0.42.2` — Copyright (c) Microsoft Corporation.
+- **windows_x86_64_gnullvm** `0.52.6` — Copyright (c) Microsoft Corporation.
+- **windows_x86_64_gnullvm** `0.53.1` — Copyright (c) Microsoft Corporation.
+- **windows_x86_64_msvc** `0.42.2` — Copyright (c) Microsoft Corporation.
+- **windows_x86_64_msvc** `0.52.6` — Copyright (c) Microsoft Corporation.
+- **windows_x86_64_msvc** `0.53.1` — Copyright (c) Microsoft Corporation.
+- **winnow** `0.5.40` — [packaged metadata has no copyright line; see upstream source]
+- **winnow** `0.7.15` — [packaged metadata has no copyright line; see upstream source]
+- **winnow** `1.0.5` — [packaged metadata has no copyright line; see upstream source]
+- **winreg** `0.56.0` — Copyright (c) 2015 Igor Shaula
+- **wit-bindgen** `0.57.1` — [packaged metadata has no copyright line; see upstream source]
+- **writeable** `0.6.4` — COPYRIGHT AND PERMISSION NOTICE / Copyright © 2020-2024 Unicode, Inc.
+- **wry** `0.57.1` — Copyright (c) 2020-2023 Ngo Iok Ui & Tauri Programme within The Commons Conservancy
+- **x11** `2.21.0` — [packaged metadata has no copyright line; see upstream source]
+- **x11-dl** `2.21.0` — [packaged metadata has no copyright line; see upstream source]
+- **xml** `1.4.0` — Copyright (c) 2014 Vladimir Matveev
+- **xxhash-rust** `0.8.19` — [packaged metadata has no copyright line; see upstream source]
+- **yoke** `0.8.4` — COPYRIGHT AND PERMISSION NOTICE / Copyright © 2020-2024 Unicode, Inc.
+- **yoke-derive** `0.8.4` — COPYRIGHT AND PERMISSION NOTICE / Copyright © 2020-2024 Unicode, Inc.
+- **zbus** `5.19.0` — Copyright (c) 2024 Zeeshan Ali Khan & zbus contributors
+- **zbus_macros** `5.19.0` — Copyright (c) 2024 Zeeshan Ali Khan & zbus contributors
+- **zbus_names** `4.3.5` — Copyright (c) 2024 Zeeshan Ali Khan & zbus contributors
+- **zcheapstr** `1.2.0` — Copyright (c) 2026 Zeeshan Ali Khan & zcheapstr contributors
+- **zerocopy** `0.8.63` — Copyright 2023 The Fuchsia Authors / Copyright 2019 The Fuchsia Authors.
+- **zerocopy-derive** `0.8.63` — Copyright 2023 The Fuchsia Authors / Copyright 2019 The Fuchsia Authors.
+- **zerofrom** `0.1.8` — COPYRIGHT AND PERMISSION NOTICE / Copyright © 2020-2024 Unicode, Inc.
+- **zerofrom-derive** `0.1.8` — COPYRIGHT AND PERMISSION NOTICE / Copyright © 2020-2024 Unicode, Inc.
+- **zeroize** `1.9.1` — Copyright (c) 2018-2026 The RustCrypto Project Developers
+- **zerotrie** `0.2.5` — COPYRIGHT AND PERMISSION NOTICE / Copyright © 2020-2024 Unicode, Inc.
+- **zerovec** `0.11.9` — COPYRIGHT AND PERMISSION NOTICE / Copyright © 2020-2024 Unicode, Inc.
+- **zerovec-derive** `0.11.7` — COPYRIGHT AND PERMISSION NOTICE / Copyright © 2020-2024 Unicode, Inc.
+- **zip** `9.4.1` — Copyright (c) 2014 Mathijs van de Nes
+- **zlib-rs** `0.6.8` — (C) 2024 Trifecta Tech Foundation
+- **zmij** `1.0.23` — [packaged metadata has no copyright line; see upstream source]
+- **zopfli** `0.8.4` — Copyright 2011 Google Inc.
+- **zstd** `0.13.4` — Copyright (c) 2026, Alexandre Bury
+- **zstd-safe** `7.4.0` — Copyright (c) 2026, Alexandre Bury
+- **zstd-sys** `2.1.2+zstd.1.5.7` — Copyright (c) 2026, Alexandre Bury / Copyright (c) Meta Platforms, Inc. and affiliates. All rights reserved.
+- **zvariant** `5.15.1` — Copyright (c) 2024 Zeeshan Ali Khan & zbus contributors
+- **zvariant_derive** `5.15.1` — Copyright (c) 2024 Zeeshan Ali Khan & zbus contributors
+- **zvariant_utils** `4.2.0` — [packaged metadata has no copyright line; see upstream source]
+
+## License texts
+
+- **0BSD** — [`assets/licenses/0BSD.txt`](assets/licenses/0BSD.txt) — <https://github.com/spdx/license-list-data/blob/v3.29.0/text/0BSD.txt>
+- **Apache-2.0** — [`assets/licenses/Apache-2.0.txt`](assets/licenses/Apache-2.0.txt) — <https://github.com/spdx/license-list-data/blob/v3.29.0/text/Apache-2.0.txt>
+- **BSD-2-Clause** — [`assets/licenses/BSD-2-Clause.txt`](assets/licenses/BSD-2-Clause.txt) — <https://github.com/spdx/license-list-data/blob/v3.29.0/text/BSD-2-Clause.txt>
+- **BSD-3-Clause** — [`assets/licenses/BSD-3-Clause.txt`](assets/licenses/BSD-3-Clause.txt) — <https://github.com/spdx/license-list-data/blob/v3.29.0/text/BSD-3-Clause.txt>
+- **BSL-1.0** — [`assets/licenses/BSL-1.0.txt`](assets/licenses/BSL-1.0.txt) — <https://github.com/spdx/license-list-data/blob/v3.29.0/text/BSL-1.0.txt>
+- **CC0-1.0** — [`assets/licenses/CC0-1.0.txt`](assets/licenses/CC0-1.0.txt) — <https://github.com/spdx/license-list-data/blob/v3.29.0/text/CC0-1.0.txt>
+- **CDLA-Permissive-2.0** — [`assets/licenses/CDLA-Permissive-2.0.txt`](assets/licenses/CDLA-Permissive-2.0.txt) — <https://github.com/spdx/license-list-data/blob/v3.29.0/text/CDLA-Permissive-2.0.txt>
+- **ISC** — [`assets/licenses/ISC.txt`](assets/licenses/ISC.txt) — <https://github.com/spdx/license-list-data/blob/v3.29.0/text/ISC.txt>
+- **LGPL-2.1-or-later** — [`assets/licenses/LGPL-2.1-or-later.txt`](assets/licenses/LGPL-2.1-or-later.txt) — <https://github.com/spdx/license-list-data/blob/v3.29.0/text/LGPL-2.1-or-later.txt>
+- **LLVM-exception** — [`assets/licenses/LLVM-exception.txt`](assets/licenses/LLVM-exception.txt) — <https://github.com/spdx/license-list-data/blob/v3.29.0/text/LLVM-exception.txt>
+- **MIT** — [`assets/licenses/MIT.txt`](assets/licenses/MIT.txt) — <https://github.com/spdx/license-list-data/blob/v3.29.0/text/MIT.txt>
+- **MIT-0** — [`assets/licenses/MIT-0.txt`](assets/licenses/MIT-0.txt) — <https://github.com/spdx/license-list-data/blob/v3.29.0/text/MIT-0.txt>
+- **MPL-2.0** — [`assets/licenses/MPL-2.0.txt`](assets/licenses/MPL-2.0.txt) — <https://github.com/spdx/license-list-data/blob/v3.29.0/text/MPL-2.0.txt>
+- **OFL-1.1** — [`assets/licenses/OFL-1.1.txt`](assets/licenses/OFL-1.1.txt) — <https://github.com/spdx/license-list-data/blob/v3.29.0/text/OFL-1.1.txt>
+- **Unicode-3.0** — [`assets/licenses/Unicode-3.0.txt`](assets/licenses/Unicode-3.0.txt) — <https://github.com/spdx/license-list-data/blob/v3.29.0/text/Unicode-3.0.txt>
+- **Unlicense** — [`assets/licenses/Unlicense.txt`](assets/licenses/Unlicense.txt) — <https://github.com/spdx/license-list-data/blob/v3.29.0/text/Unlicense.txt>
+- **Zlib** — [`assets/licenses/Zlib.txt`](assets/licenses/Zlib.txt) — <https://github.com/spdx/license-list-data/blob/v3.29.0/text/Zlib.txt>
+
+## MPL-2.0 source availability
+
+MPL-2.0 applies only to the desktop shell's Tauri codegen/utility chain (cssparser, cssparser-macros, dtoa-short, option-ext, selectors).
+Those crates are not part of the CLI. The complete Corresponding
+Source for each exact version is the crates.io package source at
+`https://crates.io/crates/<crate>/<version>/source` (also linked
+from the SBOM); the MPL-2.0 text is reproduced in
+`assets/licenses/component-licenses.txt` and `assets/licenses/MPL-2.0.txt`.
+
+## Bundled fonts
+
+The bundled Source Han Sans subset carries the SIL Open Font License
+1.1 and is a Modified Version under that license, so it does not use
+the Reserved Font Name: its name table identifies the face as
+`printkit Han Sans SC` (`printkitHanSansSC-Regular`), and nameID 0
+keeps Adobe's copyright statement as attribution. Noto Sans Mono is
+distributed unchanged. The font-specific license text travels as
+`assets/fonts/OFL.txt`; the standard OFL-1.1 text is also in
+`assets/licenses/OFL-1.1.txt`.

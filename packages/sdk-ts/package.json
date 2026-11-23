@@ -1,0 +1,39 @@
+{
+  "name": "@printkit/sdk",
+  "version": "0.2.1",
+  "private": true,
+  "description": "TypeScript client for the printkit print service",
+  "license": "MIT OR Apache-2.0",
+  "repository": "https://github.com/xqh-jason/printkit",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "gen:types": "UPDATE_TS=1 cargo test --manifest-path ../../Cargo.toml -p printkit-protocol --features typescript --test typescript",
+    "gen:methods": "node scripts/gen-methods.mjs",
+    "gen": "pnpm run gen:types && pnpm run gen:methods",
+    "build": "pnpm run gen && tsc -p tsconfig.json && node scripts/verify.mjs",
+    "test": "pnpm run build && node --test test/*.test.mjs",
+    "test:browser": "node scripts/check-browser.mjs",
+    "test:types": "tsc -p test/types-consumer/tsconfig.json",
+    "check:types": "pnpm run gen:types && git diff --exit-code -- src/types.ts"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "esbuild": "0.28.2",
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=20.19"
+  }
+}

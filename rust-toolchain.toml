@@ -1,0 +1,6 @@
+[toolchain]
+# Follow the stable channel; the MSRV promised in Cargo.toml is checked by the
+# `msrv` CI job, which pins its own toolchain (1.89.0).
+channel = "stable"
+components = ["rustfmt", "clippy"]
+profile = "minimal"

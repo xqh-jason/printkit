@@ -1,0 +1,167 @@
+/*
+ * Motion language: 120/180/240/320ms tokens, transform+opacity only.
+ * `data-motion="reduce"` (app switch) and `prefers-reduced-motion` zero the
+ * duration tokens and disable the named pk animations. Element Plus spinners
+ * are untouched so loading feedback survives.
+ */
+
+@keyframes pk-page-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Page entry is the only first-mount animation; it is removed by the shared
+   reduce-motion switch below. Live list updates deliberately have none. */
+
+.page {
+  animation: pk-page-in var(--pk-motion-fast) var(--pk-ease-enter) both;
+}
+
+/* Navigation uses out-in: the old page leaves before the new one enters, so
+   two opaque page layers never stack and the shared background never flashes
+   through between them. */
+@keyframes pk-page-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+.pk-page-enter-active {
+  animation: pk-page-in var(--pk-motion-fast) var(--pk-ease-enter) both;
+}
+
+.pk-page-leave-active {
+  animation: pk-page-out var(--pk-motion-fast) var(--pk-ease-control) both;
+}
+
+/* Pending state dots breathe; decoration never runs when motion is reduced. */
+@keyframes pk-breathe {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.pk-breathe {
+  animation: pk-breathe var(--pk-motion-breath) var(--pk-ease-control) infinite;
+}
+
+/* First chart paint grows from the baseline; refreshes keep the bars keyed. */
+@keyframes pk-bar-grow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.pk-bar-grow {
+  animation: pk-bar-grow 760ms var(--pk-ease-enter) both;
+  transform-box: fill-box;
+  transform-origin: bottom;
+}
+
+@keyframes pk-skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.pk-skeleton-line {
+  animation: pk-skeleton-pulse 1.2s var(--pk-ease-control) infinite;
+}
+
+/* Element Plus MessageBox uses this transition pair; both enter and leave
+   get the D5 modal timings. */
+@keyframes pk-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pk-modal-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(4px) scale(0.98);
+  }
+}
+
+.fade-in-linear-enter-active .el-overlay-message-box {
+  animation: pk-modal-in var(--pk-motion-modal-in) var(--pk-ease-enter) both;
+}
+
+.fade-in-linear-leave-active .el-overlay-message-box {
+  animation: pk-modal-out var(--pk-motion-modal-out) var(--pk-ease-control) both;
+}
+
+html[data-motion="reduce"] {
+  --pk-motion-fast: 0ms;
+  --pk-motion-base: 0ms;
+  --pk-motion-view: 0ms;
+  --pk-motion-morph: 0ms;
+  --pk-motion-modal-in: 0ms;
+  --pk-motion-modal-out: 0ms;
+}
+
+html[data-motion="reduce"] .el-icon.is-loading,
+html[data-motion="reduce"] .page,
+html[data-motion="reduce"] .pk-page-enter-active,
+html[data-motion="reduce"] .pk-page-leave-active,
+html[data-motion="reduce"] .pk-breathe,
+html[data-motion="reduce"] .pk-bar-grow,
+html[data-motion="reduce"] .pk-skeleton-line,
+html[data-motion="reduce"] .fade-in-linear-enter-active .el-overlay-message-box,
+html[data-motion="reduce"] .fade-in-linear-leave-active .el-overlay-message-box {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --pk-motion-fast: 0ms;
+    --pk-motion-base: 0ms;
+    --pk-motion-view: 0ms;
+    --pk-motion-morph: 0ms;
+    --pk-motion-modal-in: 0ms;
+    --pk-motion-modal-out: 0ms;
+  }
+
+  .el-icon.is-loading,
+  .page,
+  .pk-page-enter-active,
+  .pk-page-leave-active,
+  .pk-breathe,
+  .pk-bar-grow,
+  .pk-skeleton-line,
+  .fade-in-linear-enter-active .el-overlay-message-box,
+  .fade-in-linear-leave-active .el-overlay-message-box {
+    animation: none;
+  }
+}

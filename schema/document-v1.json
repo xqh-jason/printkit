@@ -1,0 +1,1528 @@
+{
+  "$defs": {
+    "BarcodeData": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "properties": {
+            "value": {
+              "minLength": 1
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "qr",
+                  "pdf417",
+                  "datamatrix"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "maxLength": 2048
+              }
+            }
+          }
+        }
+      ],
+      "description": "The payload of a barcode item.",
+      "properties": {
+        "kind": {
+          "$ref": "#/$defs/BarcodeKind",
+          "description": "Symbology: `code128`, `code39`, `ean13`, `qr`, `pdf417` or `datamatrix`."
+        },
+        "value": {
+          "description": "Encoded value; must not be empty. `ean13` takes 12 digits, or 13 with a\nmatching check digit; `code128` accepts printable ASCII; two-dimensional\ncodes hold at most 2,048 bytes.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "value"
+      ],
+      "type": "object"
+    },
+    "BarcodeKind": {
+      "description": "Barcode symbology.",
+      "oneOf": [
+        {
+          "const": "code128",
+          "description": "Code 128; variable-length printable ASCII.",
+          "type": "string"
+        },
+        {
+          "const": "code39",
+          "description": "Code 39; digits, upper-case letters and `- . $ / + %` plus space.",
+          "type": "string"
+        },
+        {
+          "const": "ean13",
+          "description": "EAN-13; 12 digits, or 13 with the check digit already appended.",
+          "type": "string"
+        },
+        {
+          "const": "qr",
+          "description": "QR Code; at most 2,048 bytes, uses `ecLevel`.",
+          "type": "string"
+        },
+        {
+          "const": "pdf417",
+          "description": "PDF417.",
+          "type": "string"
+        },
+        {
+          "const": "datamatrix",
+          "description": "Data Matrix.",
+          "type": "string"
+        }
+      ]
+    },
+    "BarcodeStyle": {
+      "additionalProperties": false,
+      "description": "Style of a barcode item. Lengths are millimetres.",
+      "properties": {
+        "barWidth": {
+          "default": 0.25,
+          "description": "Width of one module of a linear code, in millimetres.",
+          "exclusiveMinimum": 0.0,
+          "format": "double",
+          "type": "number"
+        },
+        "color": {
+          "default": "#000000",
+          "description": "Bar or module colour; only `#rrggbb` is accepted. Default `#000000`.",
+          "pattern": "^#[0-9a-fA-F]{6}$",
+          "type": "string"
+        },
+        "ecLevel": {
+          "$ref": "#/$defs/EcLevel",
+          "default": "M",
+          "description": "Error correction level for two-dimensional symbols. Default `M`; ignored\nby linear codes."
+        },
+        "quietZone": {
+          "default": 2.0,
+          "description": "Quiet zone around the symbol in millimetres; non-negative. Default `2.0`.",
+          "format": "double",
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "showText": {
+          "default": false,
+          "description": "Draw the encoded value as text under a linear code. Default `false`.",
+          "type": "boolean"
+        },
+        "textSize": {
+          "default": 2.5,
+          "description": "Size of the human-readable text in millimetres; positive. Default `2.5`.",
+          "exclusiveMinimum": 0.0,
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "Cell": {
+      "additionalProperties": false,
+      "description": "A grid of cells, used by the `tianGrid` shape.",
+      "properties": {
+        "cols": {
+          "description": "Number of cell columns; at least 1. `rows * cols` may not exceed 10,000.",
+          "format": "uint32",
+          "maximum": 10000,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "rows": {
+          "description": "Number of cell rows; at least 1.",
+          "format": "uint32",
+          "maximum": 10000,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "rows",
+        "cols"
+      ],
+      "type": "object"
+    },
+    "Column": {
+      "additionalProperties": false,
+      "description": "One table column.",
+      "properties": {
+        "align": {
+          "$ref": "#/$defs/TextAlign",
+          "default": "left",
+          "description": "Text alignment inside the column. Default `left`."
+        },
+        "key": {
+          "description": "Key used by rows and the footer to address this column.",
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "description": "Header text shown in the header row; may be empty.",
+          "type": "string"
+        },
+        "width": {
+          "description": "Column width in millimetres, or `\"auto\"`.",
+          "oneOf": [
+            {
+              "const": "auto"
+            },
+            {
+              "format": "double",
+              "type": "number"
+            }
+          ]
+        }
+      },
+      "required": [
+        "key",
+        "title",
+        "width"
+      ],
+      "type": "object"
+    },
+    "Document": {
+      "additionalProperties": false,
+      "description": "A print document: explicit pages in print order.",
+      "properties": {
+        "meta": {
+          "$ref": "#/$defs/Meta",
+          "default": {},
+          "description": "Caller metadata; defaults to empty."
+        },
+        "output": {
+          "$ref": "#/$defs/OutputSpec",
+          "default": {
+            "collate": true,
+            "copies": 1
+          },
+          "description": "Job-level output options; defaults to one copy with collation on."
+        },
+        "pages": {
+          "description": "Pages in print order; between 1 and 200.",
+          "items": {
+            "$ref": "#/$defs/Page"
+          },
+          "maxItems": 200,
+          "minItems": 1,
+          "type": "array"
+        },
+        "version": {
+          "description": "Document version; this build accepts 1 only.",
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "pages"
+      ],
+      "type": "object"
+    },
+    "Duplex": {
+      "description": "How copies are grouped.",
+      "oneOf": [
+        {
+          "const": "simplex",
+          "description": "One side per sheet (default).",
+          "type": "string"
+        },
+        {
+          "const": "duplex_long",
+          "description": "Both sides, bound along the long edge.",
+          "type": "string"
+        },
+        {
+          "const": "duplex_short",
+          "description": "Both sides, bound along the short edge.",
+          "type": "string"
+        }
+      ]
+    },
+    "EcLevel": {
+      "description": "Reed-Solomon error correction level for two-dimensional codes.",
+      "oneOf": [
+        {
+          "const": "L",
+          "description": "About 7% of codewords recoverable.",
+          "type": "string"
+        },
+        {
+          "const": "M",
+          "description": "About 15% recoverable (default).",
+          "type": "string"
+        },
+        {
+          "const": "Q",
+          "description": "About 25% recoverable.",
+          "type": "string"
+        },
+        {
+          "const": "H",
+          "description": "About 30% recoverable.",
+          "type": "string"
+        }
+      ]
+    },
+    "Frame": {
+      "additionalProperties": false,
+      "description": "A rectangle relative to the top-left corner of the page, in millimetres.",
+      "properties": {
+        "height": {
+          "description": "Frame height in millimetres; finite and strictly positive.",
+          "exclusiveMinimum": 0.0,
+          "format": "double",
+          "type": "number"
+        },
+        "width": {
+          "description": "Frame width in millimetres; finite and strictly positive.",
+          "exclusiveMinimum": 0.0,
+          "format": "double",
+          "type": "number"
+        },
+        "x": {
+          "description": "Horizontal offset from the page's left edge, in millimetres; non-negative.",
+          "format": "double",
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "y": {
+          "description": "Vertical offset from the page's top edge, in millimetres; non-negative.",
+          "format": "double",
+          "minimum": 0.0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ],
+      "type": "object"
+    },
+    "HtmlData": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "oneOf": [
+            {
+              "not": {
+                "required": [
+                  "url"
+                ]
+              },
+              "required": [
+                "html"
+              ]
+            },
+            {
+              "not": {
+                "required": [
+                  "html"
+                ]
+              },
+              "required": [
+                "url"
+              ]
+            }
+          ]
+        }
+      ],
+      "description": "Inline HTML, or a URL fetched by the engine. Exactly one is set.",
+      "properties": {
+        "html": {
+          "description": "Inline HTML source; mutually exclusive with `url`.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "url": {
+          "description": "Absolute `http` or `https` URL fetched before rendering; mutually\nexclusive with `html`.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "type": "object"
+    },
+    "HtmlStyle": {
+      "additionalProperties": false,
+      "description": "Style of an HTML item; the empty object keeps the item shape uniform.",
+      "properties": {
+        "overflow": {
+          "$ref": "#/$defs/Overflow",
+          "default": "hidden",
+          "description": "Behaviour for content taller or wider than the frame. Default `hidden`."
+        }
+      },
+      "type": "object"
+    },
+    "ImageData": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "properties": {
+            "src": {
+              "maxLength": 11185068,
+              "pattern": "^data:image/[^,]*;base64,",
+              "type": "string"
+            }
+          }
+        }
+      ],
+      "description": "Raster image data: a base64 data URI of at most 8 MiB decoded.",
+      "properties": {
+        "src": {
+          "description": "Image as a base64 data URI, at most 8 MiB decoded.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "src"
+      ],
+      "type": "object"
+    },
+    "ImageFit": {
+      "description": "How an image fills its frame.",
+      "oneOf": [
+        {
+          "const": "contain",
+          "description": "Scale the image down to fit inside the frame, preserving aspect ratio\n(default).",
+          "type": "string"
+        },
+        {
+          "const": "cover",
+          "description": "Scale the image to cover the frame, preserving aspect ratio and\ncropping the overflow.",
+          "type": "string"
+        },
+        {
+          "const": "fill",
+          "description": "Stretch the image to the frame's width and height.",
+          "type": "string"
+        },
+        {
+          "const": "none",
+          "description": "Draw the image at its natural size; the frame clips any overflow.",
+          "type": "string"
+        }
+      ]
+    },
+    "ImageStyle": {
+      "additionalProperties": false,
+      "description": "Style of an image item.",
+      "properties": {
+        "fit": {
+          "$ref": "#/$defs/ImageFit",
+          "default": "contain",
+          "description": "How the image fills the frame. Default `contain`."
+        }
+      },
+      "type": "object"
+    },
+    "Item": {
+      "description": "One element on a page. Array order is z-order.",
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "description": "A text block rendered by the text pipeline.",
+          "properties": {
+            "data": {
+              "$ref": "#/$defs/TextData",
+              "description": "Text body and optional embedded font."
+            },
+            "frame": {
+              "$ref": "#/$defs/Frame",
+              "description": "Position and size of the item on the page."
+            },
+            "id": {
+              "description": "Item id; non-empty and unique across the whole document.",
+              "minLength": 1,
+              "type": "string"
+            },
+            "style": {
+              "$ref": "#/$defs/TextStyle",
+              "default": {
+                "align": "left",
+                "bold": false,
+                "color": "#000000",
+                "fontFamily": "Source Han Sans SC",
+                "fontSize": 3.7,
+                "italic": false,
+                "letterSpacing": 0.0,
+                "lineHeight": 1.4,
+                "rotation": 0.0,
+                "underline": false,
+                "valign": "top",
+                "wrap": true
+              },
+              "description": "Text style; omitted fields keep their defaults."
+            },
+            "type": {
+              "const": "text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "id",
+            "frame",
+            "data"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Inline HTML or a fetched URL, rendered in a web view.",
+          "properties": {
+            "data": {
+              "$ref": "#/$defs/HtmlData",
+              "description": "Inline HTML or a URL, never both."
+            },
+            "frame": {
+              "$ref": "#/$defs/Frame",
+              "description": "Position and size of the item on the page."
+            },
+            "id": {
+              "description": "Item id; non-empty and unique across the whole document.",
+              "minLength": 1,
+              "type": "string"
+            },
+            "style": {
+              "$ref": "#/$defs/HtmlStyle",
+              "default": {
+                "overflow": "hidden"
+              },
+              "description": "HTML style; `overflow` defaults to `hidden`."
+            },
+            "type": {
+              "const": "html",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "id",
+            "frame",
+            "data"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "A raster image, embedded as a data URI.",
+          "properties": {
+            "data": {
+              "$ref": "#/$defs/ImageData",
+              "description": "Image data as a base64 data URI."
+            },
+            "frame": {
+              "$ref": "#/$defs/Frame",
+              "description": "Position and size of the item on the page."
+            },
+            "id": {
+              "description": "Item id; non-empty and unique across the whole document.",
+              "minLength": 1,
+              "type": "string"
+            },
+            "style": {
+              "$ref": "#/$defs/ImageStyle",
+              "default": {
+                "fit": "contain"
+              },
+              "description": "Image style; `fit` defaults to `contain`."
+            },
+            "type": {
+              "const": "image",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "id",
+            "frame",
+            "data"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "One page of an embedded PDF, merged into the output.",
+          "properties": {
+            "data": {
+              "$ref": "#/$defs/PdfData",
+              "description": "PDF data and the one-based page to place."
+            },
+            "frame": {
+              "$ref": "#/$defs/Frame",
+              "description": "Position and size of the item on the page."
+            },
+            "id": {
+              "description": "Item id; non-empty and unique across the whole document.",
+              "minLength": 1,
+              "type": "string"
+            },
+            "style": {
+              "$ref": "#/$defs/PdfStyle",
+              "default": {},
+              "description": "PDF style; the empty object is always accepted."
+            },
+            "type": {
+              "const": "pdf",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "id",
+            "frame",
+            "data"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "A linear or two-dimensional barcode.",
+          "properties": {
+            "data": {
+              "$ref": "#/$defs/BarcodeData",
+              "description": "Symbology and the encoded value."
+            },
+            "frame": {
+              "$ref": "#/$defs/Frame",
+              "description": "Position and size of the item on the page."
+            },
+            "id": {
+              "description": "Item id; non-empty and unique across the whole document.",
+              "minLength": 1,
+              "type": "string"
+            },
+            "style": {
+              "$ref": "#/$defs/BarcodeStyle",
+              "default": {
+                "barWidth": 0.25,
+                "color": "#000000",
+                "ecLevel": "M",
+                "quietZone": 2.0,
+                "showText": false,
+                "textSize": 2.5
+              },
+              "description": "Barcode style; omitted fields keep their defaults."
+            },
+            "type": {
+              "const": "barcode",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "id",
+            "frame",
+            "data"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "A vector shape, rule or grid.",
+          "properties": {
+            "data": {
+              "$ref": "#/$defs/ShapeData",
+              "description": "Shape kind and its kind-specific geometry."
+            },
+            "frame": {
+              "$ref": "#/$defs/Frame",
+              "description": "Position and size of the item on the page."
+            },
+            "id": {
+              "description": "Item id; non-empty and unique across the whole document.",
+              "minLength": 1,
+              "type": "string"
+            },
+            "style": {
+              "$ref": "#/$defs/ShapeStyle",
+              "default": {
+                "stroke": "#000000",
+                "strokeWidth": 0.2
+              },
+              "description": "Shape style; omitted fields keep their defaults."
+            },
+            "type": {
+              "const": "shape",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "id",
+            "frame",
+            "data"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "A data table with an optional totals footer.",
+          "properties": {
+            "data": {
+              "$ref": "#/$defs/TableData",
+              "description": "Column definitions, rows and optional footer."
+            },
+            "frame": {
+              "$ref": "#/$defs/Frame",
+              "description": "Position and size of the item on the page."
+            },
+            "id": {
+              "description": "Item id; non-empty and unique across the whole document.",
+              "minLength": 1,
+              "type": "string"
+            },
+            "style": {
+              "$ref": "#/$defs/TableStyle",
+              "default": {
+                "borderColor": "#000000",
+                "borderWidth": 0.15,
+                "fontSize": 2.8,
+                "headerRepeat": true,
+                "rowHeight": 6.0,
+                "zebra": false
+              },
+              "description": "Table style; omitted fields keep their defaults."
+            },
+            "type": {
+              "const": "table",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "id",
+            "frame",
+            "data"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "Margins": {
+      "additionalProperties": false,
+      "description": "Page margins in millimetres.",
+      "properties": {
+        "bottom": {
+          "default": 0.0,
+          "description": "Bottom margin in millimetres; finite and non-negative. Default `0`.",
+          "format": "double",
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "left": {
+          "default": 0.0,
+          "description": "Left margin in millimetres; finite and non-negative. Default `0`.",
+          "format": "double",
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "right": {
+          "default": 0.0,
+          "description": "Right margin in millimetres; finite and non-negative. Default `0`.",
+          "format": "double",
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "top": {
+          "default": 0.0,
+          "description": "Top margin in millimetres; finite and non-negative. Default `0`.",
+          "format": "double",
+          "minimum": 0.0,
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "Meta": {
+      "additionalProperties": false,
+      "description": "Caller metadata. Only `tags` is free-form; it is the aggregation dimension.",
+      "properties": {
+        "source": {
+          "description": "Caller or system that submitted the document.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tags": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "items": {
+                "maxLength": 24,
+                "type": "string"
+              },
+              "maxItems": 8,
+              "type": "array"
+            }
+          ],
+          "description": "At most 8 tags, each at most 24 Unicode characters."
+        },
+        "templateId": {
+          "description": "Template that produced the document, if any; wire name `templateId`.\nNot interpreted by the engine.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "title": {
+          "description": "Human-readable title, for administration views.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "type": "object"
+    },
+    "Orientation": {
+      "description": "Reading direction of a page.",
+      "oneOf": [
+        {
+          "const": "portrait",
+          "description": "Portrait; named sizes keep their taller side vertical (default).",
+          "type": "string"
+        },
+        {
+          "const": "landscape",
+          "description": "Landscape; named sizes rotate the paper.",
+          "type": "string"
+        }
+      ]
+    },
+    "OutputSpec": {
+      "additionalProperties": false,
+      "description": "Output options applied to the whole document.",
+      "properties": {
+        "collate": {
+          "default": true,
+          "description": "`true` prints one complete set per copy, `false` prints page by page.",
+          "type": "boolean"
+        },
+        "copies": {
+          "default": 1,
+          "description": "Number of copies; 1 to 999, default `1`.",
+          "format": "uint32",
+          "maximum": 999,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "printer": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PrinterSpec"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Printer selection and per-job options; omitted means the system default\nprinter."
+        }
+      },
+      "type": "object"
+    },
+    "Overflow": {
+      "description": "Overflow policy for an HTML item.",
+      "oneOf": [
+        {
+          "const": "hidden",
+          "description": "Clip content that does not fit the frame (default).",
+          "type": "string"
+        },
+        {
+          "const": "visible",
+          "description": "Let content draw outside the frame.",
+          "type": "string"
+        }
+      ]
+    },
+    "Page": {
+      "additionalProperties": false,
+      "description": "One page: its paper spec plus items in z-order.",
+      "properties": {
+        "items": {
+          "default": [],
+          "description": "Items in z-order, drawn back to front; at most 500 per page.",
+          "items": {
+            "$ref": "#/$defs/Item"
+          },
+          "maxItems": 500,
+          "type": "array"
+        },
+        "spec": {
+          "$ref": "#/$defs/PageSpec",
+          "description": "Paper size, orientation and margins."
+        }
+      },
+      "required": [
+        "spec"
+      ],
+      "type": "object"
+    },
+    "PageSize": {
+      "description": "Named paper size. `custom` takes its dimensions from `width` and `height`.",
+      "oneOf": [
+        {
+          "const": "A3",
+          "description": "ISO A3, 297 by 420 millimetres.",
+          "type": "string"
+        },
+        {
+          "const": "A4",
+          "description": "ISO A4, 210 by 297 millimetres (default).",
+          "type": "string"
+        },
+        {
+          "const": "A5",
+          "description": "ISO A5, 148 by 210 millimetres.",
+          "type": "string"
+        },
+        {
+          "const": "Letter",
+          "description": "US Letter, 215.9 by 279.4 millimetres.",
+          "type": "string"
+        },
+        {
+          "const": "custom",
+          "description": "Dimensions come from `width` and `height`.",
+          "type": "string"
+        }
+      ]
+    },
+    "PageSpec": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "size": {
+                "const": "custom"
+              }
+            },
+            "required": [
+              "size"
+            ]
+          },
+          "then": {
+            "properties": {
+              "height": {
+                "exclusiveMinimum": 0.0,
+                "format": "double",
+                "maximum": 2000.0,
+                "type": "number"
+              },
+              "width": {
+                "exclusiveMinimum": 0.0,
+                "format": "double",
+                "maximum": 2000.0,
+                "type": "number"
+              }
+            },
+            "required": [
+              "width",
+              "height"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "size": {
+                "not": {
+                  "const": "custom"
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "height": {
+                "type": "null"
+              },
+              "width": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "background": {
+              "maxLength": 11185068,
+              "pattern": "^data:image/[^,]*;base64,",
+              "type": "string"
+            }
+          }
+        }
+      ],
+      "description": "The paper spec of a page.",
+      "properties": {
+        "background": {
+          "description": "Registered background image as a base64 data URI.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "height": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "exclusiveMinimum": 0.0,
+              "format": "double",
+              "type": "number"
+            }
+          ],
+          "description": "Final paper height in millimetres. Required for, and only allowed with,\n`size: \"custom\"`."
+        },
+        "margins": {
+          "$ref": "#/$defs/Margins",
+          "default": {
+            "bottom": 0.0,
+            "left": 0.0,
+            "right": 0.0,
+            "top": 0.0
+          },
+          "description": "Page margins; zero on every side by default."
+        },
+        "orientation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Orientation"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Omitted means: named paper is portrait, custom paper derives it from\n`width` and `height`."
+        },
+        "size": {
+          "$ref": "#/$defs/PageSize",
+          "default": "A4",
+          "description": "Named paper size. `custom` requires `width` and `height`."
+        },
+        "width": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "exclusiveMinimum": 0.0,
+              "format": "double",
+              "type": "number"
+            }
+          ],
+          "description": "Final paper width in millimetres. Required for, and only allowed with,\n`size: \"custom\"`."
+        }
+      },
+      "type": "object"
+    },
+    "PdfData": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "properties": {
+            "src": {
+              "maxLength": 11185068,
+              "pattern": "^data:application/pdf[^,]*;base64,",
+              "type": "string"
+            }
+          }
+        }
+      ],
+      "description": "The PDF payload of a PDF item, addressed by page.",
+      "properties": {
+        "page": {
+          "default": 1,
+          "description": "One-based page inside the embedded PDF.",
+          "format": "uint32",
+          "minimum": 1,
+          "type": "integer"
+        },
+        "src": {
+          "description": "PDF as a base64 data URI, at most 8 MiB decoded.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "src"
+      ],
+      "type": "object"
+    },
+    "PdfStyle": {
+      "additionalProperties": false,
+      "description": "Embedded PDF items have no style of their own; the empty object keeps the\nitem shape uniform.",
+      "type": "object"
+    },
+    "PrinterSpec": {
+      "additionalProperties": false,
+      "description": "Printer selection and per-job options.",
+      "properties": {
+        "duplex": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Duplex"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "`null` means: follow the driver."
+        },
+        "name": {
+          "description": "Printer name; `null` means the system default printer.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "paperSource": {
+          "description": "Paper tray name. Version 1 only accepts `null`.",
+          "type": "null"
+        }
+      },
+      "type": "object"
+    },
+    "ShapeData": {
+      "additionalProperties": false,
+      "description": "The geometry of a shape item.",
+      "properties": {
+        "cell": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Cell"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Required for, and only allowed with, `kind: \"tianGrid\"`."
+        },
+        "kind": {
+          "$ref": "#/$defs/ShapeKind",
+          "description": "Which geometry is drawn; selects the other fields that are allowed."
+        },
+        "lines": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TextRuleLines"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Only meaningful for `kind: \"textRule\"`."
+        },
+        "points": {
+          "description": "Alternating x and y coordinates relative to the frame, in millimetres.\nRequired for, and only allowed with, `kind: \"polygon\"`.",
+          "items": {
+            "description": "Length in millimetres; the only unit in version 1.",
+            "format": "double",
+            "type": "number"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "type": "object"
+    },
+    "ShapeKind": {
+      "description": "Vector shape kind.",
+      "oneOf": [
+        {
+          "const": "line",
+          "description": "A horizontal rule through the middle of the frame.",
+          "type": "string"
+        },
+        {
+          "const": "rect",
+          "description": "A rectangle filling the frame, inset by half the stroke width.",
+          "type": "string"
+        },
+        {
+          "const": "circle",
+          "description": "A circle filling the smaller frame dimension.",
+          "type": "string"
+        },
+        {
+          "const": "ellipse",
+          "description": "An ellipse filling the frame, inset by half the stroke width.",
+          "type": "string"
+        },
+        {
+          "const": "polygon",
+          "description": "A closed polygon; coordinates come from `points`.",
+          "type": "string"
+        },
+        {
+          "const": "tianGrid",
+          "description": "A grid of `cell.rows` by `cell.cols` cells.",
+          "type": "string"
+        },
+        {
+          "const": "textRule",
+          "description": "Horizontal rules along the frame's top and bottom edges.",
+          "type": "string"
+        }
+      ]
+    },
+    "ShapeStyle": {
+      "additionalProperties": false,
+      "description": "Style of a shape item. Lengths are millimetres.",
+      "properties": {
+        "dash": {
+          "description": "Dash pattern in millimetres; `null` draws a solid line.",
+          "items": {
+            "description": "Length in millimetres; the only unit in version 1.",
+            "format": "double",
+            "type": "number"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "fill": {
+          "description": "Fill colour as `#rrggbb`; omitted or `null` leaves the shape unfilled.",
+          "pattern": "^#[0-9a-fA-F]{6}$",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "stroke": {
+          "default": "#000000",
+          "description": "Outline colour; only `#rrggbb` is accepted. Default `#000000`.",
+          "pattern": "^#[0-9a-fA-F]{6}$",
+          "type": "string"
+        },
+        "strokeWidth": {
+          "default": 0.2,
+          "description": "Outline width in millimetres; non-negative, `0` hides the outline.\nDefault `0.2`.",
+          "format": "double",
+          "minimum": 0.0,
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "TableData": {
+      "additionalProperties": false,
+      "description": "The rows and columns of a table item.",
+      "properties": {
+        "columns": {
+          "description": "Columns in left-to-right order; at least 1 and at most 32.",
+          "items": {
+            "$ref": "#/$defs/Column"
+          },
+          "maxItems": 32,
+          "minItems": 1,
+          "type": "array"
+        },
+        "footer": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TableFooter"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Optional totals row; only the last fragment of a split table carries it."
+        },
+        "rows": {
+          "description": "Rows whose keys are column keys and values are cell text; at most 10,000.",
+          "items": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object"
+          },
+          "maxItems": 10000,
+          "type": "array"
+        }
+      },
+      "required": [
+        "columns",
+        "rows"
+      ],
+      "type": "object"
+    },
+    "TableFooter": {
+      "additionalProperties": false,
+      "description": "Last row of a table, typically totals.",
+      "properties": {
+        "label": {
+          "description": "Text shown in the first column when `values` has no entry for its key,\nfor example `Total`.",
+          "type": "string"
+        },
+        "values": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Cell text keyed by column key; a missing key renders an empty cell, except\nin the first column, which falls back to `label`.",
+          "type": "object"
+        }
+      },
+      "required": [
+        "label",
+        "values"
+      ],
+      "type": "object"
+    },
+    "TableStyle": {
+      "additionalProperties": false,
+      "description": "Style of a table item. Lengths are millimetres.",
+      "properties": {
+        "borderColor": {
+          "default": "#000000",
+          "description": "Border colour; only `#rrggbb` is accepted. Default `#000000`.",
+          "pattern": "^#[0-9a-fA-F]{6}$",
+          "type": "string"
+        },
+        "borderWidth": {
+          "default": 0.15,
+          "description": "Line width in millimetres; non-negative, `0` draws no borders.\nDefault `0.15`.",
+          "format": "double",
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "fontSize": {
+          "default": 2.8,
+          "description": "Cell text size in millimetres; positive. Default `2.8`.",
+          "exclusiveMinimum": 0.0,
+          "format": "double",
+          "type": "number"
+        },
+        "headerRepeat": {
+          "default": true,
+          "description": "Repeat the header row on every page the table spans.",
+          "type": "boolean"
+        },
+        "rowHeight": {
+          "default": 6.0,
+          "description": "Row height in millimetres, or `\"auto\"` for content height.",
+          "oneOf": [
+            {
+              "const": "auto"
+            },
+            {
+              "format": "double",
+              "type": "number"
+            }
+          ]
+        },
+        "zebra": {
+          "default": false,
+          "description": "Shade every second data row. Default `false`.",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "TextAlign": {
+      "description": "Horizontal alignment of text inside its frame.",
+      "oneOf": [
+        {
+          "const": "left",
+          "description": "Align to the left edge (default).",
+          "type": "string"
+        },
+        {
+          "const": "center",
+          "description": "Centre horizontally inside the frame.",
+          "type": "string"
+        },
+        {
+          "const": "right",
+          "description": "Align to the right edge.",
+          "type": "string"
+        }
+      ]
+    },
+    "TextData": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "properties": {
+            "fontFile": {
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "maxLength": 6990764,
+                  "pattern": "^data:(font/|application/font|application/octet-stream)[^,]*;base64,",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "description": "The text body of a text item.",
+      "properties": {
+        "fontFile": {
+          "description": "Embedded WOFF2 or TTF font as a base64 data URI, at most 5 MiB decoded.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "text": {
+          "description": "Text to render: non-empty, at most 10,000 Unicode characters.",
+          "maxLength": 10000,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "type": "object"
+    },
+    "TextRuleLines": {
+      "additionalProperties": false,
+      "description": "Which rules a `textRule` shape draws.",
+      "properties": {
+        "bottom": {
+          "default": true,
+          "description": "Draw a rule along the frame's bottom edge. Default `true`.",
+          "type": "boolean"
+        },
+        "top": {
+          "default": true,
+          "description": "Draw a rule along the frame's top edge. Default `true`.",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "TextStyle": {
+      "additionalProperties": false,
+      "description": "Text style. All lengths are millimetres; `rotation` is degrees clockwise.",
+      "properties": {
+        "align": {
+          "$ref": "#/$defs/TextAlign",
+          "default": "left",
+          "description": "Horizontal alignment inside the frame. Default `left`."
+        },
+        "bold": {
+          "default": false,
+          "description": "Use a bold face; the family must carry one.",
+          "type": "boolean"
+        },
+        "color": {
+          "default": "#000000",
+          "description": "CSS colour; only `#rrggbb` is accepted so a document cannot inject CSS.",
+          "pattern": "^#[0-9a-fA-F]{6}$",
+          "type": "string"
+        },
+        "fontFamily": {
+          "default": "Source Han Sans SC",
+          "description": "A bundled family name, or a family declared by `data.fontFile`.",
+          "type": "string"
+        },
+        "fontSize": {
+          "default": 3.7,
+          "description": "Glyph size in millimetres; finite and strictly positive. Default `3.7`.",
+          "exclusiveMinimum": 0.0,
+          "format": "double",
+          "type": "number"
+        },
+        "italic": {
+          "default": false,
+          "description": "Use an italic or oblique face.",
+          "type": "boolean"
+        },
+        "letterSpacing": {
+          "default": 0.0,
+          "description": "Extra space between glyphs in millimetres; non-negative. Default `0`.",
+          "format": "double",
+          "type": "number"
+        },
+        "lineHeight": {
+          "default": 1.4,
+          "description": "Line height as a multiple of `fontSize`; finite and positive. Default `1.4`.",
+          "exclusiveMinimum": 0.0,
+          "format": "double",
+          "type": "number"
+        },
+        "rotation": {
+          "default": 0.0,
+          "description": "Rotation in degrees clockwise around the frame's centre. Default `0`.",
+          "format": "double",
+          "type": "number"
+        },
+        "underline": {
+          "default": false,
+          "description": "Draw an underline below every line.",
+          "type": "boolean"
+        },
+        "valign": {
+          "$ref": "#/$defs/VAlign",
+          "default": "top",
+          "description": "Vertical alignment inside the frame. Default `top`."
+        },
+        "wrap": {
+          "default": true,
+          "description": "Wrap lines at the frame width; `false` keeps the text on one line. Default `true`.",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "VAlign": {
+      "description": "Vertical alignment of text inside its frame.",
+      "oneOf": [
+        {
+          "const": "top",
+          "description": "Align to the top edge (default).",
+          "type": "string"
+        },
+        {
+          "const": "middle",
+          "description": "Centre vertically inside the frame.",
+          "type": "string"
+        },
+        {
+          "const": "bottom",
+          "description": "Align to the bottom edge.",
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "$id": "https://printkit.dev/schema/document-v1.json",
+  "$ref": "#/$defs/Document",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "A print document: one or more pages of declarative items. Lengths are millimetres.",
+  "title": "printkit document v1"
+}

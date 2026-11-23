@@ -1,0 +1,67 @@
+# Check the dependency graph for the platforms this project ships. Optional
+# dependencies declared for wasm or Android (for example a fallback root bundle)
+# are never compiled here and must not decide the license whitelist.
+[graph]
+targets = [
+    "aarch64-apple-darwin",
+    "x86_64-apple-darwin",
+    "x86_64-pc-windows-msvc",
+]
+
+[licenses]
+# Dependency license whitelist enforced by `cargo deny`. TLS uses the
+# operating system verifier, so no bundled CA root crate is needed. The CLI
+# graph has no MPL-2.0; the desktop shell has its own deny.toml with the
+# approved exception (requirements section 1.2, rev 29).
+allow = [
+    "MIT",
+    "Apache-2.0",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "ISC",
+    "Zlib",
+    # Boost Software License: permissive and OSI approved, not copyleft.
+    # `salvo` declares salvo_extra with the `full` feature, so enabling
+    # `websocket` necessarily reaches `etag` -> `str-buf` / `xxhash-rust`.
+    "BSL-1.0",
+    "Unicode-3.0",
+]
+
+# The bundled Source Han Sans subset is an asset, not a Cargo dependency: its
+# OFL-1.1 obligations are tracked through assets/fonts/OFL.txt,
+# assets/licenses/OFL-1.1.txt and THIRD-PARTY-NOTICES.md. Listing OFL-1.1 here
+# would be an unused allowance; re-add it only if a crate in the graph uses it.
+exceptions = []
+
+[bans]
+multiple-versions = "warn"
+# Reviewed duplicates (2026-11-12), kept as warnings rather than hidden:
+# - RustCrypto generations: lopdf 0.47 uses aes/cipher/digest 0.9/0.11 while
+#   salvo's cookie stack uses 0.8/0.10. They cannot be unified without patching
+#   both upstreams.
+# - base64: salvo pins 0.22; the direct dependency and reqwest/hyper use 0.23.
+#   The project uses 0.23 so its own code shares the newer generation.
+# - rand/rand_core/rand_chacha/getrandom: pulled by zip, rxing and older
+#   RustCrypto crates; a global upgrade needs those upstreams first.
+# - syn 2/3: ts-rs 11 uses syn 2; newer proc-macro dependencies use syn 3.
+# - winnow 0.7/1.0: toml and toml_edit resolve different parser generations.
+# - nix 0.30/0.31: transitive desktop/tauri dependencies.
+# `multiple-versions = "warn"` keeps a new duplicate visible; do not add a
+# blanket allow without a matching `cargo tree -d` review.
+wildcards = "deny"
+# Internal crates are path dependencies with no version requirement.
+allow-wildcard-paths = true
+
+[advisories]
+db-path = "~/.cargo/advisory-db"
+# Unmaintained, not vulnerable: salvo_core depends on rustls-pemfile even when
+# TLS features are off, and no upgraded release exists. Drop this entry when
+# salvo moves to rustls-pki-types.
+#
+# RUSTSEC-2026-0543: chrono is unmaintained, but it is only a transitive
+# dependency of lopdf/rxing and no safe upgrade exists. Not a vulnerability.
+ignore = ["RUSTSEC-2025-0134", "RUSTSEC-2026-0543"]
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"

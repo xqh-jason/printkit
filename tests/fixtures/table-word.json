@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "spec": {
+        "size": "A4"
+      },
+      "items": [
+        {
+          "id": "longword",
+          "type": "table",
+          "frame": {
+            "x": 20.0,
+            "y": 20.0,
+            "width": 170.0,
+            "height": 80.0
+          },
+          "style": {
+            "fontSize": 2.8,
+            "rowHeight": "auto",
+            "borderWidth": 0.15
+          },
+          "data": {
+            "columns": [
+              {
+                "key": "no",
+                "title": "No",
+                "width": 15.0
+              },
+              {
+                "key": "desc",
+                "title": "Desc",
+                "width": 40.0
+              },
+              {
+                "key": "note",
+                "title": "Note",
+                "width": "auto"
+              }
+            ],
+            "rows": [
+              {
+                "no": "001",
+                "desc": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "note": "x"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

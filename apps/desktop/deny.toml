@@ -1,0 +1,74 @@
+# License gate for the Tauri console's own workspace. The whitelist matches
+# the product requirement. The exceptions below are Tauri 2.12.5's own
+# dependency tree; removing them requires replacing or patching Tauri, not
+# changing this file.
+
+[licenses]
+allow = [
+    "MIT",
+    "Apache-2.0",
+    "BSD-3-Clause",
+    "ISC",
+    "Zlib",
+    "Unicode-3.0",
+    # target-lexicon (Tauri's build-time target parser) is Apache-2.0 plus the
+    # LLVM exception, which adds no copyleft condition.
+    "Apache-2.0 WITH LLVM-exception",
+]
+
+# BSD-2-Clause, BSL-1.0 and OFL-1.1 were removed after cargo-deny reported
+# them as unmatched allowances: no crate in this workspace uses them, and the
+# bundled font licence is tracked as an asset in THIRD-PARTY-NOTICES.md. Add
+# an entry back only together with a dependency that actually declares it.
+
+# `dom_query` is pulled in by `tauri-utils/build-2`, the config parser used by
+# `tauri-build`; cssparser, cssparser-macros, dtoa-short and selectors are its
+# tree. `option-ext` is a normal dependency of `dirs`, which tauri itself uses
+# for app directories. These five are the desktop-only MPL-2.0 exception
+# approved in requirements section 1.2 rev 29; `THIRD-PARTY-NOTICES.md` links
+# the full text.
+[[licenses.exceptions]]
+name = "cssparser"
+allow = ["MPL-2.0"]
+[[licenses.exceptions]]
+name = "cssparser-macros"
+allow = ["MPL-2.0"]
+[[licenses.exceptions]]
+name = "dtoa-short"
+allow = ["MPL-2.0"]
+[[licenses.exceptions]]
+name = "option-ext"
+allow = ["MPL-2.0"]
+[[licenses.exceptions]]
+name = "selectors"
+allow = ["MPL-2.0"]
+
+[advisories]
+# Four unmaintained (informational, not vulnerable) advisories reach this
+# workspace only through Linux-only Tauri dependencies. cargo-deny has no
+# per-target ignore, so they are listed explicitly instead of hiding Linux deps
+# with [graph] targets. Re-review by 2027-01-31: delete each entry once its
+# upstream release lands, and any new advisory ID still fails the gate.
+#
+# The zbus chain is: tauri-plugin-single-instance 2.5.5 (latest) -> zbus 5.19.0
+# -> zbus_names 4.3.5 / zvariant 5.15.1 / zvariant_derive 5.15.1. zbus 6.0.0
+# merged all three standalone crates, but the plugin still requires zbus ^5.9.
+# Upstream migration PR tauri-apps/plugins-workspace#3759 is open and unreleased.
+#
+# proc-macro-error comes from gtk-rs 0.18 (tauri -> gtk 0.18 -> glib/gtk-macros
+# 0.18). Tauri 2.12.7 (latest) and 3.0.0-alpha.6 still require gtk ^0.18, so no
+# patched release exists; upstream issue tauri-apps/tauri#10910 tracks the move.
+ignore = [
+    { id = "RUSTSEC-2024-0370", reason = "proc-macro-error 1.0.4 is unmaintained; Tauri's gtk-rs 0.18 chain has no patched release (tauri-apps/tauri#10910)." },
+    { id = "RUSTSEC-2026-0370", reason = "zvariant is unmaintained; tauri-plugin-single-instance 2.5.5 still requires zbus ^5.9, before the zbus 6 merge (tauri-apps/plugins-workspace#3759)." },
+    { id = "RUSTSEC-2026-0371", reason = "zbus_names is unmaintained; tauri-plugin-single-instance 2.5.5 still requires zbus ^5.9, before the zbus 6 merge (tauri-apps/plugins-workspace#3759)." },
+    { id = "RUSTSEC-2026-0372", reason = "zvariant_derive is unmaintained; tauri-plugin-single-instance 2.5.5 still requires zbus ^5.9, before the zbus 6 merge (tauri-apps/plugins-workspace#3759)." },
+]
+
+[bans]
+multiple-versions = "warn"
+wildcards = "deny"
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"

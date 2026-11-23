@@ -1,0 +1,17 @@
+[package]
+name = "printkit-barcode"
+description = "Barcode symbologies as inline SVG. Parameter checks and SVG output, no encoding algorithms."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+
+[dependencies]
+printkit-core.workspace = true
+rxing.workspace = true
+thiserror.workspace = true
+
+[lints]
+workspace = true

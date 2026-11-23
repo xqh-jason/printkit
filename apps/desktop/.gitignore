@@ -1,0 +1,6 @@
+# Generated executables and build output
+/dist/
+/src-tauri/binaries/
+/src-tauri/target/
+/src-tauri/gen/
+/node_modules/

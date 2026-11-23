@@ -1,0 +1,58 @@
+/*
+ * macOS overlay title bar: the native traffic lights sit in the header row.
+ * `data-platform="macos"` is set from App before the first paint. There is
+ * one 50px header, never a title strip stacked over it: the traffic lights,
+ * brand and tabs share the same row.
+ */
+.app-root,
+.business-shell {
+  height: 100%;
+  min-height: 0;
+}
+
+html[data-platform="macos"] .app-shell {
+  /* One row: no titlebar + header stack (was 36 + 56 = 92). */
+  grid-template-rows: var(--pk-header-height) auto minmax(0, 1fr);
+}
+
+html[data-platform="macos"] .app-sidebar .brand {
+  /* Traffic lights are the sidebar's top-left; the brand starts after 96px. */
+  padding-left: var(--pk-traffic-space);
+  padding-right: 16px;
+}
+
+html[data-platform="macos"] .app-sidebar.narrow .brand {
+  padding-right: 8px;
+}
+
+html[data-platform="macos"] .app-shell:not(.has-sidebar) .app-header {
+  /* No sidebar: the header is the title bar, so its controls start after 96px. */
+  padding-left: var(--pk-traffic-space);
+}
+
+html[data-platform="macos"] .app-shell.has-sidebar .app-header {
+  /* The sidebar owns the traffic-light inset; the header begins at the sidebar edge. */
+  padding-left: 16px;
+}
+
+[data-tauri-drag-region] {
+  -webkit-app-region: drag;
+}
+
+[data-tauri-drag-region] button,
+[data-tauri-drag-region] input,
+[data-tauri-drag-region] select,
+[data-tauri-drag-region] textarea,
+[data-tauri-drag-region] a {
+  -webkit-app-region: no-drag;
+}
+
+html[data-platform="macos"] .header-actions,
+html[data-platform="macos"] .locale-select,
+html[data-platform="macos"] .locale-select .el-select__wrapper {
+  -webkit-app-region: no-drag;
+}
+
+html[data-platform="macos"] .app-main {
+  padding-top: 0;
+}

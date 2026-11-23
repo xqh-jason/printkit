@@ -1,0 +1,27 @@
+# Rust dependency licenses (cargo-about)
+
+This is the human-readable cargo-about rendering for auditing. The committed
+per-component data used by `scripts/gen-notices.py` is the JSON produced by the
+same run (`--format json`), not this render.
+
+## License overview
+
+{{#each overview}}
+- **{{id}}** ({{name}}) — {{count}} crate(s)
+{{/each}}
+
+{{#each licenses}}
+## {{id}} — {{name}}
+
+Used by:
+
+{{#each used_by}}
+- `{{crate.name}}` {{crate.version}}
+{{/each}}
+
+Source: `{{source_path}}`
+
+```text
+{{{text}}}
+```
+{{/each}}

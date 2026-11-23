@@ -1,0 +1,24 @@
+# Chinese design docs, diagram source and the internal review/exec pipeline.
+# They are local-only: the published repo is English (requirements section 11 item 12),
+# and the pipeline carries review logs. Keep them out of version control.
+_work/
+
+# Acceptance manifest: run.py hashes files under _work/ (local only), so the
+# tracked copy can never be verified by anyone cloning this repo.
+evidence/
+
+# Diagram tool working dirs; published source + HTML live at repo root.
+.archify/
+*.log
+
+# Local build output
+/target/
+**/*.pdf
+!tests/baseline/*.pdf
+
+.mimosa/
+# Release bundle assembled by scripts/release.sh
+/dist/
+
+# Package-manager caches in every workspace, not only apps/desktop and sdk-ts.
+**/node_modules/

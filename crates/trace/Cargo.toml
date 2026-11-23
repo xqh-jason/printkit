@@ -1,0 +1,28 @@
+[package]
+name = "printkit-trace"
+description = "Trace events, trace ids and JSONL logging. Leaf crate: no internal dependencies."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+
+[features]
+default = ["gzip"]
+# Archive finished days with gzip. Without it the daily JSONL files are kept
+# uncompressed and still read back the same way.
+gzip = ["dep:flate2"]
+full = ["gzip"]
+
+[dependencies]
+flate2 = { workspace = true, optional = true }
+serde.workspace = true
+serde_json.workspace = true
+time.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true
+
+[lints]
+workspace = true

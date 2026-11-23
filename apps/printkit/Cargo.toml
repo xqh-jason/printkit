@@ -1,0 +1,73 @@
+[package]
+name = "printkit"
+description = "printkit CLI: headless document to PDF, diagnostics and logs."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+
+[features]
+default = ["url-fetch", "serve"]
+url-fetch = ["printkit-facade/url-fetch"]
+# Dev-only acceptance path: the service renders through the fake host, so a
+# mock print and a crash-recovery run need no WebView.
+fake-render = ["printkit-facade/fake-render", "serve"]
+serve = [
+    "dep:base64",
+    "dep:fs2",
+    "dep:getrandom",
+    "dep:printkit-core",
+    "dep:printkit-protocol",
+    "dep:printkit-store",
+    "dep:salvo",
+    "dep:sha2",
+    "dep:tokio",
+    "dep:zip",
+]
+
+# The shipped binary links SQLite statically and serves the full feature set.
+# `scripts/release.sh` and the desktop sidecar build select it.
+release = ["serve", "url-fetch", "printkit-store/bundled-sqlite"]
+
+[dependencies]
+base64 = { workspace = true, optional = true }
+bytes.workspace = true
+clap.workspace = true
+futures.workspace = true
+fs2 = { workspace = true, optional = true }
+getrandom = { workspace = true, optional = true }
+printkit-core = { workspace = true, optional = true }
+printkit-facade.workspace = true
+printkit-protocol = { workspace = true, optional = true }
+printkit-schema.workspace = true
+printkit-pdf.workspace = true
+printkit-store = { workspace = true, optional = true }
+printkit-plugin-api.workspace = true
+printkit-plugin-host.workspace = true
+printkit-plugin-records.workspace = true
+salvo = { workspace = true, optional = true }
+serde.workspace = true
+serde_json.workspace = true
+sha2 = { workspace = true, optional = true }
+time.workspace = true
+tokio = { workspace = true, optional = true }
+thiserror.workspace = true
+toml.workspace = true
+zip = { workspace = true, optional = true }
+
+[target.'cfg(windows)'.dependencies]
+printkit-platform-win.workspace = true
+
+[dev-dependencies]
+# `salvo::test` drives the router in-process; the feature stays out of the
+# shipped binary because this entry is test-only.
+salvo = { workspace = true, features = ["test"] }
+printkit-platform = { workspace = true, features = ["test-support"] }
+lopdf.workspace = true
+printkit-pdf = { workspace = true, features = ["parse-count"] }
+tempfile.workspace = true
+
+[lints]
+workspace = true
