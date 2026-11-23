@@ -314,9 +314,9 @@ dependencies = [
 
 [[package]]
 name = "chardetng"
-version = "0.1.17"
+version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "14b8f0b65b7b08ae3c8187e8d77174de20cb6777864c6b832d8ad365999cf1ea"
+checksum = "13de944a44b5064ee5d3a5ceccc49a41bfec50f2580e66f82e87703acdb88b53"
 dependencies = [
  "cfg-if",
  "encoding_rs",
@@ -1135,9 +1135,7 @@ dependencies = [
  "http",
  "hyper",
  "hyper-util",
- "log",
  "rustls",
- "rustls-native-certs",
  "tokio",
  "tokio-rustls",
  "tower-service",
@@ -1560,23 +1558,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "multer"
-version = "3.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "83e87776546dc87511aa5ee218730c92b666d7264ab6ed41f9d215af9cd5224b"
-dependencies = [
- "bytes",
- "encoding_rs",
- "futures-util",
- "http",
- "httparse",
- "memchr",
- "mime",
- "spin",
- "version_check",
-]
-
-[[package]]
 name = "multimap"
 version = "0.10.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1592,15 +1573,19 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "743fb55ba31b18fb1ecef6bdc9aa2743314978ac084044301a7eee33fb99a20d"
 
 [[package]]
-name = "nix"
-version = "0.30.1"
+name = "multra"
+version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "74523f3a35e05aba87a1d978330aef40f67b0304ac79c1c00b294c9830543db6"
+checksum = "9de3f58a19fd337ad34dfba18efda0470f8fb3a618d088d2e5b9f94843fd4619"
 dependencies = [
- "bitflags",
- "cfg-if",
- "cfg_aliases",
- "libc",
+ "bytes",
+ "encoding_rs",
+ "futures-util",
+ "http",
+ "httparse",
+ "memchr",
+ "mime",
+ "spin",
 ]
 
 [[package]]
@@ -2482,15 +2467,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "rustls-pemfile"
-version = "2.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dce314e5fee3f39953d46bb63bb8a46d40c2f8fb7cc5a3b6cab2bde9721d6e50"
-dependencies = [
- "rustls-pki-types",
-]
-
-[[package]]
 name = "rustls-pki-types"
 version = "1.15.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2578,9 +2554,9 @@ checksum = "9774ba4a74de5f7b1c1451ed6cd5285a32eddb5cccb8cc655a4e50009e06477f"
 
 [[package]]
 name = "salvo"
-version = "0.85.0"
+version = "0.90.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7a0572f97daf740aec2898b4766e9572617ae2fba416a5f85de340b6e2a32ce9"
+checksum = "550fb7b471666333b7342cd0457785bc976045033ac7f96f3729085f526f5b3f"
 dependencies = [
  "salvo_core",
  "salvo_extra",
@@ -2588,9 +2564,9 @@ dependencies = [
 
 [[package]]
 name = "salvo-serde-util"
-version = "0.85.0"
+version = "0.90.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bb7587e297e6b75aee58de7b2d5a24f7378f1ac50a3bf9739fa88821d146f04c"
+checksum = "f3c918686b0ddb2bdf685e3501341935bf41c102fc78c0aca191b7de3fe52dc4"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -2599,9 +2575,9 @@ dependencies = [
 
 [[package]]
 name = "salvo_core"
-version = "0.85.0"
+version = "0.90.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e4f710aaf46666f08b3cc4b8ad761e3a00d381a2abe7e2d6448d0f594be72ab7"
+checksum = "3e3041fd43c07882579c782cc9193d2708bebfd86d5681bf05e08783166170f9"
 dependencies = [
  "async-trait",
  "base64 0.22.1",
@@ -2620,20 +2596,17 @@ dependencies = [
  "http",
  "http-body-util",
  "hyper",
- "hyper-rustls",
  "hyper-util",
  "indexmap",
  "mime",
  "mime-infer",
- "multer",
  "multimap",
- "nix 0.30.1",
+ "multra",
  "parking_lot",
  "percent-encoding",
  "pin-project",
- "rand 0.9.5",
+ "rand 0.10.3",
  "regex",
- "rustls-pemfile",
  "salvo_macros",
  "serde",
  "serde-xml-rs",
@@ -2643,7 +2616,6 @@ dependencies = [
  "tempfile",
  "thiserror",
  "tokio",
- "tokio-rustls",
  "tokio-util",
  "tracing",
  "url",
@@ -2652,9 +2624,9 @@ dependencies = [
 
 [[package]]
 name = "salvo_extra"
-version = "0.85.0"
+version = "0.90.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7380e3bc5f24ad9529e929fd391715ae3def92feefc9fece038f14a2e3b86ec3"
+checksum = "c148521bedf10a03254fd7d609610c2208d89c5bf6cb0bd81ba0b3211e95d1bb"
 dependencies = [
  "base64 0.22.1",
  "etag",
@@ -2674,9 +2646,9 @@ dependencies = [
 
 [[package]]
 name = "salvo_macros"
-version = "0.85.0"
+version = "0.90.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8191db21784912e4a08e800005761e3f25412e08dd9fd20a1a6ff22270afa8bd"
+checksum = "0abee476092064ad4d13d409b28a32eaea7722ed6194be625d372775b1ce4c09"
 dependencies = [
  "proc-macro-crate",
  "proc-macro2",
@@ -2963,9 +2935,9 @@ dependencies = [
 
 [[package]]
 name = "spin"
-version = "0.9.9"
+version = "0.10.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3763264f6b73151db08c50ff20d7d8a0b8796e021cdea7ceedad07b80155fa0e"
+checksum = "023a211cb3138dbc438680b32560ad89f699977624c9f8dbb95a47d5b4c07dd3"
 
 [[package]]
 name = "stable_deref_trait"
@@ -3181,9 +3153,9 @@ dependencies = [
 
 [[package]]
 name = "tokio-tungstenite"
-version = "0.28.0"
+version = "0.29.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d25a406cddcc431a75d3d9afc6a7c0f7428d4891dd973e4d54c56b46127bf857"
+checksum = "8f72a05e828585856dacd553fba484c242c46e391fb0e58917c942ee9202915c"
 dependencies = [
  "futures-util",
  "log",
@@ -3373,15 +3345,14 @@ dependencies = [
 
 [[package]]
 name = "tungstenite"
-version = "0.28.0"
+version = "0.29.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8628dcc84e5a09eb3d8423d6cb682965dea9133204e8fb3efee74c2a0c259442"
+checksum = "6c01152af293afb9c7c2a57e4b559c5620b421f6d133261c60dd2d0cdb38e6b8"
 dependencies = [
  "bytes",
  "log",
  "rand 0.9.5",
  "thiserror",
- "utf-8",
 ]
 
 [[package]]
@@ -3472,12 +3443,6 @@ dependencies = [
  "percent-encoding",
  "serde",
 ]
-
-[[package]]
-name = "utf-8"
-version = "0.7.6"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "09cc8ee72d2a9becf2f2febe0205bbed8fc6615b7cb429ad062dc7b7ddd036a9"
 
 [[package]]
 name = "utf8_iter"
@@ -4047,7 +4012,7 @@ dependencies = [
  "indexmap",
  "libc",
  "memchr",
- "nix 0.31.3",
+ "nix",
  "typed-path",
  "windows-sys 0.61.2",
  "zopfli",

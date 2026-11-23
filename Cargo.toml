@@ -58,7 +58,7 @@ zip = { version = "9", default-features = false, features = ["deflate"] }
 ts-rs = { version = "11", default-features = false, features = ["serde-compat", "no-serde-warnings"] }
 
 # HTTP/WS service face. No TLS features: the listener is loopback-only.
-salvo = { version = "0.85", default-features = false, features = [
+salvo = { version = "0.90", default-features = false, features = [
     "server",
     "server-handle",
     "http1",
