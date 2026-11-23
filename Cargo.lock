@@ -1939,7 +1939,7 @@ dependencies = [
  "clap",
  "fs2",
  "futures",
- "getrandom 0.3.4",
+ "getrandom 0.4.3",
  "libc",
  "lopdf",
  "printkit-core",
