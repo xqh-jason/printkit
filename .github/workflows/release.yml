@@ -260,7 +260,7 @@ jobs:
           merge-multiple: true
       - name: Assemble and verify the bundle
         run: bash scripts/release.sh --assemble --dist dist
-      - name: Run S16 acceptance
+      - name: Run release acceptance
         run: bash tests/scripts/s16_accept.sh --dist dist
       - name: Run release gates
         run: bash scripts/gates.sh

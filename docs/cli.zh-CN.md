@@ -21,6 +21,9 @@ printkit-schema-macos-arm64.tar.gz
     └── licenses/                third-party licence texts
 ```
 
+从 [GitHub Releases](https://github.com/xqh-jason/printkit/releases/latest) 下载
+最新已发布版本（当前为 v0.2.4）。
+
 没有安装器、没有服务注册，也不需要 `sudo`。从解压位置直接运行二进制：
 
 ```sh
@@ -30,7 +33,7 @@ printkit-schema-macos-arm64.tar.gz
 
 发布版二进制只在**可执行文件旁边**解析 `schema/`，不会去别处找。它拒绝回退到构建它的那台机器：没有解压出来的 `schema/` 目录时，它以非零状态退出，并提示你解包压缩包或使用 `printkit schema --out DIR`。从源码构建时使用仓库检出目录。
 
-macOS 桌面应用是单独下载的（`printkit-desktop-macos-arm64.dmg`），自带 sidecar；Windows 不发布 CLI 压缩包。
+macOS 桌面应用是单独下载的（`printkit-desktop-macos-arm64.dmg`），自带 sidecar；v0.2.4 不发布 Windows 命令行压缩包。
 
 ## 文档 schema
 

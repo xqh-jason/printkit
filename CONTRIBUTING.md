@@ -136,10 +136,10 @@ a patch release fixes bugs. `schema/document-v1.json` and `protocol-v1.json`
 are versioned independently; after the first public release, version 1 of each
 stays compatible within its major version. The MSRV is Rust 1.89 and is raised
 only in a minor release. Deprecations are announced in
-[CHANGELOG.md](CHANGELOG.md) at least one minor release ahead. `0.2.6` is still
-a pre-1.0 release, so methods removed before the first public release (for
-example `calib.set`/`calib.list`) are a pre-release breaking change and carry
-no compatibility shim.
+[CHANGELOG.md](CHANGELOG.md) at least one minor release ahead. The `main`
+branch is `0.2.6-dev`, still pre-1.0, so methods removed before the first
+public release (for example `calib.set`/`calib.list`) are a pre-release breaking
+change and carry no compatibility shim.
 
 Every release tag must correspond to a changelog entry. Update `CHANGELOG.md`
 in the same pull request that changes user-visible behaviour, and keep the
@@ -151,9 +151,10 @@ generated from the tag; they supplement, not replace, the changelog.
 The project is distributed under `MIT OR Apache-2.0`. GPL, AGPL and LGPL
 dependencies are not accepted in the CLI. The desktop shell has one approved
 exception: `cssparser`, `cssparser-macros`, `dtoa-short`, `option-ext`,
-`selectors` (Tauri's codegen/utility chain; see requirements section 1.2 rev
-29). Add every new license identifier to `deny.toml`, run `cargo deny check`,
-and regenerate the legal files when a dependency or bundled font changes:
+`selectors` (Tauri's codegen/utility chain; the exact exceptions are listed in
+`apps/desktop/deny.toml`). Add every new license identifier to `deny.toml`, run
+`cargo deny check`, and regenerate the legal files when a dependency or bundled
+font changes:
 
 ```sh
 # cargo-about, pnpm and the installed dependency trees are required
@@ -226,8 +227,8 @@ structurally complete (`codesign --verify --deep --strict` and
 ad-hoc rejection and fails on invalid or unexpected signatures. Quarantine
 double-click behavior has not been verified.
 
-`tests/scripts/s16_accept.sh` checks the local S16 release evidence without a
-printer: archives, schema consistency, `SHA256SUMS`, `BUILD-INFO`, DMG
+`tests/scripts/s16_accept.sh` checks the local release acceptance evidence
+without a printer: archives, schema consistency, `SHA256SUMS`, `BUILD-INFO`, DMG
 app/sidecar signatures, portable mode and SBOM/licenses. Use `--build-only` to
 inspect `dist/shards` before assembling:
 

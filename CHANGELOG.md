@@ -6,11 +6,12 @@ uses the versioning policy in [CONTRIBUTING.md](CONTRIBUTING.md#versioning).
 
 ## [Unreleased]
 
-
 ## [0.2.6] - 2026-11-23
 
 CI-only cut after the v0.2.5 Release run failed in the gates. No printing
 behaviour changes.
+
+This entry describes `main` as `0.2.6-dev`; it has not been tagged or released.
 
 ### Fixed
 
@@ -35,6 +36,9 @@ behaviour changes.
 
 CI-only cut. Proves the reworked Release workflow; no printing behaviour changes.
 
+The v0.2.5 tag exists, but its Release run failed and no GitHub release was
+published.
+
 ### Fixed
 
 - The Release verify job no longer hangs: the engine test that waited on a
@@ -55,6 +59,8 @@ CI-only cut. Proves the reworked Release workflow; no printing behaviour changes
 
 Paint-barrier cut. Makes the macOS render deterministic on loaded CI runners;
 no printing behaviour changes.
+
+This is the latest published release.
 
 ### Fixed
 

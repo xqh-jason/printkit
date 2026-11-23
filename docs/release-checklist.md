@@ -8,8 +8,12 @@ plus the release gates that must pass before a tag is published.
 These are not files and cannot be checked by CI:
 
 - [ ] Description matches the release scope (macOS-first; Windows preview).
-- [ ] Homepage points at the documentation entry point.
-- [ ] Topics: `pdf`, `printing`, `rust`, `macos`, `windows`, `json`.
+- [ ] Only `.github/workflows/ci.yml` (main/PR) and
+      `.github/workflows/release.yml` (tags plus manual dry runs) exist; no
+      fix-specific or historical workflow is retained.
+- [ ] Homepage is empty unless a separate project site exists.
+- [ ] Topics: `pdf`, `printing`, `rust`, `macos`, `windows`, `json`,
+      `desktop`, `tauri`, `cli`.
 - [ ] Security → Private vulnerability reporting is enabled (see `SECURITY.md`).
 - [ ] `main` requires the CI checks and at least one review before merge.
 - [ ] Release tags are protected from force-push/deletion.
@@ -22,14 +26,10 @@ These are not files and cannot be checked by CI:
       commit (the `Unreleased` section is merged into that heading).
 - [ ] `Cargo.toml`, desktop package/Cargo/`tauri.conf.json`, SDK and i18n
       versions are equal (`scripts/release.sh` verifies this).
-- [ ] The public protocol/schema snapshot is regenerated from the release
+- [ ] The protocol/schema snapshot in `schema/` is regenerated from the release
       commit. It must not still advertise removed methods such as `calib.*`,
       and its method, error and warning lists must match
-      `schema/protocol-v1.json`. `public-snapshot-next` must be rebuilt from
-      the release commit's tree: `git rev-parse public-snapshot-next^{tree}`
-      and `git rev-parse <release-commit>^{tree}` must print the same id (one
-      root commit, no `_work`/`dist`/`target`). The old `public-snapshot`
-      branch is a frozen historical tip and is never the release tree.
+      `schema/protocol-v1.json`.
 - [ ] `THIRD-PARTY-NOTICES.md` was regenerated from the target-all SBOM
       (`cargo cyclonedx --target all` for the CLI and the desktop workspace,
       plus the production Node inventory and the first-party entries), so

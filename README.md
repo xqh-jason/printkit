@@ -11,6 +11,13 @@ English | [Chinese](README.zh-CN.md)
 [![License: MIT OR Apache-2.0](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](LICENSE-MIT)
 [![Platform: macOS arm64 | Windows preview](https://img.shields.io/badge/platform-macOS%20arm64%20%7C%20Windows%20preview-lightgrey.svg)](#platform-support)
 
+## Status
+
+- Latest published release: **[v0.2.4](https://github.com/xqh-jason/printkit/releases/tag/v0.2.4)**.
+- `main` is **0.2.6-dev**; it is not tagged or released.
+- Download archives and installers from [GitHub Releases](https://github.com/xqh-jason/printkit/releases/latest).
+- Windows is preview: v0.2.4 ships no Windows CLI archive or desktop installer.
+
 ## Why printkit
 
 - **Local by construction.** The service binds `127.0.0.1` only. A browser page
@@ -45,25 +52,26 @@ flowchart LR
 
 ## Install
 
-macOS 11 or newer on Apple silicon, no administrator rights. Release artifacts
-fall into two groups:
+macOS 11 or newer on Apple silicon, no administrator rights. Download the
+latest published release, currently v0.2.4, from
+[GitHub Releases](https://github.com/xqh-jason/printkit/releases/latest). Its
+artifacts fall into two groups:
 
 **Distribution archives** (no installer step):
 
 - `printkit-macos-arm64.tar.gz` — the CLI binary. Extract it together with
   `printkit-schema-macos-arm64.tar.gz`; the binary reads the schema contracts
   from the extracted `schema/` directory.
-- Windows ships no CLI archive in this release.
+- v0.2.4 ships no Windows CLI archive.
 
 **Installers** (desktop app only):
 
 - `printkit-desktop-macos-arm64.dmg` — drag it to Applications and launch it;
   it starts the local service itself. Ad-hoc signed, not notarized, so the
   first launch may need right-click → Open.
-- Windows: the release workflow builds
-  `printkit-desktop-windows-x64-setup.exe` (NSIS) and
-  `printkit-desktop-windows-x64.msi`. Both are unsigned and have never been
-  installed on a real Windows host.
+- Windows installers are built by the tagged release workflow for a future
+  release, but v0.2.4 does not include them. They are unsigned and have never
+  been installed on a real Windows host.
 
 A release also ships `SHA256SUMS`, `sbom.cdx.json`, `THIRD-PARTY-NOTICES.md`,
 `LICENSE-MIT`, `LICENSE-APACHE` and `OFL.txt`; the JSON Schema contracts and the
@@ -111,8 +119,8 @@ Full reference: [docs/cli.md](docs/cli.md).
 | Batch / `doc.printBatch` | ✅ | ⚠️ |
 | `doc.printPdf` passthrough | ✅ | ⚠️ |
 | Duplex | — ² | — ² |
-| Distribution | tar.gz | none |
-| Installer | dmg | NSIS/MSI ³ |
+| Distribution | tar.gz | not published |
+| Installer | dmg | not published ³ |
 
 ✅ implemented for this release. ⚠️ implemented, not verified on real Windows
 hardware. — not offered.
@@ -122,9 +130,9 @@ hardware. — not offered.
 2. Duplex requests are rejected with `E_UNSUPPORTED` on both platforms until a
    physical duplex printer is verified. The rejection is deliberate: a duplex
    job never silently prints single-sided.
-3. Built by the release workflow, unsigned, not installed on a real Windows
-   host. The NSIS installer downloads the WebView2 bootstrapper when the runtime
-   is missing.
+3. v0.2.4 publishes only macOS artifacts. The tagged workflow has Windows
+   installer jobs, but no Windows installer has been published or verified on
+   real Windows hardware.
 
 The Windows render pool is dynamic: half the logical cores, at least one and at
 most four WebView2 workers (`render.workers` can only lower it). It needs
@@ -228,9 +236,10 @@ release fixes bugs. `schema/document-v1.json` and `protocol-v1.json` are
 versioned independently; after the first public release, version 1 of each stays
 compatible within its major version. The MSRV is Rust 1.89 and is raised only in
 a minor release. Deprecations are announced in [CHANGELOG.md](CHANGELOG.md) at
-least one minor release ahead. `0.2.6` is still a pre-1.0 release, so methods
-removed before the first public release (for example `calib.set`/`calib.list`)
-are a pre-release breaking change and carry no compatibility shim. Every release
+least one minor release ahead. The `main` branch is `0.2.6-dev`, still pre-1.0,
+so methods removed before the first public release (for example
+`calib.set`/`calib.list`) are a pre-release breaking change and carry no
+compatibility shim. Every release
 tag must have a matching changelog entry; GitHub
 release notes are generated from that tag.
 
