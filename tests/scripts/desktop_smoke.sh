@@ -52,6 +52,16 @@ fail() {
   exit 1
 }
 
+# `kill -0` answers "does this pid exist", not "is it still running". A killed
+# child can stay a zombie until its new parent reaps it, and macOS CI runners
+# schedule that reaping later than a developer machine. Treat a zombie as exited
+# while still requiring every non-zombie process to disappear.
+pid_running() {
+  local state
+  state=$(ps -o stat= -p "$1" 2>/dev/null | tr -d ' ')
+  [[ -n $state && ${state:0:1} != Z ]]
+}
+
 # --- stopped, then start the sidecar ----------------------------------------
 
 [[ ! -e $data/serve.lock ]] || fail "a fresh data directory already has serve.lock"
@@ -337,17 +347,22 @@ if [[ -s $dev_data/serve.lock ]]; then
   kill "$desktop_pid" 2>/dev/null || true
   wait "$desktop_pid" 2>/dev/null || true
   desktop_pid=
-  if kill -0 "$sidecar_pid" 2>/dev/null; then
+  if pid_running "$sidecar_pid"; then
     kill "$sidecar_pid" 2>/dev/null || true
   fi
   # SIGTERM gives the service a bounded 2 s drain; a loaded CI runner can need
   # a little longer to tear the process down, so wait up to 10 s before calling
-  # it a survivor.
+  # it a survivor. A zombie has already exited; only a running process counts.
   for _ in $(seq 1 100); do
-    kill -0 "$sidecar_pid" 2>/dev/null || break
+    pid_running "$sidecar_pid" || break
     sleep 0.1
   done
-  ! kill -0 "$sidecar_pid" 2>/dev/null || fail "the desktop sidecar survived SIGTERM"
+  if pid_running "$sidecar_pid"; then
+    fail "the desktop sidecar survived SIGTERM ($(ps -o pid,ppid,stat,etime,command -p "$sidecar_pid" 2>/dev/null | tr '\n' ' '); serve: $(tail -3 "$dev_data/serve.log" 2>/dev/null))"
+  fi
+  if curl -fsS -o /dev/null "http://127.0.0.1:$dev_port/admin/session" 2>/dev/null; then
+    fail "the desktop sidecar port still answers after the process exited"
+  fi
   printf 'desktop shell: exited without leaving a window or sidecar\n'
 else
   # The shell process is alive but did not create its sidecar within 15s. This
