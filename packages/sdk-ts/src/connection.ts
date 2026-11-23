@@ -10,7 +10,7 @@ import { EngineError } from "./errors.js";
 import type { MethodName } from "./methods.js";
 import type { ErrorBody, JobEvent, TraceEventView, WarningBody, Welcome } from "./types.js";
 
-const SDK_VERSION = "0.2.5";
+const SDK_VERSION = "0.2.6";
 
 /** Fallback when neither the call nor `createEngine` sets a timeout. */
 const DEFAULT_REQUEST_TIMEOUT_MS = 30_000;

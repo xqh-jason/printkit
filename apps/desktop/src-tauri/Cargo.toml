@@ -1,6 +1,6 @@
 [package]
 name = "printkit-desktop"
-version = "0.2.5"
+version = "0.2.6"
 description = "Local desktop console for the printkit service"
 edition = "2021"
 rust-version = "1.82"
