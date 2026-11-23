@@ -55,7 +55,7 @@ flate2 = "1"
 zip = { version = "9", default-features = false, features = ["deflate"] }
 # TypeScript bindings for the published contracts. Optional everywhere: a
 # release build carries neither the crate nor its macros.
-ts-rs = { version = "11", default-features = false, features = ["serde-compat", "no-serde-warnings"] }
+ts-rs = { version = "12", default-features = false, features = ["serde-compat", "no-serde-warnings"] }
 
 # HTTP/WS service face. No TLS features: the listener is loopback-only.
 salvo = { version = "0.85", default-features = false, features = [
