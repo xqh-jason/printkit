@@ -19,6 +19,10 @@ This entry describes `main` as `0.2.6-dev`; it has not been tagged or released.
   `Image.decode()`. Calling `decode()` on a still-loading image rejects at once;
   the old barrier swallowed that rejection and could capture a white page
   background on a cold WKWebView.
+- macOS PDF capture now takes a `WKWebView` snapshot with
+  `afterScreenUpdates=true` before `createPDF`, so the capture waits for the
+  compositor to paint rather than trusting `Image.complete`. A snapshot error
+  or timeout is reported as a render failure instead of producing a white page.
 - The desktop shell handles SIGTERM/SIGINT through the same quit path as the
   tray action: stop the owned sidecar, wait for it, then exit.
 - `printkit serve` unblocks inherited SIGTERM/SIGINT before installing its
