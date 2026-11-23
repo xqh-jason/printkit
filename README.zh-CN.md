@@ -192,7 +192,7 @@ core 打印不依赖任何插件：两个全关时 `pdf`、`print`、`printBatch
 1.0 之前：次版本可能改变 CLI 或服务行为，补丁版本只修 bug。
 `schema/document-v1.json` 与 `protocol-v1.json` 独立版本化；首次公开发布后，
 各自的 version 1 在同一大版本内保持兼容。MSRV 为 Rust 1.89，只在次版本提升。
-弃用会在 [CHANGELOG.md](CHANGELOG.md) 中提前至少一个次版本说明。`0.2.4` 仍是
+弃用会在 [CHANGELOG.md](CHANGELOG.md) 中提前至少一个次版本说明。`0.2.5` 仍是
 1.0 之前的版本，因此首次公开发布前删除的方法（如 `calib.set`/`calib.list`）
 属于预发布 breaking change，不提供兼容层。每个 release tag 必须有对应的
 changelog 条目；GitHub release notes 由该 tag 生成。

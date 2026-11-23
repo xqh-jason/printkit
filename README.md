@@ -228,7 +228,7 @@ release fixes bugs. `schema/document-v1.json` and `protocol-v1.json` are
 versioned independently; after the first public release, version 1 of each stays
 compatible within its major version. The MSRV is Rust 1.89 and is raised only in
 a minor release. Deprecations are announced in [CHANGELOG.md](CHANGELOG.md) at
-least one minor release ahead. `0.2.4` is still a pre-1.0 release, so methods
+least one minor release ahead. `0.2.5` is still a pre-1.0 release, so methods
 removed before the first public release (for example `calib.set`/`calib.list`)
 are a pre-release breaking change and carry no compatibility shim. Every release
 tag must have a matching changelog entry; GitHub

@@ -16209,7 +16209,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-## cookie `0.18.2`
+## cookie `0.18.3`
 
 - License expression: `MIT OR Apache-2.0`
 - Copyright: Copyright 2017 Sergio Benitez / Copyright 2014 Alex Chricton / Copyright (c) 2017 Sergio Benitez / Copyright (c) 2014 Alex Crichton
@@ -16217,7 +16217,7 @@ SOFTWARE.
 
 ### Apache-2.0
 
-- Source: `cargo:cookie@0.18.2/LICENSE-APACHE`
+- Source: `cargo:cookie@0.18.3/LICENSE-APACHE`
 
 ```
                               Apache License
@@ -16426,7 +16426,7 @@ limitations under the License.
 
 ### MIT
 
-- Source: `cargo:cookie@0.18.2/LICENSE-MIT`
+- Source: `cargo:cookie@0.18.3/LICENSE-MIT`
 
 ```
 Copyright (c) 2017 Sergio Benitez

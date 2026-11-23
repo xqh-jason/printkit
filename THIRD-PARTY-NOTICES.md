@@ -156,7 +156,7 @@ a statement of full compliance.
 - **concurrent-queue** `2.5.0` — Apache-2.0 OR MIT — author: Stjepan Glavina <stjepang@gmail.com>, Taiki Endo <te316e89@gmail.com>, John Nunley <dev@notgull.net> — <https://github.com/smol-rs/concurrent-queue>
 - **const-oid** `0.10.2` — Apache-2.0 OR MIT — author: RustCrypto Developers — <https://github.com/RustCrypto/formats>
 - **content_inspector** `0.2.4` — MIT OR Apache-2.0 — author: David Peter <mail@david-peter.de> — <https://github.com/sharkdp/content_inspector>
-- **cookie** `0.18.2` — MIT OR Apache-2.0 — author: Sergio Benitez <sb@sergio.bz>, Alex Crichton <alex@alexcrichton.com> — <https://github.com/SergioBenitez/cookie-rs>
+- **cookie** `0.18.3` — MIT OR Apache-2.0 — author: Sergio Benitez <sb@sergio.bz>, Alex Crichton <alex@alexcrichton.com> — <https://github.com/SergioBenitez/cookie-rs>
 - **core-foundation** `0.10.1` — MIT OR Apache-2.0 — author: The Servo Project Developers — <https://github.com/servo/core-foundation-rs>
 - **core-foundation-sys** `0.8.7` — MIT OR Apache-2.0 — author: The Servo Project Developers — <https://github.com/servo/core-foundation-rs>
 - **core-graphics** `0.25.0` — MIT OR Apache-2.0 — author: The Servo Project Developers — <https://github.com/servo/core-foundation-rs>
@@ -733,25 +733,25 @@ a statement of full compliance.
 
 ## First-party components
 
-- **@printkit/i18n** `0.2.4` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit** `0.2.4` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-barcode** `0.2.4` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-core** `0.2.4` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-engine** `0.2.4` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-facade** `0.2.4` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-pdf** `0.2.4` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-platform** `0.2.4` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-platform-mac** `0.2.4` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-platform-win** `0.2.4` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **@printkit/i18n** `0.2.5` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit** `0.2.5` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-barcode** `0.2.5` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-core** `0.2.5` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-engine** `0.2.5` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-facade** `0.2.5` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-pdf** `0.2.5` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-platform** `0.2.5` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-platform-mac** `0.2.5` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-platform-win** `0.2.5` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
 - **printkit-plugin-api** `1.0.0` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-plugin-host** `0.2.4` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-plugin-observability** `0.2.4` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-plugin-records** `0.2.4` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-protocol** `0.2.4` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-render** `0.2.4` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-schema** `0.2.4` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-store** `0.2.4` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-trace** `0.2.4` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-plugin-host** `0.2.5` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-plugin-observability** `0.2.5` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-plugin-records** `0.2.5` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-protocol** `0.2.5` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-render** `0.2.5` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-schema** `0.2.5` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-store** `0.2.5` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-trace** `0.2.5` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
 
 ## Per-component copyright notices
 
@@ -863,7 +863,7 @@ a statement of full compliance.
 - **concurrent-queue** `2.5.0` — [packaged metadata has no copyright line; see upstream source]
 - **const-oid** `0.10.2` — Copyright (c) 2020-2026 The RustCrypto Project Developers
 - **content_inspector** `0.2.4` — [packaged metadata has no copyright line; see upstream source]
-- **cookie** `0.18.2` — Copyright 2017 Sergio Benitez / Copyright 2014 Alex Chricton / Copyright (c) 2017 Sergio Benitez / Copyright (c) 2014 Alex Crichton
+- **cookie** `0.18.3` — Copyright 2017 Sergio Benitez / Copyright 2014 Alex Chricton / Copyright (c) 2017 Sergio Benitez / Copyright (c) 2014 Alex Crichton
 - **core-foundation** `0.10.1` — Copyright (c) 2012-2013 Mozilla Foundation
 - **core-foundation-sys** `0.8.7` — Copyright (c) 2012-2013 Mozilla Foundation
 - **core-graphics** `0.25.0` — Copyright (c) 2012-2013 Mozilla Foundation

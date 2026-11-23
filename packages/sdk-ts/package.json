@@ -1,6 +1,6 @@
 {
   "name": "@printkit/sdk",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "private": true,
   "description": "TypeScript client for the printkit print service",
   "license": "MIT OR Apache-2.0",

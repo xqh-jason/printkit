@@ -6,6 +6,26 @@ uses the versioning policy in [CONTRIBUTING.md](CONTRIBUTING.md#versioning).
 
 ## [Unreleased]
 
+## [0.2.5] - 2026-11-23
+
+CI-only cut. Proves the reworked Release workflow; no printing behaviour changes.
+
+### Fixed
+
+- The Release verify job no longer hangs: the engine test that waited on a
+  blocking reader now bounds its wait, so `cargo test` completes on a loaded
+  runner.
+- GitHub Actions are pinned to Node 24 releases: `actions/checkout` v7.0.1,
+  `actions/setup-node` v7.1.0 and `pnpm/action-setup` v6.1.1 (SHA pinned).
+- `cookie` is updated to 0.18.3 (RUSTSEC-2026-0594: private-cookie nonces could
+  repeat after `fork()`; printkit's single-process service was not affected,
+  and the advisory gate now passes on the patched release).
+
+### Changed
+
+- Package, desktop, Tauri, SDK and i18n versions are 0.2.5.
+
+
 ## [0.2.4] - 2026-11-23
 
 Paint-barrier cut. Makes the macOS render deterministic on loaded CI runners;

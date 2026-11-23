@@ -32,7 +32,7 @@ import type {
   WindowRef,
 } from "./types.js";
 
-export const SDK_VERSION = "0.2.4";
+export const SDK_VERSION = "0.2.5";
 
 const DEFAULT_CONNECT_TIMEOUT_MS = 5_000;
 /** A request that only submits work and returns a job id or a handle. */
