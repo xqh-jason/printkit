@@ -15,7 +15,7 @@
   "dependencies": {
     "@element-plus/icons-vue": "2.3.2",
     "@printkit/i18n": "link:../../packages/i18n",
-    "@tauri-apps/api": "2.12.4",
+    "@tauri-apps/api": "2.12.5",
     "element-plus": "2.14.8",
     "vue": "3.5.45"
   },
