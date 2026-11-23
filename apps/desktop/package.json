@@ -17,7 +17,7 @@
     "@printkit/i18n": "link:../../packages/i18n",
     "@tauri-apps/api": "2.12.4",
     "element-plus": "2.14.8",
-    "vue": "3.5.45"
+    "vue": "3.5.46"
   },
   "devDependencies": {
     "@tauri-apps/cli": "2.12.4",
