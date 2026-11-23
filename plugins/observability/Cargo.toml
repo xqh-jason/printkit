@@ -1,0 +1,15 @@
+[package]
+name = "printkit-plugin-observability"
+description = "Built-in observability plugin: trace methods, records and log export."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+
+[dependencies]
+printkit-plugin-api.workspace = true
+
+[lints]
+workspace = true

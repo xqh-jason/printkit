@@ -1,0 +1,460 @@
+/* Base reset and the shared application shell. */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow-x: clip;
+  overflow-y: hidden;
+  background: var(--pk-bg);
+  color: var(--pk-text);
+  font-family: var(--pk-font-sans);
+  font-size: var(--pk-font-size-base);
+  line-height: var(--pk-line-height);
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  height: 100%;
+  overflow: hidden;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--pk-focus);
+  outline-offset: 1px;
+}
+
+/* Quiet 8px scrollbars on macOS as well; the table keeps its own overflow. */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: var(--pk-radius-pill);
+  background: var(--pk-scrollbar);
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--pk-scrollbar) transparent;
+}
+
+/* ---------------------------------------------------------------- shell --- */
+
+.app-shell {
+  display: grid;
+  grid-template-columns: var(--pk-sidebar-column, 0px) minmax(0, 1fr);
+  grid-template-rows: var(--pk-header-height) auto minmax(0, 1fr);
+  height: 100vh;
+  background: var(--pk-bg);
+  /* Width changes are layout, not motion: no transition on the grid. */
+}
+
+.app-sidebar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  width: var(--pk-sidebar-width, var(--pk-sidebar-default));
+  min-width: 0;
+  min-height: 0;
+  border-right: 1px solid var(--pk-border);
+  background: var(--pk-bg);
+  overflow: hidden;
+}
+
+.brand {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 5px;
+  height: var(--pk-header-height);
+  padding: 0 16px;
+  border-bottom: 0;
+}
+
+.app-sidebar.narrow .brand {
+  padding-right: 8px;
+}
+
+.app-sidebar.narrow .brand-name {
+  display: none;
+}
+
+.brand-mark {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+}
+
+.brand-name {
+  flex: 0 1 auto;
+  min-width: 0;
+  font-size: 13.5px;
+  font-weight: var(--pk-font-weight-strong);
+  letter-spacing: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nav {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 12px 10px;
+}
+
+.nav-group {
+  margin: 10px 8px 6px;
+  color: var(--pk-text-subtle);
+  font-size: var(--pk-font-size-caption);
+  font-weight: var(--pk-font-weight-medium);
+  letter-spacing: 0.02em;
+}
+
+.nav-group:first-child {
+  margin-top: 0;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+  height: var(--pk-row-nav);
+  padding: 0 10px;
+  border: 0;
+  border-radius: var(--pk-radius-control);
+  background: transparent;
+  color: var(--pk-text-muted);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--pk-motion-fast) var(--pk-ease-control),
+    color var(--pk-motion-fast) var(--pk-ease-control);
+}
+
+.nav-item:hover {
+  background: var(--pk-surface-sunken);
+  color: var(--pk-text);
+}
+
+.nav-item.active {
+  background: var(--pk-surface);
+  box-shadow: var(--pk-shadow-light);
+  color: var(--pk-text);
+  font-weight: var(--pk-font-weight-medium);
+}
+
+.nav-icon {
+  flex: none;
+  width: 16px;
+  font-size: 16px;
+  color: var(--pk-text-muted);
+}
+
+.nav-item.active .nav-icon {
+  color: var(--pk-accent);
+}
+
+.nav-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--pk-font-size-base);
+}
+.sidebar-foot {
+  flex: none;
+  padding: 10px 8px;
+  border-top: 1px solid var(--pk-border);
+}
+
+
+/* 8px hit area around the 1px seam: comfortable for trackpads and mice. */
+.sidebar-resizer {
+  position: absolute;
+  top: 0;
+  right: -4px;
+  z-index: 4;
+  width: 8px;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  cursor: col-resize;
+  touch-action: none;
+}
+
+.sidebar-resizer::after {
+  position: absolute;
+  top: 0;
+  right: 3px;
+  width: 1px;
+  height: 100%;
+  background: transparent;
+  content: "";
+}
+
+.sidebar-resizer:hover::after,
+.sidebar-resizer.dragging::after,
+.sidebar-resizer:focus-visible::after {
+  background: var(--pk-accent);
+}
+
+.app-header {
+  display: flex;
+  grid-column: 2;
+  grid-row: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+  padding: 0 16px;
+  border-bottom: 0;
+  background: var(--pk-bg);
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.header-title h1 {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: var(--pk-font-weight-strong);
+  letter-spacing: -0.01em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.breadcrumb {
+  color: var(--pk-text-muted);
+  font-size: var(--pk-font-size-secondary);
+  white-space: nowrap;
+}
+
+.breadcrumb-separator {
+  color: var(--pk-text-subtle);
+  font-size: var(--pk-font-size-caption);
+}
+
+.header-actions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 6px;
+}
+
+.header-tabs {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.nav-toggle {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--pk-text-muted);
+  cursor: pointer;
+}
+
+.nav-toggle:hover {
+  background: var(--pk-surface-sunken);
+  color: var(--pk-text);
+}
+
+/* Top tab bar replaces the sidebar below the 900px breakpoint. */
+.top-tabs {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.top-tabs .brand-mark {
+  width: 24px;
+  height: 24px;
+}
+
+.top-tab-list {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+
+.top-tab-list::-webkit-scrollbar {
+  display: none;
+}
+
+.top-tab {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: var(--pk-radius-control);
+  background: transparent;
+  color: var(--pk-text-muted);
+  font-size: 12.5px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.top-tab:hover {
+  background: var(--pk-surface-sunken);
+  color: var(--pk-text);
+}
+
+.top-tab.active {
+  background: var(--pk-accent-soft);
+  color: var(--pk-text);
+  font-weight: var(--pk-font-weight-medium);
+}
+
+.top-tab.active .nav-icon {
+  color: var(--pk-accent);
+}
+
+.top-tab-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Narrow header: tight keeps the brand, only crowded/packed drop it. */
+.top-tabs[data-fit="tight"] {
+  gap: 6px;
+}
+
+.top-tabs[data-fit="tight"] .top-tab-list {
+  gap: 1px;
+}
+
+.top-tabs[data-fit="cramped"] .top-tab {
+  padding: 0 8px;
+}
+
+.top-tabs[data-fit="crowded"] .top-tab {
+  gap: 4px;
+  padding: 0 6px;
+  font-size: 12px;
+}
+
+.top-tabs[data-fit="crowded"] .brand-mark,
+.top-tabs[data-fit="packed"] .brand-mark {
+  display: none;
+}
+
+.top-tabs[data-fit="crowded"] .top-tab .nav-icon,
+.top-tabs[data-fit="packed"] .top-tab .nav-icon {
+  display: none;
+}
+
+.top-tabs[data-fit="packed"] {
+  gap: 4px;
+}
+
+.top-tabs[data-fit="packed"] .top-tab {
+  gap: 0;
+  padding: 0 3px;
+  font-size: 11.5px;
+}
+
+.top-tab-list.scrollable {
+  overflow-x: auto;
+}
+
+.top-tab-list.fade-right {
+  mask-image: linear-gradient(90deg, black calc(100% - 18px), transparent);
+}
+
+.top-tab-list.fade-left {
+  mask-image: linear-gradient(90deg, transparent, black 18px);
+}
+
+.top-tab-list.fade-left.fade-right {
+  mask-image: linear-gradient(90deg, transparent, black 18px, black calc(100% - 18px), transparent);
+}
+
+.app-main {
+  grid-column: 2;
+  grid-row: 3;
+  min-width: 0;
+  min-height: 0;
+  overflow-x: auto;
+  overflow-y: auto;
+  background: var(--pk-bg);
+}
+
+.app-main .page {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  /* window view: 2px top, 16px sides, 8px bottom. */
+  padding: 2px 16px 8px;
+}
+
+/* ------------------------------------------------------- breakpoints --- */
+
+@media (max-width: 860px) {
+  .metric-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .app-main .page {
+    padding: 2px 12px 8px;
+  }
+
+  .header-actions {
+    gap: 4px;
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "spec": {
+        "size": "A4",
+        "margins": {
+          "top": 15,
+          "right": 15,
+          "bottom": 15,
+          "left": 15
+        }
+      },
+      "items": [
+        {
+          "id": "han",
+          "type": "text",
+          "frame": {
+            "x": 20,
+            "y": 20,
+            "width": 170,
+            "height": 20
+          },
+          "style": {
+            "fontFamily": "Source Han Sans SC",
+            "fontSize": 6,
+            "lineHeight": 1.4
+          },
+          "data": {
+            "text": "打印工具字形自检：中文、数字 0123、符号，。！？"
+          }
+        },
+        {
+          "id": "mono",
+          "type": "text",
+          "frame": {
+            "x": 20,
+            "y": 50,
+            "width": 170,
+            "height": 12
+          },
+          "style": {
+            "fontFamily": "Noto Sans Mono",
+            "fontSize": 4,
+            "lineHeight": 1.4
+          },
+          "data": {
+            "text": "PRINTKIT-2026-11-07 12:34:56 ABCDEFG 0123456789"
+          }
+        },
+        {
+          "id": "code",
+          "type": "barcode",
+          "frame": {
+            "x": 20,
+            "y": 70,
+            "width": 60,
+            "height": 25
+          },
+          "style": {
+            "showText": true
+          },
+          "data": {
+            "kind": "code128",
+            "value": "PK-0001"
+          }
+        }
+      ]
+    }
+  ]
+}

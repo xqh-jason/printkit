@@ -1,0 +1,23 @@
+{
+  "app": {
+    "windows": [
+      {
+        "label": "business",
+        "title": "printkit",
+        "width": 900,
+        "height": 633,
+        "minWidth": 560,
+        "minHeight": 420,
+        "center": true,
+        "resizable": true,
+        "maximizable": true,
+        "titleBarStyle": "Overlay",
+        "hiddenTitle": true,
+        "trafficLightPosition": {
+          "x": 12,
+          "y": 27
+        }
+      }
+    ]
+  }
+}

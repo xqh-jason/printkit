@@ -1,0 +1,221 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "spec": {
+        "size": "A4"
+      },
+      "items": [
+        {
+          "id": "shape-rect",
+          "type": "shape",
+          "frame": {
+            "x": 20.0,
+            "y": 20.0,
+            "width": 40.0,
+            "height": 20.0
+          },
+          "data": {
+            "kind": "rect"
+          }
+        },
+        {
+          "id": "shape-circle",
+          "type": "shape",
+          "frame": {
+            "x": 20.0,
+            "y": 50.0,
+            "width": 30.0,
+            "height": 30.0
+          },
+          "data": {
+            "kind": "circle"
+          }
+        },
+        {
+          "id": "shape-ellipse",
+          "type": "shape",
+          "frame": {
+            "x": 80.0,
+            "y": 20.0,
+            "width": 50.0,
+            "height": 25.0
+          },
+          "data": {
+            "kind": "ellipse"
+          }
+        },
+        {
+          "id": "shape-polygon",
+          "type": "shape",
+          "frame": {
+            "x": 80.0,
+            "y": 50.0,
+            "width": 50.0,
+            "height": 25.0
+          },
+          "data": {
+            "kind": "polygon",
+            "points": [
+              0.1,
+              0.1,
+              49.9,
+              0.1,
+              49.9,
+              24.9,
+              0.1,
+              24.9
+            ]
+          }
+        },
+        {
+          "id": "shape-tian-grid",
+          "type": "shape",
+          "frame": {
+            "x": 150.0,
+            "y": 20.0,
+            "width": 40.0,
+            "height": 30.0
+          },
+          "data": {
+            "kind": "tianGrid",
+            "cell": {
+              "rows": 3,
+              "cols": 4
+            }
+          }
+        },
+        {
+          "id": "shape-text-rule",
+          "type": "shape",
+          "frame": {
+            "x": 150.0,
+            "y": 60.0,
+            "width": 40.0,
+            "height": 20.0
+          },
+          "data": {
+            "kind": "textRule"
+          }
+        },
+        {
+          "id": "shape-line",
+          "type": "shape",
+          "frame": {
+            "x": 20.0,
+            "y": 90.0,
+            "width": 60.0,
+            "height": 5.0
+          },
+          "data": {
+            "kind": "line"
+          }
+        },
+        {
+          "id": "barcode-qr",
+          "type": "barcode",
+          "frame": {
+            "x": 20.0,
+            "y": 110.0,
+            "width": 30.0,
+            "height": 30.0
+          },
+          "data": {
+            "kind": "qr",
+            "value": "https://example.invalid/printkit"
+          },
+          "style": {
+            "quietZone": 0.0,
+            "ecLevel": "M"
+          }
+        },
+        {
+          "id": "text-origin",
+          "type": "text",
+          "frame": {
+            "x": 20.0,
+            "y": 150.0,
+            "width": 60.0,
+            "height": 6.0
+          },
+          "data": {
+            "text": "GEOMX"
+          }
+        },
+        {
+          "id": "text-line-height",
+          "type": "text",
+          "frame": {
+            "x": 20.0,
+            "y": 170.0,
+            "width": 60.0,
+            "height": 20.0
+          },
+          "data": {
+            "text": "LHONE\nLHTWO"
+          },
+          "style": {
+            "fontSize": 3.5,
+            "lineHeight": 1.5
+          }
+        },
+        {
+          "id": "table-small",
+          "type": "table",
+          "frame": {
+            "x": 20.0,
+            "y": 200.0,
+            "width": 170.0,
+            "height": 37.0
+          },
+          "data": {
+            "columns": [
+              {
+                "key": "item",
+                "title": "Item",
+                "width": 70.0,
+                "align": "left"
+              },
+              {
+                "key": "amount",
+                "title": "Amount",
+                "width": "auto",
+                "align": "right"
+              }
+            ],
+            "rows": [
+              {
+                "item": "Alpha",
+                "amount": "10.00"
+              },
+              {
+                "item": "Beta",
+                "amount": "20.00"
+              },
+              {
+                "item": "Gamma",
+                "amount": "30.00"
+              },
+              {
+                "item": "Delta",
+                "amount": "39.00"
+              }
+            ],
+            "footer": {
+              "label": "Total",
+              "values": {
+                "amount": "99.00"
+              }
+            }
+          },
+          "style": {
+            "fontSize": 2.8,
+            "rowHeight": 6.0,
+            "borderWidth": 0.15,
+            "zebra": false
+          }
+        }
+      ]
+    }
+  ]
+}

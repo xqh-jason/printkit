@@ -1,0 +1,298 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+# A newer push makes the previous run on the same ref obsolete.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    # macOS arm64 and x86_64 are the hosts the platform layer compiles for.
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15, macos-15-intel]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
+          components: rustfmt, clippy
+      - uses: dtolnay/rust-toolchain@2c76c034f9e32a5d6e2c104dc4df23a22476db04 # nightly
+        with:
+          toolchain: nightly
+          components: rustfmt
+      - name: Install acceptance tools
+        run: |
+          brew install poppler jq
+          cargo install cargo-deny --locked
+          cargo install cargo-hack --locked
+          cargo install cargo-cyclonedx --locked
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          version: 11.1.3
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+      - run: cargo +nightly fmt --all -- --check
+      - run: cargo clippy --workspace --all-targets --all-features -- -D warnings
+      - run: cargo test --workspace --all-features --no-fail-fast
+      - run: cargo test --workspace --doc
+      - run: cargo check --workspace --all-targets
+      # Feature matrix: same command as local gate 10, unconditional here so the
+      # installed cargo-hack cannot stand in for coverage that never runs.
+      - run: cargo hack check --workspace --feature-powerset --depth 1
+      # The shipped binary links SQLite statically; compile that feature set.
+      - run: cargo check -p printkit --features release
+      - run: cargo deny check
+      # Gates 0-17. A skipped gate never counts as a pass.
+      - run: bash scripts/gates.sh
+      - name: Cargo SBOM notices freshness
+        run: |
+          trap 'find crates apps -type f -name .ci-sbom.json -delete' EXIT
+          cargo cyclonedx --manifest-path apps/printkit/Cargo.toml --format json \
+            --all-features --target all --override-filename .ci-sbom --quiet >/dev/null
+          python3 scripts/gen-notices.py --check-cargo \
+            --sbom apps/printkit/.ci-sbom.json
+      # gates.sh is the single definition of gates 0-17: it already runs the
+      # geometry, render-fidelity, pairing, lock-race and URL-fetch checks, so
+      # repeating them here would only hide which script actually failed.
+
+  # rust-version only counts as a promise once it is pinned and checked.
+  msrv:
+    runs-on: macos-15
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: dtolnay/rust-toolchain@599c45df1a24c1c63ae1129a7e59f46654b8fb66 # 1.89.0
+        with:
+          toolchain: 1.89.0
+      - run: cargo check --workspace --all-features
+
+  # The Tauri console is its own Cargo workspace. Compile and frontend checks
+  # run here so a change that breaks the shell cannot hide behind the CLI job.
+  desktop:
+    runs-on: macos-15
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          version: 11.1.3
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: apps/desktop/pnpm-lock.yaml
+      - run: pnpm --dir apps/desktop install --frozen-lockfile
+      - run: pnpm --dir apps/desktop build
+      - run: node packages/i18n/test/check.mjs
+      # packages/i18n declares no dependencies; run its Node-builtin tests
+      # without an install step or a lockfile.
+      - run: pnpm --dir packages/i18n test
+      - run: bash apps/desktop/scripts/prepare-sidecar.sh debug
+      - run: pnpm --dir apps/desktop test:desktop
+      - run: cargo test --manifest-path apps/desktop/src-tauri/Cargo.toml
+      - run: brew install jq
+      - run: bash tests/scripts/desktop_smoke.sh
+        env:
+          PRINTKIT_GUI_E2E: ${{ vars.PRINTKIT_GUI_E2E }}
+      - run: bash tests/scripts/desktop_control_live.sh
+      # The probe launches the real shell and asserts that it spawned the
+      # sidecar. A hosted runner has no GUI session, so this is opt-in next to
+      # PRINTKIT_GUI_E2E; when enabled a failure is fatal, never a skip.
+      - name: Desktop shell sidecar probe (GUI)
+        if: vars.PRINTKIT_GUI_E2E == 'true'
+        run: bash tests/scripts/desktop_sidecar_probe.sh
+      - run: cargo check --manifest-path apps/desktop/src-tauri/Cargo.toml
+      - run: cargo install cargo-deny --locked
+      - name: Node license gate
+        run: |
+          pnpm --dir apps/desktop licenses list --json > /tmp/desktop-licenses.json
+          python3 scripts/node-license-check.py /tmp/desktop-licenses.json
+      - name: Desktop license gate
+        run: cd apps/desktop/src-tauri && cargo deny check licenses
+
+
+  # Windows compiles the real platform-win code: WebView2 PDF/HTML printing,
+  # preview windows, spooler enumeration and raw jobs. This job builds and runs
+  # pure unit tests only; no WebView2 runtime or printer is exercised, so a
+  # green check does not claim Windows printing works on a device.
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
+          components: clippy
+      # `fake-render` shadows the real facade wiring, so both feature profiles
+      # run: default features exercise platform-win, all features exercise the
+      # test double and every optional dependency at once.
+      - run: cargo check --workspace --all-targets
+      - run: cargo check --workspace --all-targets --all-features
+      - run: cargo check -p printkit --features release
+      - run: cargo clippy -p printkit-platform-win --all-targets -- -D warnings
+      # Pure Windows unit tests: print geometry/status mapping, preview
+      # registry/params and the no-spooler-id cancel rule. They need no
+      # WebView2 runtime, desktop or printer.
+      - run: cargo test -p printkit-platform-win --lib
+      - name: Windows rustdoc (missing docs)
+        run: cargo doc -p printkit-platform-win --target x86_64-pc-windows-msvc --all-features --no-deps
+        env:
+          RUSTDOCFLAGS: -D warnings -D missing_docs
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          version: 11.1.3
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: apps/desktop/pnpm-lock.yaml
+      - run: pnpm --dir apps/desktop install --frozen-lockfile
+      - run: pnpm --dir apps/desktop build
+      # The sidecar name must carry `.exe`, otherwise Tauri cannot find the
+      # externalBin it declared.
+      - run: bash apps/desktop/scripts/prepare-sidecar.sh debug
+      - run: cargo check --manifest-path apps/desktop/src-tauri/Cargo.toml
+
+  # Service e2e that needs a real renderer. Preview lives in its own optional
+  # job: a GitHub-hosted macOS runner usually has no GUI session, so it must
+  # not be a green step in this job.
+  e2e:
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
+      - run: brew install poppler jq
+      - run: bash tests/scripts/render_pool_e2e.sh
+      - name: trace subscribe
+        run: |
+          data=$(mktemp -d)
+          PRINTKIT_DATA_DIR="$data" PRINTKIT_KEEP_DATA=1 bash tests/scripts/mock_print.sh 5
+          bash tests/scripts/trace_subscribe.sh "$data"
+      # ws_handshake_limits.sh, url_fetch_guard.sh, lock_race.sh and
+      # ws_idle_limits.sh run inside scripts/gates.sh in the build job. This
+      # job adds the renderer-backed scripts that need a real WebView/pdf path.
+
+  # Manual prerequisite: enable this job on a GUI-capable runner by setting the
+  # repository variable PRINTKIT_GUI_E2E=true. When it is unset the job is
+  # skipped (gray), never reported as a pass. When it is enabled, the script
+  # fails instead of silently skipping if the GUI or a required tool is absent.
+  preview:
+    if: vars.PRINTKIT_GUI_E2E == 'true'
+    runs-on: macos-15
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
+      - run: brew install poppler jq
+      - name: Require a GUI session
+        run: |
+          launchctl print "gui/$(id -u)" >/dev/null 2>&1 || {
+            echo "FAIL: preview_e2e requires a logged-in macOS GUI session" >&2
+            exit 1
+          }
+      - run: bash tests/scripts/preview_e2e.sh
+        env:
+          PRINTKIT_GUI_E2E: 'true'
+
+  # The SDK is its own pnpm package with a pinned lockfile. `test` rebuilds the
+  # bindings from the Rust protocol crate, so the job needs both toolchains.
+  sdk:
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          version: 11.1.3
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: packages/sdk-ts/pnpm-lock.yaml
+      - run: pnpm --dir packages/sdk-ts install --frozen-lockfile
+      - run: pnpm --dir packages/sdk-ts test
+      - run: pnpm --dir packages/sdk-ts test:browser
+      - run: pnpm --dir packages/sdk-ts test:types
+
+  # Full SBOM notices freshness, including npm/desktop components. This job is
+  # the PR-level counterpart to the Cargo-only `--check-cargo` step in build.
+  # `release.sh --sbom-only` generates a target-all SBOM, so this runner sees
+  # the same components as Linux and Windows release shards.
+  notices:
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          version: 11.1.3
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: apps/desktop/pnpm-lock.yaml
+      - name: Install SBOM and Node dependencies
+        run: |
+          cargo install cargo-cyclonedx --locked
+          pnpm --dir apps/desktop install --frozen-lockfile
+          pnpm --dir packages/sdk-ts install --frozen-lockfile
+      - name: Check full notices against a fresh SBOM
+        run: |
+          bash scripts/release.sh --sbom-only --dist /tmp/printkit-notices
+          python3 scripts/gen-notices.py --check \
+            --sbom /tmp/printkit-notices/sbom.cdx.json \
+            --licenses-dir assets/licenses
+          pnpm --dir apps/desktop licenses list --json >/tmp/desktop-licenses.json
+          python3 scripts/node-license-check.py /tmp/desktop-licenses.json
+
+  workflow-lint:
+    runs-on: macos-15
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - run: brew install actionlint
+      - run: actionlint
+
+  # Optional coverage baseline: it uploads a summary but does not gate the PR.
+  # The first run establishes the number; tighten it in a later step only after
+  # the suite is stable across macOS arm64 and Intel.
+  coverage:
+    runs-on: macos-15
+    timeout-minutes: 45
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
+          components: llvm-tools-preview
+      - run: cargo install cargo-llvm-cov --locked
+      - run: cargo llvm-cov --workspace --all-features --summary-only

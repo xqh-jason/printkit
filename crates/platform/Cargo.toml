@@ -1,0 +1,29 @@
+[package]
+name = "printkit-platform"
+description = "Platform traits and types: RenderHost, RenderSpec, platform errors. No implementations."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+
+[features]
+default = []
+# Everything a full build gets: the release binary enables no extra capability.
+full = ["test-support"]
+# Test double for queue, timeout and crash-recovery tests. Never enabled in a
+# release build.
+test-support = ["dep:printkit-pdf"]
+
+[dependencies]
+async-trait.workspace = true
+bytes.workspace = true
+printkit-pdf = { workspace = true, optional = true }
+thiserror.workspace = true
+
+[dev-dependencies]
+futures.workspace = true
+
+[lints]
+workspace = true

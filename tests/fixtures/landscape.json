@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "spec": {
+        "size": "A4",
+        "orientation": "landscape",
+        "margins": {
+          "top": 10,
+          "right": 10,
+          "bottom": 10,
+          "left": 10
+        }
+      },
+      "items": [
+        {
+          "id": "top-left",
+          "type": "text",
+          "frame": {
+            "x": 12,
+            "y": 12,
+            "width": 80,
+            "height": 10
+          },
+          "style": {
+            "fontSize": 5,
+            "lineHeight": 1.2,
+            "color": "#000000",
+            "align": "left"
+          },
+          "data": {
+            "text": "landscape top-left"
+          }
+        },
+        {
+          "id": "bottom-right",
+          "type": "text",
+          "frame": {
+            "x": 205,
+            "y": 188,
+            "width": 80,
+            "height": 10
+          },
+          "style": {
+            "fontSize": 5,
+            "lineHeight": 1.2,
+            "color": "#000000",
+            "align": "left"
+          },
+          "data": {
+            "text": "landscape bottom-right"
+          }
+        }
+      ]
+    }
+  ]
+}

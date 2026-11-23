@@ -1,0 +1,31 @@
+[package]
+name = "printkit-facade"
+description = "The only crate that picks a platform implementation and wires engine, trace and IO."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+
+[features]
+default = []
+url-fetch = ["printkit-engine/url-fetch"]
+# Dev-only: the service renders through the fake host for mock prints and
+# crash-injection acceptance runs. Never enabled in a release build.
+fake-render = ["printkit-platform/test-support"]
+
+[dependencies]
+futures.workspace = true
+printkit-engine.workspace = true
+printkit-platform.workspace = true
+printkit-trace = { workspace = true, features = ["gzip"] }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+printkit-platform-mac.workspace = true
+
+[target.'cfg(windows)'.dependencies]
+printkit-platform-win.workspace = true
+
+[lints]
+workspace = true

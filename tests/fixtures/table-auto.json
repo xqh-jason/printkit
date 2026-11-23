@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "spec": {
+        "size": "A4"
+      },
+      "items": [
+        {
+          "id": "t",
+          "type": "table",
+          "frame": {
+            "x": 10,
+            "y": 10,
+            "width": 50,
+            "height": 30
+          },
+          "style": {
+            "fontSize": 2.8
+          },
+          "data": {
+            "columns": [
+              {
+                "key": "a",
+                "title": "A",
+                "width": 40
+              },
+              {
+                "key": "b",
+                "title": "B",
+                "width": 40
+              },
+              {
+                "key": "c",
+                "title": "C",
+                "width": "auto"
+              }
+            ],
+            "rows": [
+              {
+                "a": "a1",
+                "b": "b1",
+                "c": "VISIBLE_C"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

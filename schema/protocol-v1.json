@@ -1,0 +1,3690 @@
+{
+  "$defs": {
+    "BarcodeData": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "properties": {
+            "value": {
+              "minLength": 1
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "qr",
+                  "pdf417",
+                  "datamatrix"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "maxLength": 2048
+              }
+            }
+          }
+        }
+      ],
+      "description": "The payload of a barcode item.",
+      "properties": {
+        "kind": {
+          "$ref": "#/$defs/BarcodeKind",
+          "description": "Symbology: `code128`, `code39`, `ean13`, `qr`, `pdf417` or `datamatrix`."
+        },
+        "value": {
+          "description": "Encoded value; must not be empty. `ean13` takes 12 digits, or 13 with a\nmatching check digit; `code128` accepts printable ASCII; two-dimensional\ncodes hold at most 2,048 bytes.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "value"
+      ],
+      "type": "object"
+    },
+    "BarcodeKind": {
+      "description": "Barcode symbology.",
+      "oneOf": [
+        {
+          "const": "code128",
+          "description": "Code 128; variable-length printable ASCII.",
+          "type": "string"
+        },
+        {
+          "const": "code39",
+          "description": "Code 39; digits, upper-case letters and `- . $ / + %` plus space.",
+          "type": "string"
+        },
+        {
+          "const": "ean13",
+          "description": "EAN-13; 12 digits, or 13 with the check digit already appended.",
+          "type": "string"
+        },
+        {
+          "const": "qr",
+          "description": "QR Code; at most 2,048 bytes, uses `ecLevel`.",
+          "type": "string"
+        },
+        {
+          "const": "pdf417",
+          "description": "PDF417.",
+          "type": "string"
+        },
+        {
+          "const": "datamatrix",
+          "description": "Data Matrix.",
+          "type": "string"
+        }
+      ]
+    },
+    "BarcodeStyle": {
+      "additionalProperties": false,
+      "description": "Style of a barcode item. Lengths are millimetres.",
+      "properties": {
+        "barWidth": {
+          "default": 0.25,
+          "description": "Width of one module of a linear code, in millimetres.",
+          "exclusiveMinimum": 0.0,
+          "format": "double",
+          "type": "number"
+        },
+        "color": {
+          "default": "#000000",
+          "description": "Bar or module colour; only `#rrggbb` is accepted. Default `#000000`.",
+          "pattern": "^#[0-9a-fA-F]{6}$",
+          "type": "string"
+        },
+        "ecLevel": {
+          "$ref": "#/$defs/EcLevel",
+          "default": "M",
+          "description": "Error correction level for two-dimensional symbols. Default `M`; ignored\nby linear codes."
+        },
+        "quietZone": {
+          "default": 2.0,
+          "description": "Quiet zone around the symbol in millimetres; non-negative. Default `2.0`.",
+          "format": "double",
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "showText": {
+          "default": false,
+          "description": "Draw the encoded value as text under a linear code. Default `false`.",
+          "type": "boolean"
+        },
+        "textSize": {
+          "default": 2.5,
+          "description": "Size of the human-readable text in millimetres; positive. Default `2.5`.",
+          "exclusiveMinimum": 0.0,
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "BatchResult": {
+      "description": "`doc.printBatch` result.",
+      "properties": {
+        "docCount": {
+          "description": "Number of documents merged into the job (`docCount`).",
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "jobId": {
+          "description": "Batch job handle (`jobId`).",
+          "type": "string"
+        },
+        "pageCount": {
+          "description": "Merged page count after the batch is combined into one PDF.",
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "jobId",
+        "docCount",
+        "pageCount"
+      ],
+      "type": "object"
+    },
+    "Capabilities": {
+      "description": "What this build can actually do. Every bit is the implemented behaviour, not\nthe platform's potential, so a client hides an entry when its bit is false.",
+      "properties": {
+        "batch": {
+          "description": "`doc.printBatch` is implemented.",
+          "type": "boolean"
+        },
+        "cancelRaw": {
+          "description": "Retracting an already submitted **raw** job, which always has a\nspooler id on the supported platforms.",
+          "type": "boolean"
+        },
+        "cancelSubmitted": {
+          "description": "Retracting an already submitted **graphic/PDF** job.",
+          "type": "boolean"
+        },
+        "duplex": {
+          "description": "The backend reports duplex printing; both current backends report\n`false` until a duplex device is verified.",
+          "type": "boolean"
+        },
+        "paperSource": {
+          "description": "The backend can select a paper source (tray); v1 reports `false`.",
+          "type": "boolean"
+        },
+        "pdfPassthrough": {
+          "description": "A complete PDF reaches the driver without re-rendering (`doc.printPdf`\nand embedded PDFs).",
+          "type": "boolean"
+        },
+        "preview": {
+          "description": "Preview windows are implemented (`doc.preview` and `preview.*`).",
+          "type": "boolean"
+        },
+        "rasterFallback": {
+          "description": "A raster fallback exists for platforms without a direct path; v1 reports\n`false`.",
+          "type": "boolean"
+        },
+        "raw": {
+          "description": "The `raw.send` channel is implemented; per-printer support is\n[`Printer::raw`].",
+          "type": "boolean"
+        },
+        "renderWorkers": {
+          "description": "Actual parallelism of the render pool; macOS reports 1.",
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "duplex",
+        "paperSource",
+        "cancelSubmitted",
+        "cancelRaw",
+        "preview",
+        "rasterFallback",
+        "raw",
+        "batch",
+        "pdfPassthrough",
+        "renderWorkers"
+      ],
+      "type": "object"
+    },
+    "CapabilityFamily": {
+      "description": "A method family announced in `welcome.capabilities`.",
+      "oneOf": [
+        {
+          "const": "template",
+          "deprecated": true,
+          "description": "The removed `template.*` method family.\n\nThe server no longer sends this value; it remains only so an old\n`Welcome` frame can still be parsed by a current client.",
+          "type": "string"
+        }
+      ]
+    },
+    "Cell": {
+      "additionalProperties": false,
+      "description": "A grid of cells, used by the `tianGrid` shape.",
+      "properties": {
+        "cols": {
+          "description": "Number of cell columns; at least 1. `rows * cols` may not exceed 10,000.",
+          "format": "uint32",
+          "maximum": 10000,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "rows": {
+          "description": "Number of cell rows; at least 1.",
+          "format": "uint32",
+          "maximum": 10000,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "rows",
+        "cols"
+      ],
+      "type": "object"
+    },
+    "Column": {
+      "additionalProperties": false,
+      "description": "One table column.",
+      "properties": {
+        "align": {
+          "$ref": "#/$defs/TextAlign",
+          "default": "left",
+          "description": "Text alignment inside the column. Default `left`."
+        },
+        "key": {
+          "description": "Key used by rows and the footer to address this column.",
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "description": "Header text shown in the header row; may be empty.",
+          "type": "string"
+        },
+        "width": {
+          "description": "Column width in millimetres, or `\"auto\"`.",
+          "oneOf": [
+            {
+              "const": "auto"
+            },
+            {
+              "format": "double",
+              "type": "number"
+            }
+          ]
+        }
+      },
+      "required": [
+        "key",
+        "title",
+        "width"
+      ],
+      "type": "object"
+    },
+    "DocPrintBatchParams": {
+      "additionalProperties": false,
+      "description": "`doc.printBatch` parameters.",
+      "properties": {
+        "collate": {
+          "description": "Collate copies as complete sets; omitted means `true`.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "copies": {
+          "description": "Copies of the merged job at the spooler level, 1 to 999; omitted means\none. Every batch part must set `output.copies` to 1; a per-document\ncount is refused with `E_SCHEMA` so copies are never multiplied twice.",
+          "format": "uint32",
+          "maximum": 999,
+          "minimum": 1,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "docs": {
+          "description": "Documents to merge and print as one spooler job; 1 to 100 entries.",
+          "items": {
+            "$ref": "#/$defs/Document"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "type": "array"
+        },
+        "printer": {
+          "description": "Printer name; omitted means the system default.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "requestId": {
+          "description": "Client-chosen idempotency key (10-minute window).",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "docs"
+      ],
+      "type": "object"
+    },
+    "DocPrintPdfBatchParams": {
+      "additionalProperties": false,
+      "description": "`doc.printPdfBatch` parameters: finished PDFs, one spooler job.",
+      "properties": {
+        "collate": {
+          "description": "Collate copies as complete sets; omitted means `true`.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "copies": {
+          "description": "Copies of the merged job at the spooler level, 1 to 999; omitted means\none. Each part must use copies = 1.",
+          "format": "uint32",
+          "maximum": 999,
+          "minimum": 1,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "pdfs": {
+          "description": "Finished PDFs, in print order; 1 to 100 entries.",
+          "items": {
+            "$ref": "#/$defs/PdfBatchPart"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "type": "array"
+        },
+        "printer": {
+          "description": "Printer name; omitted means the system default.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "requestId": {
+          "description": "Client-chosen idempotency key, honoured for 10 minutes (`requestId`).",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "pdfs"
+      ],
+      "type": "object"
+    },
+    "DocPrintPdfParams": {
+      "additionalProperties": false,
+      "description": "`doc.printPdf` parameters. `bytes` is base64 of a complete PDF.",
+      "properties": {
+        "bytes": {
+          "description": "Complete PDF, base64-encoded, including its header and trailer.",
+          "type": "string"
+        },
+        "copies": {
+          "description": "Copies of the whole PDF, 1 to 999; omitted means 1.",
+          "format": "uint32",
+          "maximum": 999,
+          "minimum": 1,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "printer": {
+          "description": "Printer name; omitted means the system default.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "requestId": {
+          "description": "Client-chosen idempotency key, honoured for 10 minutes (`requestId`).",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "bytes"
+      ],
+      "type": "object"
+    },
+    "Document": {
+      "additionalProperties": false,
+      "description": "A print document: explicit pages in print order.",
+      "properties": {
+        "meta": {
+          "$ref": "#/$defs/Meta",
+          "default": {},
+          "description": "Caller metadata; defaults to empty."
+        },
+        "output": {
+          "$ref": "#/$defs/OutputSpec",
+          "default": {
+            "collate": true,
+            "copies": 1
+          },
+          "description": "Job-level output options; defaults to one copy with collation on."
+        },
+        "pages": {
+          "description": "Pages in print order; between 1 and 200.",
+          "items": {
+            "$ref": "#/$defs/Page"
+          },
+          "maxItems": 200,
+          "minItems": 1,
+          "type": "array"
+        },
+        "version": {
+          "description": "Document version; this build accepts 1 only.",
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "pages"
+      ],
+      "type": "object"
+    },
+    "Duplex": {
+      "description": "How copies are grouped.",
+      "oneOf": [
+        {
+          "const": "simplex",
+          "description": "One side per sheet (default).",
+          "type": "string"
+        },
+        {
+          "const": "duplex_long",
+          "description": "Both sides, bound along the long edge.",
+          "type": "string"
+        },
+        {
+          "const": "duplex_short",
+          "description": "Both sides, bound along the short edge.",
+          "type": "string"
+        }
+      ]
+    },
+    "EcLevel": {
+      "description": "Reed-Solomon error correction level for two-dimensional codes.",
+      "oneOf": [
+        {
+          "const": "L",
+          "description": "About 7% of codewords recoverable.",
+          "type": "string"
+        },
+        {
+          "const": "M",
+          "description": "About 15% recoverable (default).",
+          "type": "string"
+        },
+        {
+          "const": "Q",
+          "description": "About 25% recoverable.",
+          "type": "string"
+        },
+        {
+          "const": "H",
+          "description": "About 30% recoverable.",
+          "type": "string"
+        }
+      ]
+    },
+    "Empty": {
+      "additionalProperties": false,
+      "description": "Result of methods that return nothing.",
+      "type": "object"
+    },
+    "ErrorBody": {
+      "description": "A failure body. `detail` is free form; for `E_SCHEMA` it carries `pointer`.",
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/ErrorCode",
+          "description": "One [`ErrorCode`] spelling, for example `E_SCHEMA`."
+        },
+        "detail": {
+          "description": "Optional free-form context; `E_SCHEMA` carries `pointer`, a full queue\ncarries `queueMax` and `queuePos`."
+        },
+        "message": {
+          "description": "Human-readable failure text.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "ErrorCode": {
+      "description": "A request that failed. Every failure has exactly one code.",
+      "oneOf": [
+        {
+          "const": "E_CONNECT",
+          "description": "The service is not running or the port is unreachable.",
+          "type": "string"
+        },
+        {
+          "const": "E_AUTH",
+          "description": "The token is invalid or lacks the required scope.",
+          "type": "string"
+        },
+        {
+          "const": "E_ORIGIN",
+          "description": "The origin is not whitelisted, or differs from the handshake header.",
+          "type": "string"
+        },
+        {
+          "const": "E_CSRF",
+          "description": "The administrator session is valid but CSRF cookie/header differ.",
+          "type": "string"
+        },
+        {
+          "const": "E_SCHEMA",
+          "description": "The document failed the structural or the semantic layer.",
+          "type": "string"
+        },
+        {
+          "const": "E_PRINTER_NOT_FOUND",
+          "description": "No printer carries that name.",
+          "type": "string"
+        },
+        {
+          "const": "E_PAPER_UNSUPPORTED",
+          "description": "The driver does not accept that paper size.",
+          "type": "string"
+        },
+        {
+          "const": "E_JOB_FAILED",
+          "description": "Printing failed; `detail` carries the driver status.",
+          "type": "string"
+        },
+        {
+          "const": "E_TIMEOUT",
+          "description": "The render queue or the job itself timed out.",
+          "type": "string"
+        },
+        {
+          "const": "E_PROTOCOL",
+          "description": "The protocol major version is incompatible, or `hello` is incomplete.",
+          "type": "string"
+        },
+        {
+          "const": "E_UNSUPPORTED",
+          "description": "The request uses a capability this build does not implement.",
+          "type": "string"
+        },
+        {
+          "const": "E_CANCEL_UNSUPPORTED",
+          "description": "The job was already submitted and the platform cannot retract it.",
+          "type": "string"
+        },
+        {
+          "const": "E_RAW_UNSUPPORTED",
+          "description": "The printer or driver does not accept raw bytes.",
+          "type": "string"
+        },
+        {
+          "const": "E_PDF_ENCRYPTED",
+          "description": "The embedded PDF is password protected.",
+          "type": "string"
+        },
+        {
+          "const": "E_NOT_FOUND",
+          "description": "A `jobId` or `windowId` does not exist.",
+          "type": "string"
+        },
+        {
+          "const": "E_TOO_LARGE",
+          "description": "A runtime limit that shrinking the request can clear.",
+          "type": "string"
+        },
+        {
+          "const": "E_RENDER_CRASH",
+          "description": "The renderer process crashed.",
+          "type": "string"
+        },
+        {
+          "const": "E_ALREADY_RUNNING",
+          "description": "Another `serve` instance owns the data directory.",
+          "type": "string"
+        }
+      ]
+    },
+    "ExportPdfParams": {
+      "additionalProperties": false,
+      "description": "`doc.exportPdf` parameters. `path` is relative and must stay inside the data\ndirectory's `exports/` prefix after canonicalisation.",
+      "properties": {
+        "document": {
+          "$ref": "#/$defs/Document",
+          "description": "Document to render into the PDF."
+        },
+        "path": {
+          "description": "Target path relative to the data directory's `exports/`; `.` and `..`\nare rejected.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "document",
+        "path"
+      ],
+      "type": "object"
+    },
+    "ExportPdfResult": {
+      "description": "`doc.exportPdf` result.",
+      "properties": {
+        "absolutePath": {
+          "description": "Canonical absolute path of the written file on the service machine.",
+          "type": "string"
+        },
+        "bytes": {
+          "description": "File size in bytes.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "expiresAt": {
+          "description": "Unix seconds after which `url` no longer works.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "pages": {
+          "description": "Pages in the written PDF.",
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "path": {
+          "description": "The relative path as requested (`path`).",
+          "type": "string"
+        },
+        "url": {
+          "description": "Capability URL for a browser to open the export. It is signed for this\nexact canonical file and expires at `expiresAt`.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "path",
+        "absolutePath",
+        "pages",
+        "bytes"
+      ],
+      "type": "object"
+    },
+    "Frame": {
+      "additionalProperties": false,
+      "description": "A rectangle relative to the top-left corner of the page, in millimetres.",
+      "properties": {
+        "height": {
+          "description": "Frame height in millimetres; finite and strictly positive.",
+          "exclusiveMinimum": 0.0,
+          "format": "double",
+          "type": "number"
+        },
+        "width": {
+          "description": "Frame width in millimetres; finite and strictly positive.",
+          "exclusiveMinimum": 0.0,
+          "format": "double",
+          "type": "number"
+        },
+        "x": {
+          "description": "Horizontal offset from the page's left edge, in millimetres; non-negative.",
+          "format": "double",
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "y": {
+          "description": "Vertical offset from the page's top edge, in millimetres; non-negative.",
+          "format": "double",
+          "minimum": 0.0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ],
+      "type": "object"
+    },
+    "Hello": {
+      "additionalProperties": false,
+      "description": "Client handshake.",
+      "properties": {
+        "origin": {
+          "description": "Self-reported origin; must match the WebSocket `Origin` header when the\nclient is a browser. Scripts omit it and authenticate by token alone.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "protocol": {
+          "description": "Client's protocol major version; must equal [`PROTOCOL_VERSION`].",
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "sdk": {
+          "description": "Client SDK name and version, free form.",
+          "type": "string"
+        },
+        "token": {
+          "description": "Omitted by clients that print without a token: a local script, or a\nwhitelisted browser. Such a session only receives the `print` scope.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "type": {
+          "const": "hello"
+        }
+      },
+      "required": [
+        "type",
+        "protocol",
+        "sdk"
+      ],
+      "type": "object"
+    },
+    "HtmlData": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "oneOf": [
+            {
+              "not": {
+                "required": [
+                  "url"
+                ]
+              },
+              "required": [
+                "html"
+              ]
+            },
+            {
+              "not": {
+                "required": [
+                  "html"
+                ]
+              },
+              "required": [
+                "url"
+              ]
+            }
+          ]
+        }
+      ],
+      "description": "Inline HTML, or a URL fetched by the engine. Exactly one is set.",
+      "properties": {
+        "html": {
+          "description": "Inline HTML source; mutually exclusive with `url`.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "url": {
+          "description": "Absolute `http` or `https` URL fetched before rendering; mutually\nexclusive with `html`.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "type": "object"
+    },
+    "HtmlStyle": {
+      "additionalProperties": false,
+      "description": "Style of an HTML item; the empty object keeps the item shape uniform.",
+      "properties": {
+        "overflow": {
+          "$ref": "#/$defs/Overflow",
+          "default": "hidden",
+          "description": "Behaviour for content taller or wider than the frame. Default `hidden`."
+        }
+      },
+      "type": "object"
+    },
+    "ImageData": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "properties": {
+            "src": {
+              "maxLength": 11185068,
+              "pattern": "^data:image/[^,]*;base64,",
+              "type": "string"
+            }
+          }
+        }
+      ],
+      "description": "Raster image data: a base64 data URI of at most 8 MiB decoded.",
+      "properties": {
+        "src": {
+          "description": "Image as a base64 data URI, at most 8 MiB decoded.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "src"
+      ],
+      "type": "object"
+    },
+    "ImageFit": {
+      "description": "How an image fills its frame.",
+      "oneOf": [
+        {
+          "const": "contain",
+          "description": "Scale the image down to fit inside the frame, preserving aspect ratio\n(default).",
+          "type": "string"
+        },
+        {
+          "const": "cover",
+          "description": "Scale the image to cover the frame, preserving aspect ratio and\ncropping the overflow.",
+          "type": "string"
+        },
+        {
+          "const": "fill",
+          "description": "Stretch the image to the frame's width and height.",
+          "type": "string"
+        },
+        {
+          "const": "none",
+          "description": "Draw the image at its natural size; the frame clips any overflow.",
+          "type": "string"
+        }
+      ]
+    },
+    "ImageStyle": {
+      "additionalProperties": false,
+      "description": "Style of an image item.",
+      "properties": {
+        "fit": {
+          "$ref": "#/$defs/ImageFit",
+          "default": "contain",
+          "description": "How the image fills the frame. Default `contain`."
+        }
+      },
+      "type": "object"
+    },
+    "Item": {
+      "description": "One element on a page. Array order is z-order.",
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "description": "A text block rendered by the text pipeline.",
+          "properties": {
+            "data": {
+              "$ref": "#/$defs/TextData",
+              "description": "Text body and optional embedded font."
+            },
+            "frame": {
+              "$ref": "#/$defs/Frame",
+              "description": "Position and size of the item on the page."
+            },
+            "id": {
+              "description": "Item id; non-empty and unique across the whole document.",
+              "minLength": 1,
+              "type": "string"
+            },
+            "style": {
+              "$ref": "#/$defs/TextStyle",
+              "default": {
+                "align": "left",
+                "bold": false,
+                "color": "#000000",
+                "fontFamily": "Source Han Sans SC",
+                "fontSize": 3.7,
+                "italic": false,
+                "letterSpacing": 0.0,
+                "lineHeight": 1.4,
+                "rotation": 0.0,
+                "underline": false,
+                "valign": "top",
+                "wrap": true
+              },
+              "description": "Text style; omitted fields keep their defaults."
+            },
+            "type": {
+              "const": "text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "id",
+            "frame",
+            "data"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Inline HTML or a fetched URL, rendered in a web view.",
+          "properties": {
+            "data": {
+              "$ref": "#/$defs/HtmlData",
+              "description": "Inline HTML or a URL, never both."
+            },
+            "frame": {
+              "$ref": "#/$defs/Frame",
+              "description": "Position and size of the item on the page."
+            },
+            "id": {
+              "description": "Item id; non-empty and unique across the whole document.",
+              "minLength": 1,
+              "type": "string"
+            },
+            "style": {
+              "$ref": "#/$defs/HtmlStyle",
+              "default": {
+                "overflow": "hidden"
+              },
+              "description": "HTML style; `overflow` defaults to `hidden`."
+            },
+            "type": {
+              "const": "html",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "id",
+            "frame",
+            "data"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "A raster image, embedded as a data URI.",
+          "properties": {
+            "data": {
+              "$ref": "#/$defs/ImageData",
+              "description": "Image data as a base64 data URI."
+            },
+            "frame": {
+              "$ref": "#/$defs/Frame",
+              "description": "Position and size of the item on the page."
+            },
+            "id": {
+              "description": "Item id; non-empty and unique across the whole document.",
+              "minLength": 1,
+              "type": "string"
+            },
+            "style": {
+              "$ref": "#/$defs/ImageStyle",
+              "default": {
+                "fit": "contain"
+              },
+              "description": "Image style; `fit` defaults to `contain`."
+            },
+            "type": {
+              "const": "image",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "id",
+            "frame",
+            "data"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "One page of an embedded PDF, merged into the output.",
+          "properties": {
+            "data": {
+              "$ref": "#/$defs/PdfData",
+              "description": "PDF data and the one-based page to place."
+            },
+            "frame": {
+              "$ref": "#/$defs/Frame",
+              "description": "Position and size of the item on the page."
+            },
+            "id": {
+              "description": "Item id; non-empty and unique across the whole document.",
+              "minLength": 1,
+              "type": "string"
+            },
+            "style": {
+              "$ref": "#/$defs/PdfStyle",
+              "default": {},
+              "description": "PDF style; the empty object is always accepted."
+            },
+            "type": {
+              "const": "pdf",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "id",
+            "frame",
+            "data"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "A linear or two-dimensional barcode.",
+          "properties": {
+            "data": {
+              "$ref": "#/$defs/BarcodeData",
+              "description": "Symbology and the encoded value."
+            },
+            "frame": {
+              "$ref": "#/$defs/Frame",
+              "description": "Position and size of the item on the page."
+            },
+            "id": {
+              "description": "Item id; non-empty and unique across the whole document.",
+              "minLength": 1,
+              "type": "string"
+            },
+            "style": {
+              "$ref": "#/$defs/BarcodeStyle",
+              "default": {
+                "barWidth": 0.25,
+                "color": "#000000",
+                "ecLevel": "M",
+                "quietZone": 2.0,
+                "showText": false,
+                "textSize": 2.5
+              },
+              "description": "Barcode style; omitted fields keep their defaults."
+            },
+            "type": {
+              "const": "barcode",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "id",
+            "frame",
+            "data"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "A vector shape, rule or grid.",
+          "properties": {
+            "data": {
+              "$ref": "#/$defs/ShapeData",
+              "description": "Shape kind and its kind-specific geometry."
+            },
+            "frame": {
+              "$ref": "#/$defs/Frame",
+              "description": "Position and size of the item on the page."
+            },
+            "id": {
+              "description": "Item id; non-empty and unique across the whole document.",
+              "minLength": 1,
+              "type": "string"
+            },
+            "style": {
+              "$ref": "#/$defs/ShapeStyle",
+              "default": {
+                "stroke": "#000000",
+                "strokeWidth": 0.2
+              },
+              "description": "Shape style; omitted fields keep their defaults."
+            },
+            "type": {
+              "const": "shape",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "id",
+            "frame",
+            "data"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "A data table with an optional totals footer.",
+          "properties": {
+            "data": {
+              "$ref": "#/$defs/TableData",
+              "description": "Column definitions, rows and optional footer."
+            },
+            "frame": {
+              "$ref": "#/$defs/Frame",
+              "description": "Position and size of the item on the page."
+            },
+            "id": {
+              "description": "Item id; non-empty and unique across the whole document.",
+              "minLength": 1,
+              "type": "string"
+            },
+            "style": {
+              "$ref": "#/$defs/TableStyle",
+              "default": {
+                "borderColor": "#000000",
+                "borderWidth": 0.15,
+                "fontSize": 2.8,
+                "headerRepeat": true,
+                "rowHeight": 6.0,
+                "zebra": false
+              },
+              "description": "Table style; omitted fields keep their defaults."
+            },
+            "type": {
+              "const": "table",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "id",
+            "frame",
+            "data"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "JobError": {
+      "description": "Failure attached to a job status.",
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/ErrorCode",
+          "description": "The [`ErrorCode`] spelling, for example `E_JOB_FAILED`."
+        },
+        "message": {
+          "description": "Human-readable failure text suitable for logs and UI.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "JobEvent": {
+      "description": "Progress event pushed while a job runs. `status` uses the same words as\n[`crate::JobStatus`].",
+      "properties": {
+        "error": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ErrorBody"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Failure body once `status` is `failed`."
+        },
+        "jobId": {
+          "description": "Job handle the event belongs to (`jobId`).",
+          "type": "string"
+        },
+        "progress": {
+          "description": "Fraction of the render completed, 0.0 to 1.0.",
+          "format": "double",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "queuePos": {
+          "description": "Position in the render queue while `status` is `queued`.",
+          "format": "uint32",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "status": {
+          "$ref": "#/$defs/JobState",
+          "description": "Current phase; the wire words match [`JobState`]."
+        },
+        "warnings": {
+          "description": "Warnings raised by a successful render; empty until `status` is `done`.",
+          "items": {
+            "$ref": "#/$defs/WarningBody"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "jobId",
+        "status"
+      ],
+      "type": "object"
+    },
+    "JobIdParams": {
+      "additionalProperties": false,
+      "description": "Parameters of `job.status` and `job.cancel`.",
+      "properties": {
+        "jobId": {
+          "description": "Job handle (`jobId`).",
+          "type": "string"
+        }
+      },
+      "required": [
+        "jobId"
+      ],
+      "type": "object"
+    },
+    "JobRef": {
+      "description": "Handle of one job.",
+      "properties": {
+        "jobId": {
+          "description": "Job handle returned by a submit method (`jobId`).",
+          "type": "string"
+        }
+      },
+      "required": [
+        "jobId"
+      ],
+      "type": "object"
+    },
+    "JobState": {
+      "description": "Lifecycle of one job.",
+      "oneOf": [
+        {
+          "const": "queued",
+          "description": "Accepted, waiting for a render slot; `queuePos` tells the position.",
+          "type": "string"
+        },
+        {
+          "const": "printing",
+          "description": "Rendering or handing bytes to the spooler.",
+          "type": "string"
+        },
+        {
+          "const": "done",
+          "description": "Terminal: the job was submitted successfully.",
+          "type": "string"
+        },
+        {
+          "const": "failed",
+          "description": "Terminal: no job was submitted; `error` says why.",
+          "type": "string"
+        },
+        {
+          "const": "cancelled",
+          "description": "Terminal: the job was cancelled before it reached the spooler.",
+          "type": "string"
+        }
+      ]
+    },
+    "JobStatus": {
+      "description": "Current state of one job.",
+      "properties": {
+        "error": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/JobError"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Failure details, present only once `status` is `failed`."
+        },
+        "jobId": {
+          "description": "Job handle returned when the job was submitted (`jobId`).",
+          "type": "string"
+        },
+        "pages": {
+          "description": "Pages in the submitted PDF, copies excluded.",
+          "format": "uint32",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "queuePos": {
+          "description": "Remaining queue position while the job waits.",
+          "format": "uint32",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "status": {
+          "$ref": "#/$defs/JobState",
+          "description": "Lifecycle phase; the wire words match [`JobState`]."
+        },
+        "warnings": {
+          "description": "Warnings from a successful render; empty while the job runs or failed.",
+          "items": {
+            "$ref": "#/$defs/WarningBody"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "jobId",
+        "status"
+      ],
+      "type": "object"
+    },
+    "LogsExportParams": {
+      "additionalProperties": false,
+      "description": "`logs.export` parameters. Both bounds are RFC 3339; absent bounds select\nthe current day.",
+      "properties": {
+        "from": {
+          "description": "Inclusive lower bound, RFC 3339 or `YYYY-MM-DD`; absent means UTC\nmidnight today.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "to": {
+          "description": "Exclusive upper bound, RFC 3339 or `YYYY-MM-DD`; absent means one day\nafter `from`.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "type": "object"
+    },
+    "LogsExportResult": {
+      "description": "`logs.export` result: a data-directory-relative archive path.",
+      "properties": {
+        "bytes": {
+          "description": "Archive size in bytes.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "path": {
+          "description": "Archive path relative to the data directory (`path`).",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "bytes"
+      ],
+      "type": "object"
+    },
+    "Margins": {
+      "additionalProperties": false,
+      "description": "Page margins in millimetres.",
+      "properties": {
+        "bottom": {
+          "default": 0.0,
+          "description": "Bottom margin in millimetres; finite and non-negative. Default `0`.",
+          "format": "double",
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "left": {
+          "default": 0.0,
+          "description": "Left margin in millimetres; finite and non-negative. Default `0`.",
+          "format": "double",
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "right": {
+          "default": 0.0,
+          "description": "Right margin in millimetres; finite and non-negative. Default `0`.",
+          "format": "double",
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "top": {
+          "default": 0.0,
+          "description": "Top margin in millimetres; finite and non-negative. Default `0`.",
+          "format": "double",
+          "minimum": 0.0,
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "Meta": {
+      "additionalProperties": false,
+      "description": "Caller metadata. Only `tags` is free-form; it is the aggregation dimension.",
+      "properties": {
+        "source": {
+          "description": "Caller or system that submitted the document.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tags": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "items": {
+                "maxLength": 24,
+                "type": "string"
+              },
+              "maxItems": 8,
+              "type": "array"
+            }
+          ],
+          "description": "At most 8 tags, each at most 24 Unicode characters."
+        },
+        "templateId": {
+          "description": "Template that produced the document, if any; wire name `templateId`.\nNot interpreted by the engine.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "title": {
+          "description": "Human-readable title, for administration views.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "type": "object"
+    },
+    "Orientation": {
+      "description": "Reading direction of a page.",
+      "oneOf": [
+        {
+          "const": "portrait",
+          "description": "Portrait; named sizes keep their taller side vertical (default).",
+          "type": "string"
+        },
+        {
+          "const": "landscape",
+          "description": "Landscape; named sizes rotate the paper.",
+          "type": "string"
+        }
+      ]
+    },
+    "OutputSpec": {
+      "additionalProperties": false,
+      "description": "Output options applied to the whole document.",
+      "properties": {
+        "collate": {
+          "default": true,
+          "description": "`true` prints one complete set per copy, `false` prints page by page.",
+          "type": "boolean"
+        },
+        "copies": {
+          "default": 1,
+          "description": "Number of copies; 1 to 999, default `1`.",
+          "format": "uint32",
+          "maximum": 999,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "printer": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PrinterSpec"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Printer selection and per-job options; omitted means the system default\nprinter."
+        }
+      },
+      "type": "object"
+    },
+    "Overflow": {
+      "description": "Overflow policy for an HTML item.",
+      "oneOf": [
+        {
+          "const": "hidden",
+          "description": "Clip content that does not fit the frame (default).",
+          "type": "string"
+        },
+        {
+          "const": "visible",
+          "description": "Let content draw outside the frame.",
+          "type": "string"
+        }
+      ]
+    },
+    "Page": {
+      "additionalProperties": false,
+      "description": "One page: its paper spec plus items in z-order.",
+      "properties": {
+        "items": {
+          "default": [],
+          "description": "Items in z-order, drawn back to front; at most 500 per page.",
+          "items": {
+            "$ref": "#/$defs/Item"
+          },
+          "maxItems": 500,
+          "type": "array"
+        },
+        "spec": {
+          "$ref": "#/$defs/PageSpec",
+          "description": "Paper size, orientation and margins."
+        }
+      },
+      "required": [
+        "spec"
+      ],
+      "type": "object"
+    },
+    "PageSize": {
+      "description": "Named paper size. `custom` takes its dimensions from `width` and `height`.",
+      "oneOf": [
+        {
+          "const": "A3",
+          "description": "ISO A3, 297 by 420 millimetres.",
+          "type": "string"
+        },
+        {
+          "const": "A4",
+          "description": "ISO A4, 210 by 297 millimetres (default).",
+          "type": "string"
+        },
+        {
+          "const": "A5",
+          "description": "ISO A5, 148 by 210 millimetres.",
+          "type": "string"
+        },
+        {
+          "const": "Letter",
+          "description": "US Letter, 215.9 by 279.4 millimetres.",
+          "type": "string"
+        },
+        {
+          "const": "custom",
+          "description": "Dimensions come from `width` and `height`.",
+          "type": "string"
+        }
+      ]
+    },
+    "PageSpec": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "size": {
+                "const": "custom"
+              }
+            },
+            "required": [
+              "size"
+            ]
+          },
+          "then": {
+            "properties": {
+              "height": {
+                "exclusiveMinimum": 0.0,
+                "format": "double",
+                "maximum": 2000.0,
+                "type": "number"
+              },
+              "width": {
+                "exclusiveMinimum": 0.0,
+                "format": "double",
+                "maximum": 2000.0,
+                "type": "number"
+              }
+            },
+            "required": [
+              "width",
+              "height"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "size": {
+                "not": {
+                  "const": "custom"
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "height": {
+                "type": "null"
+              },
+              "width": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "background": {
+              "maxLength": 11185068,
+              "pattern": "^data:image/[^,]*;base64,",
+              "type": "string"
+            }
+          }
+        }
+      ],
+      "description": "The paper spec of a page.",
+      "properties": {
+        "background": {
+          "description": "Registered background image as a base64 data URI.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "height": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "exclusiveMinimum": 0.0,
+              "format": "double",
+              "type": "number"
+            }
+          ],
+          "description": "Final paper height in millimetres. Required for, and only allowed with,\n`size: \"custom\"`."
+        },
+        "margins": {
+          "$ref": "#/$defs/Margins",
+          "default": {
+            "bottom": 0.0,
+            "left": 0.0,
+            "right": 0.0,
+            "top": 0.0
+          },
+          "description": "Page margins; zero on every side by default."
+        },
+        "orientation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Orientation"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Omitted means: named paper is portrait, custom paper derives it from\n`width` and `height`."
+        },
+        "size": {
+          "$ref": "#/$defs/PageSize",
+          "default": "A4",
+          "description": "Named paper size. `custom` requires `width` and `height`."
+        },
+        "width": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "exclusiveMinimum": 0.0,
+              "format": "double",
+              "type": "number"
+            }
+          ],
+          "description": "Final paper width in millimetres. Required for, and only allowed with,\n`size: \"custom\"`."
+        }
+      },
+      "type": "object"
+    },
+    "PaperKind": {
+      "description": "Whether a paper size is a named standard size or caller supplied.",
+      "oneOf": [
+        {
+          "const": "named",
+          "description": "A standard size the driver knows by name (`named`).",
+          "type": "string"
+        },
+        {
+          "const": "custom",
+          "description": "Caller-supplied dimensions in millimetres (`custom`).",
+          "type": "string"
+        }
+      ]
+    },
+    "PaperSize": {
+      "description": "One paper size a printer accepts.",
+      "properties": {
+        "heightMm": {
+          "description": "Height in millimetres (`heightMm`).",
+          "format": "double",
+          "type": "number"
+        },
+        "kind": {
+          "$ref": "#/$defs/PaperKind",
+          "description": "Whether `name` is a standard size or caller supplied."
+        },
+        "name": {
+          "description": "Size name, for example `A4` or the caller's label for a custom size.",
+          "type": "string"
+        },
+        "widthMm": {
+          "description": "Width in millimetres (`widthMm`).",
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "widthMm",
+        "heightMm",
+        "kind"
+      ],
+      "type": "object"
+    },
+    "PdfBatchPart": {
+      "additionalProperties": false,
+      "description": "One finished PDF in `doc.printPdfBatch`.",
+      "properties": {
+        "bytes": {
+          "description": "Complete PDF, base64-encoded.",
+          "type": "string"
+        },
+        "copies": {
+          "description": "Copies for this part; only 1 is accepted, the batch copies are the\nspooler count.",
+          "format": "uint32",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "bytes"
+      ],
+      "type": "object"
+    },
+    "PdfBatchResult": {
+      "description": "`doc.printPdfBatch` result.",
+      "properties": {
+        "jobId": {
+          "description": "Job handle (`jobId`).",
+          "type": "string"
+        },
+        "pages": {
+          "description": "Pages in the submitted PDF, copies excluded (`pages`).",
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "jobId",
+        "pages"
+      ],
+      "type": "object"
+    },
+    "PdfData": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "properties": {
+            "src": {
+              "maxLength": 11185068,
+              "pattern": "^data:application/pdf[^,]*;base64,",
+              "type": "string"
+            }
+          }
+        }
+      ],
+      "description": "The PDF payload of a PDF item, addressed by page.",
+      "properties": {
+        "page": {
+          "default": 1,
+          "description": "One-based page inside the embedded PDF.",
+          "format": "uint32",
+          "minimum": 1,
+          "type": "integer"
+        },
+        "src": {
+          "description": "PDF as a base64 data URI, at most 8 MiB decoded.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "src"
+      ],
+      "type": "object"
+    },
+    "PdfStyle": {
+      "additionalProperties": false,
+      "description": "Embedded PDF items have no style of their own; the empty object keeps the\nitem shape uniform.",
+      "type": "object"
+    },
+    "Platform": {
+      "description": "Host platform reported by [`SysInfo`].",
+      "oneOf": [
+        {
+          "const": "macos",
+          "description": "Apple macOS, wire name `macos`.",
+          "type": "string"
+        },
+        {
+          "const": "windows",
+          "description": "Microsoft Windows, wire name `windows`.",
+          "type": "string"
+        },
+        {
+          "const": "linux",
+          "description": "Linux, wire name `linux`.",
+          "type": "string"
+        }
+      ]
+    },
+    "PreviewCloseParams": {
+      "additionalProperties": false,
+      "description": "`preview.close` parameters.",
+      "properties": {
+        "windowId": {
+          "description": "Preview window handle to close (`windowId`).",
+          "type": "string"
+        }
+      },
+      "required": [
+        "windowId"
+      ],
+      "type": "object"
+    },
+    "PreviewPagesParams": {
+      "additionalProperties": false,
+      "description": "`preview.pages` parameters.",
+      "properties": {
+        "dpi": {
+          "description": "Raster resolution, 72 to 300 DPI.",
+          "format": "uint32",
+          "maximum": 300,
+          "minimum": 72,
+          "type": "integer"
+        },
+        "pageIndex": {
+          "description": "Zero-based page index inside the previewed document.",
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "windowId": {
+          "description": "Preview window handle (`windowId`).",
+          "type": "string"
+        }
+      },
+      "required": [
+        "windowId",
+        "pageIndex",
+        "dpi"
+      ],
+      "type": "object"
+    },
+    "PreviewPagesResult": {
+      "description": "`preview.pages` result: a PNG as base64.",
+      "properties": {
+        "png": {
+          "description": "Base64 PNG of the requested page at the requested `dpi`.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "png"
+      ],
+      "type": "object"
+    },
+    "Printer": {
+      "description": "One printer as reported by the driver.",
+      "properties": {
+        "duplex": {
+          "description": "The printer reports duplex support.",
+          "type": "boolean"
+        },
+        "isDefault": {
+          "description": "`true` for the system default printer (`isDefault`).",
+          "type": "boolean"
+        },
+        "mimeTypes": {
+          "description": "MIME types the driver advertises, for example `application/pdf`.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "name": {
+          "description": "Printer name as the system reports it; unique on the machine.",
+          "type": "string"
+        },
+        "paperSource": {
+          "description": "The printer reports paper-source selection (`paperSource`).",
+          "type": "boolean"
+        },
+        "raw": {
+          "description": "The printer accepts raw bytes on `raw.send`.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "name",
+        "isDefault",
+        "raw",
+        "mimeTypes",
+        "duplex",
+        "paperSource"
+      ],
+      "type": "object"
+    },
+    "PrinterSpec": {
+      "additionalProperties": false,
+      "description": "Printer selection and per-job options.",
+      "properties": {
+        "duplex": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Duplex"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "`null` means: follow the driver."
+        },
+        "name": {
+          "description": "Printer name; `null` means the system default printer.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "paperSource": {
+          "description": "Paper tray name. Version 1 only accepts `null`.",
+          "type": "null"
+        }
+      },
+      "type": "object"
+    },
+    "PrintersPapersParams": {
+      "additionalProperties": false,
+      "description": "`printers.papers` parameters.",
+      "properties": {
+        "name": {
+          "description": "Printer name to list paper sizes for.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "type": "object"
+    },
+    "RawSendParams": {
+      "additionalProperties": false,
+      "description": "`raw.send` parameters. `bytes` is base64 of the raw job.",
+      "properties": {
+        "bytes": {
+          "description": "Raw job, base64-encoded.",
+          "type": "string"
+        },
+        "printer": {
+          "description": "Printer name that accepts raw bytes.",
+          "type": "string"
+        },
+        "requestId": {
+          "description": "Client-chosen idempotency key (`requestId`).",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "printer",
+        "bytes"
+      ],
+      "type": "object"
+    },
+    "RecordStatus": {
+      "description": "The closed set of record statuses a query may name.",
+      "oneOf": [
+        {
+          "const": "done",
+          "description": "A successful print request.",
+          "type": "string"
+        },
+        {
+          "const": "failed",
+          "description": "A failed request.",
+          "type": "string"
+        },
+        {
+          "const": "cancelled",
+          "description": "A cancelled request.",
+          "type": "string"
+        },
+        {
+          "const": "pending",
+          "description": "Still running or waiting.",
+          "type": "string"
+        }
+      ]
+    },
+    "RecordView": {
+      "description": "One usage row.",
+      "properties": {
+        "at": {
+          "description": "RFC 3339 timestamp.",
+          "type": "string"
+        },
+        "copies": {
+          "description": "Copies requested for the job.",
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "durMs": {
+          "description": "End-to-end duration in milliseconds (`durMs`).",
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "errorCode": {
+          "description": "Code of a failed job (`errorCode`), for example `E_JOB_FAILED`.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "id": {
+          "description": "Row id, also the value used as the next page `cursor`.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "origin": {
+          "description": "Client origin the record was printed from.",
+          "type": "string"
+        },
+        "pages": {
+          "description": "Pages in the submitted document, copies excluded.",
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "printer": {
+          "description": "Printer name the job was sent to.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "seq": {
+          "description": "Trace sequence number of the closing event.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "status": {
+          "description": "Print outcome: `done`, `failed`, `cancelled` or `pending`.",
+          "type": "string"
+        },
+        "tags": {
+          "description": "Tags recorded with the job; empty when it had none.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "template": {
+          "description": "Template id when the job came from a stored template.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "traceId": {
+          "description": "Trace to inspect with `trace.tail` (`traceId`).",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "seq",
+        "at",
+        "origin",
+        "tags",
+        "pages",
+        "copies",
+        "status",
+        "durMs",
+        "traceId"
+      ],
+      "type": "object"
+    },
+    "RecordsExportParams": {
+      "additionalProperties": false,
+      "description": "Parameters of `records.export`.",
+      "properties": {
+        "from": {
+          "description": "Inclusive lower bound on `at`, RFC 3339 or `YYYY-MM-DD`; absent means no\nlower bound.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "printer": {
+          "description": "Exact printer name.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RecordStatus"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Exact status: `done`, `failed`, `cancelled` or `pending`."
+        },
+        "tags": {
+          "description": "Rows carrying any of these tags; empty matches every row.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "to": {
+          "description": "Exclusive upper bound on `at`, RFC 3339 or `YYYY-MM-DD`; absent means no\nupper bound.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "type": "object"
+    },
+    "RecordsExportResult": {
+      "description": "`records.export` result: CSV text with a UTF-8 BOM.",
+      "properties": {
+        "csv": {
+          "description": "CSV text, one row per record, including the UTF-8 BOM.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "csv"
+      ],
+      "type": "object"
+    },
+    "RecordsListParams": {
+      "additionalProperties": false,
+      "description": "Parameters of `records.list`.",
+      "properties": {
+        "cursor": {
+          "description": "Last id of the previous page; rows with a smaller id come next.",
+          "format": "int64",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "from": {
+          "description": "Inclusive lower bound on `at`, RFC 3339 or `YYYY-MM-DD`; absent means no\nlower bound.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "limit": {
+          "description": "Page size, 1 to 500; omitted means 100.",
+          "format": "uint32",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "printer": {
+          "description": "Exact printer name.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RecordStatus"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Exact status: `done`, `failed`, `cancelled` or `pending`."
+        },
+        "tags": {
+          "description": "Rows carrying any of these tags; empty matches every row.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "to": {
+          "description": "Exclusive upper bound on `at`, RFC 3339 or `YYYY-MM-DD`; absent means no\nupper bound.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "type": "object"
+    },
+    "RecordsListResult": {
+      "description": "`records.list` result.",
+      "properties": {
+        "nextCursor": {
+          "description": "Cursor for the next page; absent when the page is the last one.",
+          "format": "int64",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "records": {
+          "description": "Rows in `id`-descending order.",
+          "items": {
+            "$ref": "#/$defs/RecordView"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "records"
+      ],
+      "type": "object"
+    },
+    "RecordsQuery": {
+      "additionalProperties": false,
+      "description": "Filters shared by listing, statistics and export.",
+      "properties": {
+        "from": {
+          "description": "Inclusive lower bound on `at`, RFC 3339 or `YYYY-MM-DD`; absent means no\nlower bound.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "printer": {
+          "description": "Exact printer name.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RecordStatus"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Exact status: `done`, `failed`, `cancelled` or `pending`."
+        },
+        "tags": {
+          "description": "Rows carrying any of these tags; empty matches every row.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "to": {
+          "description": "Exclusive upper bound on `at`, RFC 3339 or `YYYY-MM-DD`; absent means no\nupper bound.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "type": "object"
+    },
+    "RecordsStatsParams": {
+      "additionalProperties": false,
+      "description": "`records.stats` parameters.",
+      "properties": {
+        "from": {
+          "description": "Inclusive lower bound on `at`, RFC 3339 or `YYYY-MM-DD`; absent means no\nlower bound.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "groupBy": {
+          "$ref": "#/$defs/StatsGroupView",
+          "description": "Dimension to aggregate by (`groupBy`)."
+        },
+        "printer": {
+          "description": "Exact printer name.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RecordStatus"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Exact status: `done`, `failed`, `cancelled` or `pending`."
+        },
+        "tags": {
+          "description": "Rows carrying any of these tags; empty matches every row.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "to": {
+          "description": "Exclusive upper bound on `at`, RFC 3339 or `YYYY-MM-DD`; absent means no\nupper bound.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "groupBy"
+      ],
+      "type": "object"
+    },
+    "RecordsStatsResult": {
+      "description": "`records.stats` result.",
+      "properties": {
+        "buckets": {
+          "description": "Buckets ordered by the grouping key.",
+          "items": {
+            "$ref": "#/$defs/StatsBucketView"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "buckets"
+      ],
+      "type": "object"
+    },
+    "RecordsSummaryParams": {
+      "additionalProperties": false,
+      "description": "Parameters of `records.summary`.",
+      "properties": {
+        "from": {
+          "description": "Inclusive lower bound on `at`, RFC 3339 or `YYYY-MM-DD`; absent means no\nlower bound.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "printer": {
+          "description": "Exact printer name.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RecordStatus"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Exact status: `done`, `failed`, `cancelled` or `pending`."
+        },
+        "tags": {
+          "description": "Rows carrying any of these tags; empty matches every row.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "to": {
+          "description": "Exclusive upper bound on `at`, RFC 3339 or `YYYY-MM-DD`; absent means no\nupper bound.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "type": "object"
+    },
+    "RecordsSummaryView": {
+      "description": "KPI cards above the records table; `today*` fields use the local calendar date.",
+      "properties": {
+        "avgDurMs": {
+          "description": "Average duration in milliseconds (`avgDurMs`) over the same rows.",
+          "format": "double",
+          "type": "number"
+        },
+        "cancelled": {
+          "description": "Records whose status is `cancelled`.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "failed": {
+          "description": "Records whose status is `failed`.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "pending": {
+          "description": "Records whose status is `pending`.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "slowestAvgDurMs": {
+          "description": "Average duration in milliseconds of `slowest_printer`; `0.0` when the\nfield is absent.",
+          "format": "double",
+          "type": "number"
+        },
+        "slowestPrinter": {
+          "description": "Printer with the highest average duration (`slowestPrinter`); absent\nwhen there are no records.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "todayCancelled": {
+          "description": "Count of today's `status = cancelled` rows (`todayCancelled`).",
+          "format": "int64",
+          "type": "integer"
+        },
+        "todayDone": {
+          "description": "Count of today's `status = done` rows (`todayDone`).",
+          "format": "int64",
+          "type": "integer"
+        },
+        "todayDoneSheets": {
+          "description": "Deprecated compatibility field: successful print requests are counted\nby `todayDone` (one per successful request). This retains\n`sum(pages * copies)` over today's done rows for old clients.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "todayFailed": {
+          "description": "Count of today's `status = failed` rows (`todayFailed`).",
+          "format": "int64",
+          "type": "integer"
+        },
+        "todaySheets": {
+          "description": "Sheets recorded today by local calendar date across all statuses\n(`todaySheets`); kept for old clients.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "total": {
+          "description": "Records in the query window, including failures.",
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "todaySheets",
+        "todayDoneSheets",
+        "todayDone",
+        "todayFailed",
+        "todayCancelled",
+        "total",
+        "failed",
+        "cancelled",
+        "pending",
+        "avgDurMs",
+        "slowestAvgDurMs"
+      ],
+      "type": "object"
+    },
+    "Rejected": {
+      "description": "Server refusal during handshake.",
+      "properties": {
+        "error": {
+          "$ref": "#/$defs/ErrorBody",
+          "description": "Why the handshake failed; `detail.traceId` links to `printkit logs\n--trace`."
+        }
+      },
+      "required": [
+        "error"
+      ],
+      "type": "object"
+    },
+    "Request": {
+      "additionalProperties": false,
+      "description": "One request. `id` pairs it with the response.",
+      "properties": {
+        "id": {
+          "description": "Client-chosen correlation id, echoed on the response.",
+          "type": "string"
+        },
+        "method": {
+          "description": "Wire method name from [`METHODS`](crate::METHODS).",
+          "type": "string"
+        },
+        "params": {
+          "default": null,
+          "description": "Method parameters; `{}` when the method takes none."
+        }
+      },
+      "required": [
+        "id",
+        "method"
+      ],
+      "type": "object"
+    },
+    "Response": {
+      "description": "One response: exactly one of `result` and `error` is present.",
+      "properties": {
+        "error": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ErrorBody"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Failure body; exactly one of `result` and `error` is present."
+        },
+        "id": {
+          "description": "Correlation id copied from the request.",
+          "type": "string"
+        },
+        "ok": {
+          "description": "`true` when `error` is absent; `result` is then present.",
+          "type": "boolean"
+        },
+        "result": {
+          "description": "Method result; absent exactly when `ok` is `false`."
+        },
+        "warnings": {
+          "description": "Non-fatal warnings; empty when there are none.",
+          "items": {
+            "$ref": "#/$defs/WarningBody"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "ok"
+      ],
+      "type": "object"
+    },
+    "Scope": {
+      "description": "A token scope. A `print` token never upgrades to `admin`.",
+      "oneOf": [
+        {
+          "const": "print",
+          "description": "The printing scope: `doc.*`, `job.*`, `printers.*`, `preview.*`\nand `records.*`.",
+          "type": "string"
+        },
+        {
+          "const": "raw",
+          "description": "On top of `print`: `raw.send`.",
+          "type": "string"
+        },
+        {
+          "const": "admin",
+          "description": "On top of `print`: `trace.*` and `logs.export`.",
+          "type": "string"
+        }
+      ]
+    },
+    "ShapeData": {
+      "additionalProperties": false,
+      "description": "The geometry of a shape item.",
+      "properties": {
+        "cell": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Cell"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Required for, and only allowed with, `kind: \"tianGrid\"`."
+        },
+        "kind": {
+          "$ref": "#/$defs/ShapeKind",
+          "description": "Which geometry is drawn; selects the other fields that are allowed."
+        },
+        "lines": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TextRuleLines"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Only meaningful for `kind: \"textRule\"`."
+        },
+        "points": {
+          "description": "Alternating x and y coordinates relative to the frame, in millimetres.\nRequired for, and only allowed with, `kind: \"polygon\"`.",
+          "items": {
+            "description": "Length in millimetres; the only unit in version 1.",
+            "format": "double",
+            "type": "number"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "type": "object"
+    },
+    "ShapeKind": {
+      "description": "Vector shape kind.",
+      "oneOf": [
+        {
+          "const": "line",
+          "description": "A horizontal rule through the middle of the frame.",
+          "type": "string"
+        },
+        {
+          "const": "rect",
+          "description": "A rectangle filling the frame, inset by half the stroke width.",
+          "type": "string"
+        },
+        {
+          "const": "circle",
+          "description": "A circle filling the smaller frame dimension.",
+          "type": "string"
+        },
+        {
+          "const": "ellipse",
+          "description": "An ellipse filling the frame, inset by half the stroke width.",
+          "type": "string"
+        },
+        {
+          "const": "polygon",
+          "description": "A closed polygon; coordinates come from `points`.",
+          "type": "string"
+        },
+        {
+          "const": "tianGrid",
+          "description": "A grid of `cell.rows` by `cell.cols` cells.",
+          "type": "string"
+        },
+        {
+          "const": "textRule",
+          "description": "Horizontal rules along the frame's top and bottom edges.",
+          "type": "string"
+        }
+      ]
+    },
+    "ShapeStyle": {
+      "additionalProperties": false,
+      "description": "Style of a shape item. Lengths are millimetres.",
+      "properties": {
+        "dash": {
+          "description": "Dash pattern in millimetres; `null` draws a solid line.",
+          "items": {
+            "description": "Length in millimetres; the only unit in version 1.",
+            "format": "double",
+            "type": "number"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "fill": {
+          "description": "Fill colour as `#rrggbb`; omitted or `null` leaves the shape unfilled.",
+          "pattern": "^#[0-9a-fA-F]{6}$",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "stroke": {
+          "default": "#000000",
+          "description": "Outline colour; only `#rrggbb` is accepted. Default `#000000`.",
+          "pattern": "^#[0-9a-fA-F]{6}$",
+          "type": "string"
+        },
+        "strokeWidth": {
+          "default": 0.2,
+          "description": "Outline width in millimetres; non-negative, `0` hides the outline.\nDefault `0.2`.",
+          "format": "double",
+          "minimum": 0.0,
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "StatsBucketView": {
+      "description": "One statistics bucket. `sheets` is `SUM(pages * copies)`; `count` is rows\n(or tag occurrences for `groupBy=tag`). They are separate bases.",
+      "properties": {
+        "avgDurMs": {
+          "description": "Average end-to-end duration in milliseconds (`avgDurMs`).",
+          "format": "double",
+          "type": "number"
+        },
+        "count": {
+          "description": "Rows in the bucket; for `tag` the number of tag occurrences.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "key": {
+          "description": "Bucket value: tag, template id, printer name or `YYYY-MM-DD` day.",
+          "type": "string"
+        },
+        "sheets": {
+          "description": "Sheet count, `SUM(pages * copies)`.",
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "key",
+        "count",
+        "sheets",
+        "avgDurMs"
+      ],
+      "type": "object"
+    },
+    "StatsGroupView": {
+      "description": "Aggregation dimension of `records.stats`.",
+      "oneOf": [
+        {
+          "const": "tag",
+          "description": "Group by tag; a row with several tags counts once per tag.",
+          "type": "string"
+        },
+        {
+          "const": "template",
+          "description": "Group by template handle; rows without one land in `unnamed`.",
+          "type": "string"
+        },
+        {
+          "const": "printer",
+          "description": "Group by printer name; rows without one land in `default`.",
+          "type": "string"
+        },
+        {
+          "const": "day",
+          "description": "Group by local calendar day of `at`, keyed `YYYY-MM-DD`.",
+          "type": "string"
+        }
+      ]
+    },
+    "SysInfo": {
+      "description": "`sys.info` result: engine identity plus runtime capabilities.",
+      "properties": {
+        "capabilities": {
+          "$ref": "#/$defs/Capabilities",
+          "description": "Capability bits of this build; see [`Capabilities`]."
+        },
+        "engine": {
+          "description": "Engine version string, currently the crate version.",
+          "type": "string"
+        },
+        "platform": {
+          "$ref": "#/$defs/Platform",
+          "description": "Host platform the engine runs on."
+        },
+        "protocol": {
+          "description": "Protocol major version; see [`PROTOCOL_VERSION`](crate::PROTOCOL_VERSION).",
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "engine",
+        "protocol",
+        "platform",
+        "capabilities"
+      ],
+      "type": "object"
+    },
+    "TableData": {
+      "additionalProperties": false,
+      "description": "The rows and columns of a table item.",
+      "properties": {
+        "columns": {
+          "description": "Columns in left-to-right order; at least 1 and at most 32.",
+          "items": {
+            "$ref": "#/$defs/Column"
+          },
+          "maxItems": 32,
+          "minItems": 1,
+          "type": "array"
+        },
+        "footer": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TableFooter"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Optional totals row; only the last fragment of a split table carries it."
+        },
+        "rows": {
+          "description": "Rows whose keys are column keys and values are cell text; at most 10,000.",
+          "items": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object"
+          },
+          "maxItems": 10000,
+          "type": "array"
+        }
+      },
+      "required": [
+        "columns",
+        "rows"
+      ],
+      "type": "object"
+    },
+    "TableFooter": {
+      "additionalProperties": false,
+      "description": "Last row of a table, typically totals.",
+      "properties": {
+        "label": {
+          "description": "Text shown in the first column when `values` has no entry for its key,\nfor example `Total`.",
+          "type": "string"
+        },
+        "values": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Cell text keyed by column key; a missing key renders an empty cell, except\nin the first column, which falls back to `label`.",
+          "type": "object"
+        }
+      },
+      "required": [
+        "label",
+        "values"
+      ],
+      "type": "object"
+    },
+    "TableStyle": {
+      "additionalProperties": false,
+      "description": "Style of a table item. Lengths are millimetres.",
+      "properties": {
+        "borderColor": {
+          "default": "#000000",
+          "description": "Border colour; only `#rrggbb` is accepted. Default `#000000`.",
+          "pattern": "^#[0-9a-fA-F]{6}$",
+          "type": "string"
+        },
+        "borderWidth": {
+          "default": 0.15,
+          "description": "Line width in millimetres; non-negative, `0` draws no borders.\nDefault `0.15`.",
+          "format": "double",
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "fontSize": {
+          "default": 2.8,
+          "description": "Cell text size in millimetres; positive. Default `2.8`.",
+          "exclusiveMinimum": 0.0,
+          "format": "double",
+          "type": "number"
+        },
+        "headerRepeat": {
+          "default": true,
+          "description": "Repeat the header row on every page the table spans.",
+          "type": "boolean"
+        },
+        "rowHeight": {
+          "default": 6.0,
+          "description": "Row height in millimetres, or `\"auto\"` for content height.",
+          "oneOf": [
+            {
+              "const": "auto"
+            },
+            {
+              "format": "double",
+              "type": "number"
+            }
+          ]
+        },
+        "zebra": {
+          "default": false,
+          "description": "Shade every second data row. Default `false`.",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "TextAlign": {
+      "description": "Horizontal alignment of text inside its frame.",
+      "oneOf": [
+        {
+          "const": "left",
+          "description": "Align to the left edge (default).",
+          "type": "string"
+        },
+        {
+          "const": "center",
+          "description": "Centre horizontally inside the frame.",
+          "type": "string"
+        },
+        {
+          "const": "right",
+          "description": "Align to the right edge.",
+          "type": "string"
+        }
+      ]
+    },
+    "TextData": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "properties": {
+            "fontFile": {
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "maxLength": 6990764,
+                  "pattern": "^data:(font/|application/font|application/octet-stream)[^,]*;base64,",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "description": "The text body of a text item.",
+      "properties": {
+        "fontFile": {
+          "description": "Embedded WOFF2 or TTF font as a base64 data URI, at most 5 MiB decoded.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "text": {
+          "description": "Text to render: non-empty, at most 10,000 Unicode characters.",
+          "maxLength": 10000,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "type": "object"
+    },
+    "TextRuleLines": {
+      "additionalProperties": false,
+      "description": "Which rules a `textRule` shape draws.",
+      "properties": {
+        "bottom": {
+          "default": true,
+          "description": "Draw a rule along the frame's bottom edge. Default `true`.",
+          "type": "boolean"
+        },
+        "top": {
+          "default": true,
+          "description": "Draw a rule along the frame's top edge. Default `true`.",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "TextStyle": {
+      "additionalProperties": false,
+      "description": "Text style. All lengths are millimetres; `rotation` is degrees clockwise.",
+      "properties": {
+        "align": {
+          "$ref": "#/$defs/TextAlign",
+          "default": "left",
+          "description": "Horizontal alignment inside the frame. Default `left`."
+        },
+        "bold": {
+          "default": false,
+          "description": "Use a bold face; the family must carry one.",
+          "type": "boolean"
+        },
+        "color": {
+          "default": "#000000",
+          "description": "CSS colour; only `#rrggbb` is accepted so a document cannot inject CSS.",
+          "pattern": "^#[0-9a-fA-F]{6}$",
+          "type": "string"
+        },
+        "fontFamily": {
+          "default": "Source Han Sans SC",
+          "description": "A bundled family name, or a family declared by `data.fontFile`.",
+          "type": "string"
+        },
+        "fontSize": {
+          "default": 3.7,
+          "description": "Glyph size in millimetres; finite and strictly positive. Default `3.7`.",
+          "exclusiveMinimum": 0.0,
+          "format": "double",
+          "type": "number"
+        },
+        "italic": {
+          "default": false,
+          "description": "Use an italic or oblique face.",
+          "type": "boolean"
+        },
+        "letterSpacing": {
+          "default": 0.0,
+          "description": "Extra space between glyphs in millimetres; non-negative. Default `0`.",
+          "format": "double",
+          "type": "number"
+        },
+        "lineHeight": {
+          "default": 1.4,
+          "description": "Line height as a multiple of `fontSize`; finite and positive. Default `1.4`.",
+          "exclusiveMinimum": 0.0,
+          "format": "double",
+          "type": "number"
+        },
+        "rotation": {
+          "default": 0.0,
+          "description": "Rotation in degrees clockwise around the frame's centre. Default `0`.",
+          "format": "double",
+          "type": "number"
+        },
+        "underline": {
+          "default": false,
+          "description": "Draw an underline below every line.",
+          "type": "boolean"
+        },
+        "valign": {
+          "$ref": "#/$defs/VAlign",
+          "default": "top",
+          "description": "Vertical alignment inside the frame. Default `top`."
+        },
+        "wrap": {
+          "default": true,
+          "description": "Wrap lines at the frame width; `false` keeps the text on one line. Default `true`.",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "TraceEventView": {
+      "description": "One trace event as the protocol exposes it.",
+      "properties": {
+        "at": {
+          "description": "RFC 3339 timestamp.",
+          "type": "string"
+        },
+        "code": {
+          "description": "Code of a failure, for example `E_JOB_FAILED`; absent when `ok` is `true`.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "detail": {
+          "description": "Free-form failure detail, for example the driver status.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "durMs": {
+          "description": "Stage duration in milliseconds (`durMs`); absent when the stage has no\nmeasured end.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "fields": {
+          "additionalProperties": {
+            "$ref": "#/$defs/TraceValue"
+          },
+          "description": "Additional scalar fields of the stage, keyed by their wire names.",
+          "type": "object"
+        },
+        "ok": {
+          "description": "`true` when the stage succeeded.",
+          "type": "boolean"
+        },
+        "origin": {
+          "description": "Client origin the request came from.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pages": {
+          "description": "Pages in the job, reported by the render and result stages.",
+          "format": "uint32",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "printer": {
+          "description": "Printer the event concerns.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "queuePos": {
+          "description": "Queue position announced at the `queue` stage (`queuePos`).",
+          "format": "uint32",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "seq": {
+          "description": "Global event sequence number; strictly increasing per process.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "stage": {
+          "$ref": "#/$defs/TraceStage",
+          "description": "Timeline stage that produced the event."
+        },
+        "traceId": {
+          "description": "Trace the event belongs to (`traceId`).",
+          "type": "string"
+        }
+      },
+      "required": [
+        "seq",
+        "traceId",
+        "stage",
+        "at",
+        "ok"
+      ],
+      "type": "object"
+    },
+    "TraceStage": {
+      "description": "One stage of the fixed print timeline.",
+      "oneOf": [
+        {
+          "const": "recv",
+          "description": "The request frame was received.",
+          "type": "string"
+        },
+        {
+          "const": "auth",
+          "description": "Token and origin were authenticated.",
+          "type": "string"
+        },
+        {
+          "const": "validate",
+          "description": "The document passed the schema and semantic layers.",
+          "type": "string"
+        },
+        {
+          "const": "queue",
+          "description": "The job is queued and its one-based position is recorded.",
+          "type": "string"
+        },
+        {
+          "const": "render",
+          "description": "The renderer produced pixels or PDF bytes.",
+          "type": "string"
+        },
+        {
+          "const": "submit",
+          "description": "Bytes were handed to the spooler or the driver.",
+          "type": "string"
+        },
+        {
+          "const": "result",
+          "description": "The closing event; carries the outcome and total duration of the trace.",
+          "type": "string"
+        }
+      ]
+    },
+    "TraceSubscribeParams": {
+      "additionalProperties": false,
+      "description": "`trace.subscribe` parameters. `since` is the last sequence number the\nclient saw; the subscription starts after it and replays retained files.",
+      "properties": {
+        "since": {
+          "description": "Replay only events after this sequence number; omitted starts at the\nbeginning of retention.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "stages": {
+          "description": "Empty or absent streams every stage.",
+          "items": {
+            "$ref": "#/$defs/TraceStage"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "TraceTailParams": {
+      "additionalProperties": false,
+      "description": "`trace.tail` parameters.",
+      "properties": {
+        "traceId": {
+          "description": "Trace to replay (`traceId`).",
+          "type": "string"
+        }
+      },
+      "required": [
+        "traceId"
+      ],
+      "type": "object"
+    },
+    "TraceTailResult": {
+      "description": "`trace.tail` result: the complete retained timeline of one trace.",
+      "properties": {
+        "events": {
+          "description": "Retained events ordered by `seq`.",
+          "items": {
+            "$ref": "#/$defs/TraceEventView"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "events"
+      ],
+      "type": "object"
+    },
+    "TraceValue": {
+      "anyOf": [
+        {
+          "description": "A boolean field, wire JSON `true` or `false`.",
+          "type": "boolean"
+        },
+        {
+          "description": "An integer field, wire JSON number.",
+          "format": "int64",
+          "type": "integer"
+        },
+        {
+          "description": "A floating-point field, wire JSON number.",
+          "format": "double",
+          "type": "number"
+        },
+        {
+          "description": "A string field.",
+          "type": "string"
+        }
+      ],
+      "description": "A scalar value inside a trace event's field map."
+    },
+    "VAlign": {
+      "description": "Vertical alignment of text inside its frame.",
+      "oneOf": [
+        {
+          "const": "top",
+          "description": "Align to the top edge (default).",
+          "type": "string"
+        },
+        {
+          "const": "middle",
+          "description": "Centre vertically inside the frame.",
+          "type": "string"
+        },
+        {
+          "const": "bottom",
+          "description": "Align to the bottom edge.",
+          "type": "string"
+        }
+      ]
+    },
+    "WarningBody": {
+      "description": "A warning inside a successful response.",
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/WarningCode",
+          "description": "One [`WarningCode`] spelling."
+        },
+        "detail": {
+          "description": "Optional free-form context; absent when there is none."
+        },
+        "message": {
+          "description": "Human-readable warning text.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "WarningCode": {
+      "description": "A problem carried by a successful response. A warning never fails a job.",
+      "oneOf": [
+        {
+          "const": "W_RASTER_ONLY",
+          "description": "The raster fallback was used; the request still succeeded.",
+          "type": "string"
+        },
+        {
+          "const": "W_FONT_UNKNOWN",
+          "description": "`fontFamily` names neither a bundled family nor one from `data.fontFile`.",
+          "type": "string"
+        },
+        {
+          "const": "W_MISSING_GLYPH",
+          "description": "The font lacks glyphs for some characters; `detail` lists the code points.",
+          "type": "string"
+        },
+        {
+          "const": "W_VERSION_MISMATCH",
+          "description": "The protocol minor version differs; the request ran in compatibility mode.",
+          "type": "string"
+        },
+        {
+          "const": "W_TABLE_HEIGHTS_ESTIMATED",
+          "description": "Table rows were paginated from estimated heights.",
+          "type": "string"
+        },
+        {
+          "const": "W_TABLE_ROW_TOO_TALL",
+          "description": "One table row is taller than the page body and got its own page.",
+          "type": "string"
+        },
+        {
+          "const": "W_PDF_OVERLAY_TOP",
+          "description": "A page mixed PDF overlays with HTML items; PDF items paint above HTML\nitems regardless of array order.",
+          "type": "string"
+        },
+        {
+          "const": "W_BARCODE_QUIET_ZONE",
+          "description": "`quietZone` is below the minimum for the symbology; the renderer widens\nit to the minimum.",
+          "type": "string"
+        },
+        {
+          "const": "W_PDF_MERGE_METADATA_LOST",
+          "description": "A batch rebuilt the PDF from pages; input AcroForm, Outlines or\nMetadata were not carried over.",
+          "type": "string"
+        }
+      ]
+    },
+    "Welcome": {
+      "description": "Server handshake reply.",
+      "properties": {
+        "capabilities": {
+          "description": "Optional method families this build implements.",
+          "items": {
+            "$ref": "#/$defs/CapabilityFamily"
+          },
+          "type": "array"
+        },
+        "engine": {
+          "description": "Engine version string, currently the crate version.",
+          "type": "string"
+        },
+        "granted": {
+          "description": "Scopes actually granted to this session.",
+          "items": {
+            "$ref": "#/$defs/Scope"
+          },
+          "type": "array"
+        },
+        "pluginFamilies": {
+          "default": null,
+          "description": "Active plugin ids whose method families this build implements.\n\nAdditive and optional on the wire: an older server omits the field and\nan older client ignores it. Clients that predate plugin ids fall back to\n`capabilities`.",
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "protocol": {
+          "description": "Server's [`PROTOCOL_VERSION`].",
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "warnings": {
+          "description": "Non-fatal handshake warnings; empty when there are none.",
+          "items": {
+            "$ref": "#/$defs/WarningCode"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "protocol",
+        "engine",
+        "granted",
+        "capabilities",
+        "warnings"
+      ],
+      "type": "object"
+    },
+    "WindowRef": {
+      "description": "Handle of one preview window.",
+      "properties": {
+        "windowId": {
+          "description": "Preview window handle returned by `doc.preview` (`windowId`).",
+          "type": "string"
+        }
+      },
+      "required": [
+        "windowId"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "https://printkit.dev/schema/protocol-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "WebSocket and batch-upload protocol of printkit. Lengths are millimetres; timestamps are RFC 3339. Document bodies are validated against document-v1.json only; the Document types copied into $defs are there to make message bodies readable.",
+  "errorCodes": [
+    "E_CONNECT",
+    "E_AUTH",
+    "E_ORIGIN",
+    "E_CSRF",
+    "E_SCHEMA",
+    "E_PRINTER_NOT_FOUND",
+    "E_PAPER_UNSUPPORTED",
+    "E_JOB_FAILED",
+    "E_TIMEOUT",
+    "E_PROTOCOL",
+    "E_UNSUPPORTED",
+    "E_CANCEL_UNSUPPORTED",
+    "E_RAW_UNSUPPORTED",
+    "E_PDF_ENCRYPTED",
+    "E_NOT_FOUND",
+    "E_TOO_LARGE",
+    "E_RENDER_CRASH",
+    "E_ALREADY_RUNNING"
+  ],
+  "methods": [
+    {
+      "method": "hello",
+      "optional": false,
+      "params": "Hello",
+      "result": "Welcome",
+      "scope": null
+    },
+    {
+      "method": "sys.info",
+      "optional": false,
+      "params": null,
+      "result": "SysInfo",
+      "scope": "print"
+    },
+    {
+      "method": "printers.list",
+      "optional": false,
+      "params": null,
+      "result": "Printer[]",
+      "scope": "print"
+    },
+    {
+      "method": "printers.papers",
+      "optional": false,
+      "params": "PrintersPapersParams",
+      "result": "PaperSize[]",
+      "scope": "print"
+    },
+    {
+      "method": "doc.print",
+      "optional": false,
+      "params": "Document",
+      "result": "JobRef",
+      "scope": "print"
+    },
+    {
+      "method": "doc.printBatch",
+      "optional": false,
+      "params": "DocPrintBatchParams",
+      "result": "BatchResult",
+      "scope": "print"
+    },
+    {
+      "method": "doc.printPdf",
+      "optional": false,
+      "params": "DocPrintPdfParams",
+      "result": "JobRef",
+      "scope": "print"
+    },
+    {
+      "method": "doc.printPdfBatch",
+      "optional": false,
+      "params": "DocPrintPdfBatchParams",
+      "result": "PdfBatchResult",
+      "scope": "print"
+    },
+    {
+      "method": "doc.preview",
+      "optional": false,
+      "params": "Document",
+      "result": "WindowRef",
+      "scope": "print"
+    },
+    {
+      "method": "preview.pages",
+      "optional": false,
+      "params": "PreviewPagesParams",
+      "result": "PreviewPagesResult",
+      "scope": "print"
+    },
+    {
+      "method": "preview.close",
+      "optional": false,
+      "params": "PreviewCloseParams",
+      "result": "Empty",
+      "scope": "print"
+    },
+    {
+      "method": "doc.exportPdf",
+      "optional": false,
+      "params": "ExportPdfParams",
+      "result": "ExportPdfResult",
+      "scope": "print"
+    },
+    {
+      "method": "raw.send",
+      "optional": false,
+      "params": "RawSendParams",
+      "result": "JobRef",
+      "scope": "raw"
+    },
+    {
+      "method": "job.status",
+      "optional": false,
+      "params": "JobIdParams",
+      "result": "JobStatus",
+      "scope": "print"
+    },
+    {
+      "method": "job.cancel",
+      "optional": false,
+      "params": "JobIdParams",
+      "result": "Empty",
+      "scope": "print"
+    },
+    {
+      "method": "trace.subscribe",
+      "optional": true,
+      "params": "TraceSubscribeParams",
+      "plugin": "observability",
+      "result": "Empty",
+      "scope": "admin"
+    },
+    {
+      "method": "trace.tail",
+      "optional": true,
+      "params": "TraceTailParams",
+      "plugin": "observability",
+      "result": "TraceTailResult",
+      "scope": "admin"
+    },
+    {
+      "method": "logs.export",
+      "optional": true,
+      "params": "LogsExportParams",
+      "plugin": "observability",
+      "result": "LogsExportResult",
+      "scope": "admin"
+    },
+    {
+      "method": "records.list",
+      "optional": true,
+      "params": "RecordsListParams",
+      "plugin": "records",
+      "result": "RecordsListResult",
+      "scope": "print"
+    },
+    {
+      "method": "records.stats",
+      "optional": true,
+      "params": "RecordsStatsParams",
+      "plugin": "records",
+      "result": "RecordsStatsResult",
+      "scope": "print"
+    },
+    {
+      "method": "records.summary",
+      "optional": true,
+      "params": "RecordsSummaryParams",
+      "plugin": "records",
+      "result": "RecordsSummaryView",
+      "scope": "print"
+    },
+    {
+      "method": "records.export",
+      "optional": true,
+      "params": "RecordsExportParams",
+      "plugin": "records",
+      "result": "RecordsExportResult",
+      "scope": "print"
+    }
+  ],
+  "protocol": 1,
+  "title": "printkit protocol v1",
+  "warningCodes": [
+    "W_RASTER_ONLY",
+    "W_FONT_UNKNOWN",
+    "W_MISSING_GLYPH",
+    "W_VERSION_MISMATCH",
+    "W_TABLE_HEIGHTS_ESTIMATED",
+    "W_TABLE_ROW_TOO_TALL",
+    "W_PDF_OVERLAY_TOP",
+    "W_BARCODE_QUIET_ZONE",
+    "W_PDF_MERGE_METADATA_LOST"
+  ]
+}

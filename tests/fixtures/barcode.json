@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "spec": {
+        "size": "A4"
+      },
+      "items": [
+        {
+          "id": "bar-code128",
+          "type": "barcode",
+          "frame": {
+            "x": 20.0,
+            "y": 20.0,
+            "width": 60.0,
+            "height": 15.0
+          },
+          "data": {
+            "kind": "code128",
+            "value": "PK-00042"
+          }
+        },
+        {
+          "id": "bar-code39",
+          "type": "barcode",
+          "frame": {
+            "x": 20.0,
+            "y": 45.0,
+            "width": 60.0,
+            "height": 15.0
+          },
+          "data": {
+            "kind": "code39",
+            "value": "PK-0042"
+          }
+        },
+        {
+          "id": "bar-ean13",
+          "type": "barcode",
+          "frame": {
+            "x": 20.0,
+            "y": 70.0,
+            "width": 45.0,
+            "height": 15.0
+          },
+          "data": {
+            "kind": "ean13",
+            "value": "4006381333931"
+          }
+        },
+        {
+          "id": "bar-qr",
+          "type": "barcode",
+          "frame": {
+            "x": 110.0,
+            "y": 20.0,
+            "width": 30.0,
+            "height": 30.0
+          },
+          "data": {
+            "kind": "qr",
+            "value": "https://example.invalid/printkit"
+          }
+        },
+        {
+          "id": "bar-pdf417",
+          "type": "barcode",
+          "frame": {
+            "x": 110.0,
+            "y": 60.0,
+            "width": 60.0,
+            "height": 25.0
+          },
+          "data": {
+            "kind": "pdf417",
+            "value": "PRINTKIT-417"
+          },
+          "style": {
+            "quietZone": 0.0
+          }
+        },
+        {
+          "id": "bar-datamatrix",
+          "type": "barcode",
+          "frame": {
+            "x": 110.0,
+            "y": 95.0,
+            "width": 30.0,
+            "height": 30.0
+          },
+          "data": {
+            "kind": "datamatrix",
+            "value": "PRINTKIT-DM"
+          },
+          "style": {
+            "quietZone": 0.0
+          }
+        }
+      ]
+    }
+  ]
+}

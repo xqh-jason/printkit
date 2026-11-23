@@ -1,0 +1,191 @@
+version: 2
+
+# Policy: monthly version updates, grouped by ecosystem and directory, with
+# open-pull-requests-limit 3 so a release cycle never floods the queue.
+# Security updates stay enabled and ungrouped: GitHub raises them immediately
+# and ignore rules below do not suppress them.
+updates:
+  - package-ecosystem: cargo
+    directory: /
+    schedule:
+      interval: monthly
+      timezone: Asia/Shanghai
+    open-pull-requests-limit: 3
+    labels:
+      - dependencies
+      - rust
+    commit-message:
+      prefix: "chore(deps)"
+    cooldown:
+      default-days: 5
+      semver-major-days: 30
+      semver-minor-days: 7
+      semver-patch-days: 3
+    groups:
+      cargo-minor-patch:
+        applies-to: version-updates
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+    ignore:
+      # 0.x crates where a minor bump is a de-facto major migration.
+      - dependency-name: rusqlite
+        versions:
+          - ">= 0.43.0"
+      - dependency-name: ts-rs
+        update-types:
+          - version-update:semver-major
+      - dependency-name: toml
+        update-types:
+          - version-update:semver-major
+
+  - package-ecosystem: cargo
+    directory: /apps/desktop/src-tauri
+    schedule:
+      interval: monthly
+      timezone: Asia/Shanghai
+    open-pull-requests-limit: 3
+    labels:
+      - dependencies
+      - rust
+    commit-message:
+      prefix: "chore(deps)"
+    cooldown:
+      default-days: 5
+      semver-major-days: 30
+      semver-minor-days: 7
+      semver-patch-days: 3
+    groups:
+      tauri-cargo-minor-patch:
+        applies-to: version-updates
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+    ignore:
+      - dependency-name: toml
+        update-types:
+          - version-update:semver-major
+      - dependency-name: tauri
+        update-types:
+          - version-update:semver-major
+      - dependency-name: tauri-build
+        update-types:
+          - version-update:semver-major
+
+  - package-ecosystem: npm
+    directory: /apps/desktop
+    schedule:
+      interval: monthly
+      timezone: Asia/Shanghai
+    open-pull-requests-limit: 3
+    labels:
+      - dependencies
+      - javascript
+    commit-message:
+      prefix: "chore(deps)"
+    cooldown:
+      default-days: 5
+      semver-major-days: 30
+      semver-minor-days: 7
+      semver-patch-days: 3
+    groups:
+      desktop-npm-minor-patch:
+        applies-to: version-updates
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+    ignore:
+      - dependency-name: typescript
+        update-types:
+          - version-update:semver-major
+      - dependency-name: vite
+        update-types:
+          - version-update:semver-major
+
+  - package-ecosystem: npm
+    directory: /packages/sdk-ts
+    schedule:
+      interval: monthly
+      timezone: Asia/Shanghai
+    open-pull-requests-limit: 3
+    labels:
+      - dependencies
+      - javascript
+    commit-message:
+      prefix: "chore(deps)"
+    cooldown:
+      default-days: 5
+      semver-major-days: 30
+      semver-minor-days: 7
+      semver-patch-days: 3
+    groups:
+      sdk-npm-minor-patch:
+        applies-to: version-updates
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+    ignore:
+      - dependency-name: typescript
+        update-types:
+          - version-update:semver-major
+      # CI pins Node 22; do not let types jump ahead of the runtime.
+      - dependency-name: "@types/node"
+        update-types:
+          - version-update:semver-major
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+      timezone: Asia/Shanghai
+    open-pull-requests-limit: 3
+    labels:
+      - dependencies
+      - github_actions
+    commit-message:
+      prefix: "chore(deps)"
+    cooldown:
+      default-days: 5
+      semver-major-days: 30
+      semver-minor-days: 7
+      semver-patch-days: 3
+    groups:
+      actions-minor-patch:
+        applies-to: version-updates
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+    ignore:
+      # Action majors rewrite runtime assumptions and must be triaged with the
+      # workflows in the same PR; see the closed #1-#5 batch.
+      - dependency-name: actions/checkout
+        update-types:
+          - version-update:semver-major
+      - dependency-name: actions/setup-node
+        update-types:
+          - version-update:semver-major
+      - dependency-name: actions/download-artifact
+        update-types:
+          - version-update:semver-major
+      - dependency-name: actions/upload-artifact
+        update-types:
+          - version-update:semver-major
+      - dependency-name: actions/attest-build-provenance
+        update-types:
+          - version-update:semver-major
+      - dependency-name: pnpm/action-setup
+        update-types:
+          - version-update:semver-major
+      - dependency-name: ilammy/msvc-dev-cmd
+        update-types:
+          - version-update:semver-major

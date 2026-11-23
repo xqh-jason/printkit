@@ -1,0 +1,658 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "spec": {
+        "size": "A4"
+      },
+      "items": [
+        {
+          "id": "table-long",
+          "type": "table",
+          "frame": {
+            "x": 20.0,
+            "y": 20.0,
+            "width": 170.0,
+            "height": 277.0
+          },
+          "data": {
+            "columns": [
+              {
+                "key": "no",
+                "title": "No",
+                "width": 20.0,
+                "align": "left"
+              },
+              {
+                "key": "name",
+                "title": "Name",
+                "width": 50.0,
+                "align": "left"
+              },
+              {
+                "key": "amount",
+                "title": "Amount",
+                "width": "auto",
+                "align": "right"
+              }
+            ],
+            "rows": [
+              {
+                "no": "001",
+                "name": "Item 001",
+                "amount": "01.50"
+              },
+              {
+                "no": "002",
+                "name": "Item 002",
+                "amount": "02.50"
+              },
+              {
+                "no": "003",
+                "name": "Item 003",
+                "amount": "03.50"
+              },
+              {
+                "no": "004",
+                "name": "Item 004",
+                "amount": "04.50"
+              },
+              {
+                "no": "005",
+                "name": "Item 005",
+                "amount": "05.50"
+              },
+              {
+                "no": "006",
+                "name": "Item 006",
+                "amount": "06.50"
+              },
+              {
+                "no": "007",
+                "name": "Item 007",
+                "amount": "07.50"
+              },
+              {
+                "no": "008",
+                "name": "Item 008",
+                "amount": "08.50"
+              },
+              {
+                "no": "009",
+                "name": "Item 009",
+                "amount": "09.50"
+              },
+              {
+                "no": "010",
+                "name": "Item 010",
+                "amount": "10.50"
+              },
+              {
+                "no": "011",
+                "name": "Item 011",
+                "amount": "11.50"
+              },
+              {
+                "no": "012",
+                "name": "Item 012",
+                "amount": "12.50"
+              },
+              {
+                "no": "013",
+                "name": "Item 013",
+                "amount": "13.50"
+              },
+              {
+                "no": "014",
+                "name": "Item 014",
+                "amount": "14.50"
+              },
+              {
+                "no": "015",
+                "name": "Item 015",
+                "amount": "15.50"
+              },
+              {
+                "no": "016",
+                "name": "Item 016",
+                "amount": "16.50"
+              },
+              {
+                "no": "017",
+                "name": "Item 017",
+                "amount": "17.50"
+              },
+              {
+                "no": "018",
+                "name": "Item 018",
+                "amount": "18.50"
+              },
+              {
+                "no": "019",
+                "name": "Item 019",
+                "amount": "19.50"
+              },
+              {
+                "no": "020",
+                "name": "Item 020",
+                "amount": "20.50"
+              },
+              {
+                "no": "021",
+                "name": "Item 021",
+                "amount": "21.50"
+              },
+              {
+                "no": "022",
+                "name": "Item 022",
+                "amount": "22.50"
+              },
+              {
+                "no": "023",
+                "name": "Item 023",
+                "amount": "23.50"
+              },
+              {
+                "no": "024",
+                "name": "Item 024",
+                "amount": "24.50"
+              },
+              {
+                "no": "025",
+                "name": "Item 025",
+                "amount": "25.50"
+              },
+              {
+                "no": "026",
+                "name": "Item 026",
+                "amount": "26.50"
+              },
+              {
+                "no": "027",
+                "name": "Item 027",
+                "amount": "27.50"
+              },
+              {
+                "no": "028",
+                "name": "Item 028",
+                "amount": "28.50"
+              },
+              {
+                "no": "029",
+                "name": "Item 029",
+                "amount": "29.50"
+              },
+              {
+                "no": "030",
+                "name": "Item 030",
+                "amount": "30.50"
+              },
+              {
+                "no": "031",
+                "name": "Item 031",
+                "amount": "31.50"
+              },
+              {
+                "no": "032",
+                "name": "Item 032",
+                "amount": "32.50"
+              },
+              {
+                "no": "033",
+                "name": "Item 033",
+                "amount": "33.50"
+              },
+              {
+                "no": "034",
+                "name": "Item 034",
+                "amount": "34.50"
+              },
+              {
+                "no": "035",
+                "name": "Item 035",
+                "amount": "35.50"
+              },
+              {
+                "no": "036",
+                "name": "Item 036",
+                "amount": "36.50"
+              },
+              {
+                "no": "037",
+                "name": "Item 037",
+                "amount": "37.50"
+              },
+              {
+                "no": "038",
+                "name": "Item 038",
+                "amount": "38.50"
+              },
+              {
+                "no": "039",
+                "name": "Item 039",
+                "amount": "39.50"
+              },
+              {
+                "no": "040",
+                "name": "Item 040",
+                "amount": "40.50"
+              },
+              {
+                "no": "041",
+                "name": "Item 041",
+                "amount": "41.50"
+              },
+              {
+                "no": "042",
+                "name": "Item 042",
+                "amount": "42.50"
+              },
+              {
+                "no": "043",
+                "name": "Item 043",
+                "amount": "43.50"
+              },
+              {
+                "no": "044",
+                "name": "Item 044",
+                "amount": "44.50"
+              },
+              {
+                "no": "045",
+                "name": "Item 045",
+                "amount": "45.50"
+              },
+              {
+                "no": "046",
+                "name": "Item 046",
+                "amount": "46.50"
+              },
+              {
+                "no": "047",
+                "name": "Item 047",
+                "amount": "47.50"
+              },
+              {
+                "no": "048",
+                "name": "Item 048",
+                "amount": "48.50"
+              },
+              {
+                "no": "049",
+                "name": "Item 049",
+                "amount": "49.50"
+              },
+              {
+                "no": "050",
+                "name": "Item 050",
+                "amount": "50.50"
+              },
+              {
+                "no": "051",
+                "name": "Item 051",
+                "amount": "51.50"
+              },
+              {
+                "no": "052",
+                "name": "Item 052",
+                "amount": "52.50"
+              },
+              {
+                "no": "053",
+                "name": "Item 053",
+                "amount": "53.50"
+              },
+              {
+                "no": "054",
+                "name": "Item 054",
+                "amount": "54.50"
+              },
+              {
+                "no": "055",
+                "name": "Item 055",
+                "amount": "55.50"
+              },
+              {
+                "no": "056",
+                "name": "Item 056",
+                "amount": "56.50"
+              },
+              {
+                "no": "057",
+                "name": "Item 057",
+                "amount": "57.50"
+              },
+              {
+                "no": "058",
+                "name": "Item 058",
+                "amount": "58.50"
+              },
+              {
+                "no": "059",
+                "name": "Item 059",
+                "amount": "59.50"
+              },
+              {
+                "no": "060",
+                "name": "Item 060",
+                "amount": "60.50"
+              },
+              {
+                "no": "061",
+                "name": "Item 061",
+                "amount": "61.50"
+              },
+              {
+                "no": "062",
+                "name": "Item 062",
+                "amount": "62.50"
+              },
+              {
+                "no": "063",
+                "name": "Item 063",
+                "amount": "63.50"
+              },
+              {
+                "no": "064",
+                "name": "Item 064",
+                "amount": "64.50"
+              },
+              {
+                "no": "065",
+                "name": "Item 065",
+                "amount": "65.50"
+              },
+              {
+                "no": "066",
+                "name": "Item 066",
+                "amount": "66.50"
+              },
+              {
+                "no": "067",
+                "name": "Item 067",
+                "amount": "67.50"
+              },
+              {
+                "no": "068",
+                "name": "Item 068",
+                "amount": "68.50"
+              },
+              {
+                "no": "069",
+                "name": "Item 069",
+                "amount": "69.50"
+              },
+              {
+                "no": "070",
+                "name": "Item 070",
+                "amount": "70.50"
+              },
+              {
+                "no": "071",
+                "name": "Item 071",
+                "amount": "71.50"
+              },
+              {
+                "no": "072",
+                "name": "Item 072",
+                "amount": "72.50"
+              },
+              {
+                "no": "073",
+                "name": "Item 073",
+                "amount": "73.50"
+              },
+              {
+                "no": "074",
+                "name": "Item 074",
+                "amount": "74.50"
+              },
+              {
+                "no": "075",
+                "name": "Item 075",
+                "amount": "75.50"
+              },
+              {
+                "no": "076",
+                "name": "Item 076",
+                "amount": "76.50"
+              },
+              {
+                "no": "077",
+                "name": "Item 077",
+                "amount": "77.50"
+              },
+              {
+                "no": "078",
+                "name": "Item 078",
+                "amount": "78.50"
+              },
+              {
+                "no": "079",
+                "name": "Item 079",
+                "amount": "79.50"
+              },
+              {
+                "no": "080",
+                "name": "Item 080",
+                "amount": "80.50"
+              },
+              {
+                "no": "081",
+                "name": "Item 081",
+                "amount": "81.50"
+              },
+              {
+                "no": "082",
+                "name": "Item 082",
+                "amount": "82.50"
+              },
+              {
+                "no": "083",
+                "name": "Item 083",
+                "amount": "83.50"
+              },
+              {
+                "no": "084",
+                "name": "Item 084",
+                "amount": "84.50"
+              },
+              {
+                "no": "085",
+                "name": "Item 085",
+                "amount": "85.50"
+              },
+              {
+                "no": "086",
+                "name": "Item 086",
+                "amount": "86.50"
+              },
+              {
+                "no": "087",
+                "name": "Item 087",
+                "amount": "87.50"
+              },
+              {
+                "no": "088",
+                "name": "Item 088",
+                "amount": "88.50"
+              },
+              {
+                "no": "089",
+                "name": "Item 089",
+                "amount": "89.50"
+              },
+              {
+                "no": "090",
+                "name": "Item 090",
+                "amount": "90.50"
+              },
+              {
+                "no": "091",
+                "name": "Item 091",
+                "amount": "91.50"
+              },
+              {
+                "no": "092",
+                "name": "Item 092",
+                "amount": "92.50"
+              },
+              {
+                "no": "093",
+                "name": "Item 093",
+                "amount": "93.50"
+              },
+              {
+                "no": "094",
+                "name": "Item 094",
+                "amount": "94.50"
+              },
+              {
+                "no": "095",
+                "name": "Item 095",
+                "amount": "95.50"
+              },
+              {
+                "no": "096",
+                "name": "Item 096",
+                "amount": "96.50"
+              },
+              {
+                "no": "097",
+                "name": "Item 097",
+                "amount": "97.50"
+              },
+              {
+                "no": "098",
+                "name": "Item 098",
+                "amount": "98.50"
+              },
+              {
+                "no": "099",
+                "name": "Item 099",
+                "amount": "99.50"
+              },
+              {
+                "no": "100",
+                "name": "Item 100",
+                "amount": "00.50"
+              },
+              {
+                "no": "101",
+                "name": "Item 101",
+                "amount": "01.50"
+              },
+              {
+                "no": "102",
+                "name": "Item 102",
+                "amount": "02.50"
+              },
+              {
+                "no": "103",
+                "name": "Item 103",
+                "amount": "03.50"
+              },
+              {
+                "no": "104",
+                "name": "Item 104",
+                "amount": "04.50"
+              },
+              {
+                "no": "105",
+                "name": "Item 105",
+                "amount": "05.50"
+              },
+              {
+                "no": "106",
+                "name": "Item 106",
+                "amount": "06.50"
+              },
+              {
+                "no": "107",
+                "name": "Item 107",
+                "amount": "07.50"
+              },
+              {
+                "no": "108",
+                "name": "Item 108",
+                "amount": "08.50"
+              },
+              {
+                "no": "109",
+                "name": "Item 109",
+                "amount": "09.50"
+              },
+              {
+                "no": "110",
+                "name": "Item 110",
+                "amount": "10.50"
+              },
+              {
+                "no": "111",
+                "name": "Item 111",
+                "amount": "11.50"
+              },
+              {
+                "no": "112",
+                "name": "Item 112",
+                "amount": "12.50"
+              },
+              {
+                "no": "113",
+                "name": "Item 113",
+                "amount": "13.50"
+              },
+              {
+                "no": "114",
+                "name": "Item 114",
+                "amount": "14.50"
+              },
+              {
+                "no": "115",
+                "name": "Item 115",
+                "amount": "15.50"
+              },
+              {
+                "no": "116",
+                "name": "Item 116",
+                "amount": "16.50"
+              },
+              {
+                "no": "117",
+                "name": "Item 117",
+                "amount": "17.50"
+              },
+              {
+                "no": "118",
+                "name": "Item 118",
+                "amount": "18.50"
+              },
+              {
+                "no": "119",
+                "name": "Item 119",
+                "amount": "19.50"
+              },
+              {
+                "no": "120",
+                "name": "Item 120",
+                "amount": "20.50"
+              }
+            ],
+            "footer": {
+              "label": "Total",
+              "values": {
+                "amount": "1234.50"
+              }
+            }
+          },
+          "style": {
+            "fontSize": 2.8,
+            "rowHeight": 6.0,
+            "borderWidth": 0.15,
+            "headerRepeat": true
+          }
+        }
+      ]
+    }
+  ]
+}

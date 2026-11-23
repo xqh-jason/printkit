@@ -1,0 +1,20 @@
+[package]
+name = "printkit-render"
+description = "Document to a single HTML document. Pure text in, pure text out."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+
+[dependencies]
+base64.workspace = true
+printkit-barcode.workspace = true
+printkit-core.workspace = true
+
+[dev-dependencies]
+serde_json.workspace = true
+
+[lints]
+workspace = true

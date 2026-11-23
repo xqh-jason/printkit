@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "spec": {
+        "size": "A4",
+        "margins": {
+          "top": 10,
+          "right": 10,
+          "bottom": 10,
+          "left": 10
+        }
+      },
+      "items": [
+        {
+          "id": "heading",
+          "type": "text",
+          "frame": {
+            "x": 10,
+            "y": 10,
+            "width": 190,
+            "height": 10
+          },
+          "style": {
+            "fontSize": 5,
+            "lineHeight": 1.2
+          },
+          "data": {
+            "text": "printkit embedded pdf fixture"
+          }
+        },
+        {
+          "id": "overlay",
+          "type": "pdf",
+          "frame": {
+            "x": 20,
+            "y": 30,
+            "width": 170,
+            "height": 240.4
+          },
+          "data": {
+            "src": "data:application/pdf;base64,JVBERi0xLjQKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAwIFIgPj4KZW5kb2JqCjIgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzIC9LaWRzIFszIDAgUl0gL0NvdW50IDEgPj4KZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCAyIDAgUiAvTWVkaWFCb3ggWzAgMCA1OTUgODQyXSAvQ29udGVudHMgNCAwIFIgL1Jlc291cmNlcyA8PCAvRm9udCA8PCAvRjEgNSAwIFIgPj4gPj4gPj4KZW5kb2JqCjQgMCBvYmoKPDwgL0xlbmd0aCAwID4+CnN0cmVhbQoKZW5kc3RyZWFtCmVuZG9iago1IDAgb2JqCjw8IC9UeXBlIC9Gb250IC9TdWJ0eXBlIC9UeXBlMSAvQmFzZUZvbnQgL0FBQUFBQStFbmNyeXB0ZWQgL0ZvbnREZXNjcmlwdG9yIDYgMCBSID4+CmVuZG9iago2IDAgb2JqCjw8IC9UeXBlIC9Gb250RGVzY3JpcHRvciAvRm9udE5hbWUgL0FBQUFBQStFbmNyeXB0ZWQgL0ZsYWdzIDQgL0ZvbnRCQm94IFswIDAgMTAwMCAxMDAwXSAvSXRhbGljQW5nbGUgMCAvQXNjZW50IDgwMCAvRGVzY2VudCAtMjAwIC9DYXBIZWlnaHQgNzAwIC9TdGVtViA4MCAvRm9udEZpbGUgNyAwIFIgPj4KZW5kb2JqCjcgMCBvYmoKPDwgL0xlbmd0aCA0ID4+CnN0cmVhbQpmYWtlCmVuZHN0cmVhbQplbmRvYmoKOCAwIG9iago8PCAvRmlsdGVyIC9TdGFuZGFyZCAvViAxIC9SIDIgL08gPDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA+IC9VIDwwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwPiAvUCAtMSA+PgplbmRvYmoKeHJlZgowIDkKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDA5IDAwMDAwIG4gCjAwMDAwMDAwNTggMDAwMDAgbiAKMDAwMDAwMDExNSAwMDAwMCBuIAowMDAwMDAwMjQxIDAwMDAwIG4gCjAwMDAwMDAyOTAgMDAwMDAgbiAKMDAwMDAwMDM4OSAwMDAwMCBuIAowMDAwMDAwNTc3IDAwMDAwIG4gCjAwMDAwMDA2MzAgMDAwMDAgbiAKdHJhaWxlcgo8PCAvU2l6ZSA5IC9Sb290IDEgMCBSIC9FbmNyeXB0IDggMCBSID4+CnN0YXJ0eHJlZgo4MjUKJSVFT0YK",
+            "page": 1
+          }
+        }
+      ]
+    }
+  ]
+}

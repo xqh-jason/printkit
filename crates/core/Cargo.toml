@@ -1,0 +1,30 @@
+[package]
+name = "printkit-core"
+description = "printkit document model and validation. Pure data, no IO."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+
+[features]
+default = []
+# TypeScript bindings for the TypeScript SDK package. Off by default: a
+# release build carries neither ts-rs nor its macros.
+typescript = ["dep:ts-rs"]
+
+[dependencies]
+schemars.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+ts-rs = { workspace = true, optional = true }
+serde_path_to_error.workspace = true
+thiserror.workspace = true
+base64.workspace = true
+
+[dev-dependencies]
+insta.workspace = true
+
+[lints]
+workspace = true

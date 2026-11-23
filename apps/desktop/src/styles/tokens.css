@@ -1,0 +1,233 @@
+/*
+ * printkit design tokens — the only file allowed to contain raw colours.
+ *
+ * S5/D5 palette: quiet neutral surfaces, one indigo accent, 13px/1.4 type,
+ * 40/48px rows, 12/8/14px radii, sidebar 212/184 at the 900 breakpoint.
+ * `data-theme` (set before mount) is the single source of truth; Element
+ * Plus variables are mapped here so components need no dark overrides.
+ */
+:root {
+  color-scheme: light;
+
+  /* Surfaces */
+  --pk-bg: #f4f4f6;
+  --pk-surface: #fff;
+  --pk-surface-sunken: #f1f1f4;
+  --pk-surface-raised: #fff;
+  --pk-border: #e3e3e8;
+  --pk-border-strong: #cfcfd6;
+
+  /* Text */
+  --pk-text: #1c1c21;
+  --pk-text-muted: #85858d;
+  --pk-text-subtle: #a4a4ac;
+
+  /* Actions */
+  --pk-primary: #1c1c21;
+  --pk-primary-hover: #2b2b33;
+  --pk-on-primary: #fff;
+  --pk-on-accent: #fff;
+  --pk-accent: #4f46e5;
+  --pk-accent-strong: #4338ca;
+  --pk-accent-soft: #eef2ff;
+  --pk-focus: #4f46e5;
+
+  /* Status */
+  --pk-danger: #b42318;
+  --pk-danger-soft: #fef3f2;
+  --pk-success: #067647;
+  --pk-success-soft: #ecfdf3;
+  --pk-warning: #b54708;
+  --pk-warning-soft: #fffaeb;
+  --pk-disabled-bg: #e3e3e8;
+
+  /* Neutral misc */
+  --pk-scrollbar: #cfcfd6;
+  --pk-canvas-paper: #fff;
+  --pk-scrim: rgb(16 18 27 / 45%);
+
+  /* Typography */
+  --pk-font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "PingFang SC",
+    "Helvetica Neue", system-ui, sans-serif;
+  --pk-font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --pk-font-size-base: 13px;
+  --pk-font-size-body: 13px;
+  --pk-font-size-secondary: 12.5px;
+  --pk-font-size-caption: 11.5px;
+  --pk-font-size-micro: 10.5px;
+  --pk-font-size-title: 18px;
+  --pk-line-height: 1.4;
+  --pk-line-height-tight: 1.3;
+  --pk-font-weight-regular: 400;
+  --pk-font-weight-medium: 500;
+  --pk-font-weight-strong: 600;
+
+  /* Density */
+  --pk-row-list: 48px;
+  --pk-row-compact: 40px;
+  --pk-row-table: 40px;
+  --pk-row-nav: 36px;
+  --pk-control-height: 28px;
+  --pk-control-height-sm: 24px;
+  --pk-field-height: 28px;
+  --pk-sidebar-default: 212px;
+  --pk-sidebar-narrow: 184px;
+  --pk-header-height: 50px;
+  --pk-traffic-space: 96px;
+
+  /* Radius */
+  --pk-radius-card: 12px;
+  --pk-radius-panel: 14px;
+  --pk-radius-control: 8px;
+  --pk-radius-field: 8px;
+  --pk-radius-pill: 999px;
+
+  /* Elevation — cards use a border; floats use one shadow level. */
+  --pk-shadow-card: none;
+  --pk-shadow-float: 0 16px 44px rgb(28 28 33 / 16%), 0 2px 8px rgb(28 28 33 / 6%),
+    0 0 0 0.5px rgb(28 28 33 / 10%);
+  --pk-shadow-light: 0 1px 2px rgb(16 18 27 / 6%);
+
+  /* Motion */
+  --pk-motion-fast: 120ms;
+  --pk-motion-base: 180ms;
+  --pk-motion-view: 240ms;
+  --pk-motion-morph: 320ms;
+  --pk-motion-modal-in: 460ms;
+  --pk-motion-modal-out: 280ms;
+
+  --pk-motion-breath: 1.6s;
+  --pk-ease-control: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --pk-ease-push: cubic-bezier(0.32, 0.72, 0, 1);
+  --pk-ease-enter: cubic-bezier(0.2, 0.7, 0.1, 1);
+
+  /* Element Plus mapping (light) */
+  --el-color-primary: var(--pk-accent);
+  --el-color-primary-light-3: #7c75ea;
+  --el-color-primary-light-5: #9b96ef;
+  --el-color-primary-light-7: #bab7f4;
+  --el-color-primary-light-8: #d4d2f9;
+  --el-color-primary-light-9: var(--pk-accent-soft);
+  --el-color-primary-dark-2: var(--pk-accent-strong);
+  --el-color-success: var(--pk-success);
+  --el-color-success-light-9: var(--pk-success-soft);
+  --el-color-warning: var(--pk-warning);
+  --el-color-warning-light-9: var(--pk-warning-soft);
+  --el-color-danger: var(--pk-danger);
+  --el-color-danger-light-9: var(--pk-danger-soft);
+  --el-color-error: var(--pk-danger);
+  --el-color-error-light-9: var(--pk-danger-soft);
+  --el-color-info: var(--pk-text-muted);
+  --el-color-info-light-9: var(--pk-surface-sunken);
+  --el-bg-color: var(--pk-surface);
+  --el-bg-color-page: var(--pk-bg);
+  --el-bg-color-overlay: var(--pk-surface-raised);
+  --el-fill-color: var(--pk-surface-sunken);
+  --el-fill-color-light: var(--pk-surface-sunken);
+  --el-fill-color-lighter: var(--pk-surface);
+  --el-fill-color-blank: var(--pk-surface);
+  --el-text-color-primary: var(--pk-text);
+  --el-text-color-regular: var(--pk-text-muted);
+  --el-text-color-secondary: var(--pk-text-muted);
+  --el-text-color-placeholder: var(--pk-text-subtle);
+  --el-text-color-disabled: var(--pk-text-subtle);
+  --el-border-color: var(--pk-border);
+  --el-border-color-light: var(--pk-border);
+  --el-border-color-lighter: var(--pk-border);
+  --el-border-color-extra-light: var(--pk-surface-sunken);
+  --el-border-color-dark: var(--pk-border-strong);
+  --el-border-color-darker: var(--pk-border-strong);
+  --el-border-radius-base: var(--pk-radius-control);
+  --el-border-radius-small: var(--pk-radius-field);
+  --el-border-radius-round: var(--pk-radius-pill);
+  --el-font-size-base: var(--pk-font-size-base);
+  --el-font-family: var(--pk-font-sans);
+  --el-box-shadow-light: var(--pk-shadow-light);
+  --el-box-shadow: var(--pk-shadow-float);
+  --el-mask-color: rgb(244 244 246 / 70%);
+  --el-disabled-bg-color: var(--pk-disabled-bg);
+  --el-disabled-text-color: var(--pk-text-muted);
+}
+
+html[data-theme="dark"],
+html.dark {
+  color-scheme: dark;
+
+  --pk-bg: #1a1a1e;
+  --pk-surface: #232327;
+  --pk-surface-sunken: #2d2d33;
+  --pk-surface-raised: #2b2b31;
+  --pk-border: #35353b;
+  --pk-border-strong: #47474f;
+
+  --pk-text: #ededf1;
+  --pk-text-muted: #9c9ca6;
+  --pk-text-subtle: #7c7c86;
+
+  --pk-primary: #3b4353;
+  --pk-primary-hover: #4a5364;
+  --pk-on-primary: #f8fafc;
+  --pk-on-accent: #14142a;
+  --pk-accent: #a5b4fc;
+  --pk-accent-strong: #c7d2fe;
+  --pk-accent-soft: #2a2c48;
+  --pk-focus: #a5b4fc;
+
+  --pk-danger: #f28b82;
+  --pk-danger-soft: #3a1d1b;
+  --pk-success: #6fd99b;
+  --pk-success-soft: #16301f;
+  --pk-warning: #f2b544;
+  --pk-warning-soft: #3a2c12;
+  --pk-disabled-bg: #2d2d33;
+
+  --pk-scrollbar: #47474f;
+  --pk-canvas-paper: #f6f6f6;
+  --pk-scrim: rgb(0 0 0 / 60%);
+
+  --pk-shadow-float: 0 16px 44px rgb(0 0 0 / 55%), 0 2px 8px rgb(0 0 0 / 35%),
+    0 0 0 0.5px rgb(255 255 255 / 6%);
+  --pk-shadow-light: 0 1px 2px rgb(0 0 0 / 40%);
+
+  /* Element Plus mapping (dark) */
+  --el-color-primary: var(--pk-accent);
+  --el-color-primary-light-3: #b6c1fd;
+  --el-color-primary-light-5: #c5cdfe;
+  --el-color-primary-light-7: #d5dafe;
+  --el-color-primary-light-8: #dde1ff;
+  --el-color-primary-light-9: var(--pk-accent-soft);
+  --el-color-primary-dark-2: var(--pk-accent-strong);
+  --el-color-success: var(--pk-success);
+  --el-color-success-light-9: var(--pk-success-soft);
+  --el-color-warning: var(--pk-warning);
+  --el-color-warning-light-9: var(--pk-warning-soft);
+  --el-color-danger: var(--pk-danger);
+  --el-color-danger-light-9: var(--pk-danger-soft);
+  --el-color-error: var(--pk-danger);
+  --el-color-error-light-9: var(--pk-danger-soft);
+  --el-color-info: var(--pk-text-muted);
+  --el-color-info-light-9: var(--pk-surface-sunken);
+  --el-bg-color: var(--pk-surface);
+  --el-bg-color-page: var(--pk-bg);
+  --el-bg-color-overlay: var(--pk-surface-raised);
+  --el-fill-color: var(--pk-surface-sunken);
+  --el-fill-color-light: var(--pk-surface-sunken);
+  --el-fill-color-lighter: var(--pk-surface);
+  --el-fill-color-blank: var(--pk-surface);
+  --el-text-color-primary: var(--pk-text);
+  --el-text-color-regular: var(--pk-text-muted);
+  --el-text-color-secondary: var(--pk-text-muted);
+  --el-text-color-placeholder: var(--pk-text-subtle);
+  --el-text-color-disabled: var(--pk-text-subtle);
+  --el-border-color: var(--pk-border);
+  --el-border-color-light: var(--pk-border);
+  --el-border-color-lighter: var(--pk-border);
+  --el-border-color-extra-light: var(--pk-surface-sunken);
+  --el-border-color-dark: var(--pk-border-strong);
+  --el-border-color-darker: var(--pk-border-strong);
+  --el-box-shadow-light: var(--pk-shadow-light);
+  --el-box-shadow: var(--pk-shadow-float);
+  --el-mask-color: rgb(26 26 30 / 60%);
+  --el-disabled-bg-color: var(--pk-disabled-bg);
+  --el-disabled-text-color: var(--pk-text-muted);
+}

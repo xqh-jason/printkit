@@ -1,0 +1,15 @@
+[package]
+name = "printkit-plugin-records"
+description = "Built-in records plugin: read-only record queries and usage writer access."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+
+[dependencies]
+printkit-plugin-api.workspace = true
+
+[lints]
+workspace = true

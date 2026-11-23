@@ -1,0 +1,40 @@
+{
+  "name": "@printkit/i18n",
+  "version": "0.2.4",
+  "private": true,
+  "license": "MIT OR Apache-2.0",
+  "type": "module",
+  "description": "Shared UI message catalogue and locale runtime for printkit surfaces.",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "import": "./src/index.js"
+    },
+    "./core": {
+      "types": "./src/core.d.ts",
+      "import": "./src/core.js"
+    },
+    "./vue": {
+      "types": "./src/vue.d.ts",
+      "import": "./src/vue.js"
+    },
+    "./catalog/en.json": "./catalog/en.json",
+    "./catalog/zh-CN.json": "./catalog/zh-CN.json"
+  },
+  "files": [
+    "catalog",
+    "src"
+  ],
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  },
+  "peerDependenciesMeta": {
+    "vue": {
+      "optional": true
+    }
+  },
+  "scripts": {
+    "check": "node test/check.mjs",
+    "test": "node --test test/*.test.mjs"
+  }
+}

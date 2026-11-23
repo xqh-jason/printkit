@@ -1,0 +1,306 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  # Dry runs exercise the artifact handoff without publishing a tag.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  # A tag can point at any commit, so run the same gates as CI before building.
+  verify:
+    runs-on: macos-15
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
+          components: rustfmt, clippy
+      - uses: dtolnay/rust-toolchain@2c76c034f9e32a5d6e2c104dc4df23a22476db04 # nightly
+        with:
+          toolchain: nightly
+          components: rustfmt
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          version: 11.1.3
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+      - name: Install acceptance tools
+        run: |
+          brew install poppler jq
+          cargo install cargo-deny --locked
+          cargo install cargo-hack --locked
+      - run: cargo +nightly fmt --all -- --check
+      - run: cargo clippy --workspace --all-targets --all-features -- -D warnings
+      - run: cargo test --workspace --all-features --no-fail-fast
+      - run: cargo test --workspace --doc
+      - run: cargo check --workspace --all-targets
+      - run: cargo check -p printkit --features release
+      - run: cargo hack check --workspace --feature-powerset --depth 1
+      # gates 0-17 already cover pairing, WS handshake, URL fetch, lock race,
+      # idle policy, geometry and render fidelity.
+      - run: bash scripts/gates.sh
+      - name: MSRV 1.89
+        run: |
+          rustup toolchain install 1.89.0 --profile minimal
+          cargo +1.89.0 check --workspace --all-features
+      - run: pnpm --dir apps/desktop install --frozen-lockfile
+      - run: pnpm --dir apps/desktop build
+      - run: node packages/i18n/test/check.mjs
+      - run: pnpm --dir packages/i18n test
+      - run: bash apps/desktop/scripts/prepare-sidecar.sh debug
+      - run: pnpm --dir apps/desktop test:desktop
+      - run: cargo test --manifest-path apps/desktop/src-tauri/Cargo.toml
+      - run: bash tests/scripts/desktop_smoke.sh
+        env:
+          PRINTKIT_GUI_E2E: ${{ vars.PRINTKIT_GUI_E2E }}
+      - run: bash tests/scripts/desktop_control_live.sh
+      - name: Desktop shell sidecar probe (GUI)
+        if: vars.PRINTKIT_GUI_E2E == 'true'
+        run: bash tests/scripts/desktop_sidecar_probe.sh
+      - run: cargo check --manifest-path apps/desktop/src-tauri/Cargo.toml
+      - run: pnpm --dir apps/desktop licenses list --json > /tmp/desktop-licenses.json
+      - run: python3 scripts/node-license-check.py /tmp/desktop-licenses.json
+      - name: Desktop license gate
+        run: cd apps/desktop/src-tauri && cargo deny check licenses
+      - run: bash tests/scripts/render_pool_e2e.sh
+      # Engine-backed scripts only; the service scripts above run in gates.sh.
+      - name: trace subscribe
+        run: |
+          data=$(mktemp -d)
+          PRINTKIT_DATA_DIR="$data" PRINTKIT_KEEP_DATA=1 bash tests/scripts/mock_print.sh 5
+          bash tests/scripts/trace_subscribe.sh "$data"
+      - run: pnpm --dir packages/sdk-ts install --frozen-lockfile
+      - run: pnpm --dir packages/sdk-ts test
+      - run: pnpm --dir packages/sdk-ts test:browser
+      - run: pnpm --dir packages/sdk-ts test:types
+
+  # Manual prerequisite: set the repository variable PRINTKIT_GUI_E2E=true on
+  # a GUI-capable runner. An unset variable skips this job; a missing GUI when
+  # enabled fails it, never marks it green.
+  preview:
+    if: vars.PRINTKIT_GUI_E2E == 'true'
+    runs-on: macos-15
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
+      - run: brew install poppler jq
+      - name: Require a GUI session
+        run: |
+          launchctl print "gui/$(id -u)" >/dev/null 2>&1 || {
+            echo "FAIL: preview_e2e requires a logged-in macOS GUI session" >&2
+            exit 1
+          }
+      - run: bash tests/scripts/preview_e2e.sh
+        env:
+          PRINTKIT_GUI_E2E: 'true'
+
+  build-cli:
+    # Only macOS arm64 is packaged here; other hosts are not shipped yet.
+    needs: verify
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
+      - run: brew install jq
+      - name: Build CLI shard
+        run: bash scripts/release.sh --build-only --skip-desktop --dist dist
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: printkit-cli-shard-macos-15
+          path: dist/shards/
+          if-no-files-found: error
+
+  build-desktop:
+    # The Tauri console has its own Cargo workspace under apps/desktop; it is
+    # built here, never inside the cargo workspace job.
+    needs: verify
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          version: 11.1.3
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: apps/desktop/pnpm-lock.yaml
+      - run: brew install jq
+      - name: Build desktop shard
+        run: bash scripts/release.sh --build-only --skip-cli --dist dist
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: printkit-desktop-shard
+          path: dist/shards/
+          if-no-files-found: error
+
+  build-windows:
+    # tauri.windows.conf.json asks Tauri for both bundles; release.sh refuses a
+    # build that produced only one of them. The installers are unsigned until
+    # Authenticode signing (W4) lands, and they are not installed on a real
+    # Windows host by this job.
+    needs: verify
+    runs-on: windows-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          version: 11.1.3
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: apps/desktop/pnpm-lock.yaml
+      # release.sh needs jq for the version gate and dumpbin (from the MSVC
+      # toolchain) to prove the sidecar links SQLite statically.
+      - name: Install jq
+        shell: bash
+        run: |
+          if ! command -v jq >/dev/null 2>&1; then
+            choco install jq -y --no-progress
+            printf '%s\n' "$ChocolateyInstall\\bin" >> "$GITHUB_PATH"
+          fi
+      - name: Install cargo-cyclonedx
+        run: cargo install cargo-cyclonedx --locked
+      - uses: ilammy/msvc-dev-cmd@0b201ec74fa43914dc39ae48a89fd1d8cb592756 # v1
+      # Keep this identical to the CI windows job. macOS verify intentionally
+      # skips it: the platform-win lib is 0 tests off Windows and would imply
+      # coverage this job does not provide.
+      - run: cargo test -p printkit-platform-win --lib
+      - name: Windows rustdoc (missing docs)
+        run: cargo doc -p printkit-platform-win --target x86_64-pc-windows-msvc --all-features --no-deps
+        env:
+          RUSTDOCFLAGS: -D warnings -D missing_docs
+      - name: Build desktop shard
+        run: bash scripts/release.sh --build-only --skip-cli --dist dist
+      - name: Generate Windows SBOM shards
+        shell: bash
+        run: |
+          mkdir -p dist/shards
+          cargo cyclonedx --manifest-path apps/printkit/Cargo.toml --format json \
+            --all-features --override-filename printkit-windows-cli-sbom --quiet >/dev/null
+          cp apps/printkit/printkit-windows-cli-sbom.json \
+            dist/shards/printkit-windows-cli.sbom.json
+          rm -f apps/printkit/printkit-windows-cli-sbom.json
+          (cd apps/desktop/src-tauri && \
+            cargo cyclonedx --format json \
+              --override-filename printkit-windows-desktop-sbom --quiet >/dev/null)
+          cp apps/desktop/src-tauri/printkit-windows-desktop-sbom.json \
+            dist/shards/printkit-windows-desktop.sbom.json
+          rm -f apps/desktop/src-tauri/printkit-windows-desktop-sbom.json
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: printkit-desktop-shard-windows
+          path: dist/shards/
+          if-no-files-found: error
+
+  publish:
+    # Publish only when every prerequisite succeeded or was skipped. Preview is
+    # skipped when PRINTKIT_GUI_E2E is unset, but a failed or cancelled preview
+    # must block the release.
+    needs: [verify, preview, build-cli, build-desktop, build-windows]
+    if: always() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled')
+    runs-on: macos-15
+    timeout-minutes: 60
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          version: 11.1.3
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+      - name: Install packaging tools
+        run: |
+          brew install jq poppler
+          cargo install cargo-cyclonedx --locked
+          cargo install cargo-deny --locked
+          cargo install cargo-hack --locked
+      - name: Install Node dependencies for the SBOM
+        run: |
+          pnpm --dir apps/desktop install --frozen-lockfile
+      - name: Collect shards
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          path: dist/shards
+          pattern: printkit-*
+          merge-multiple: true
+      - name: Assemble and verify the bundle
+        run: bash scripts/release.sh --assemble --dist dist
+      - name: Run S16 acceptance
+        run: bash tests/scripts/s16_accept.sh --dist dist
+      - name: Run release gates
+        run: bash scripts/gates.sh
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3
+        with:
+          subject-path: |
+            dist/*.tar.gz
+            dist/*.dmg
+            dist/*.msi
+            dist/*-setup.exe
+      - name: Upload the bundle
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: printkit-release-${{ github.ref_name }}
+          path: |
+            dist/*.tar.gz
+            dist/*.dmg
+            dist/*.msi
+            dist/*-setup.exe
+            dist/SHA256SUMS
+            dist/BUILD-INFO
+            dist/sbom.cdx.json
+            dist/THIRD-PARTY-NOTICES.md
+            dist/LICENSE-MIT
+            dist/LICENSE-APACHE
+            dist/OFL.txt
+          if-no-files-found: error
+      - name: Create the GitHub release
+        # A manual dispatch only rehearses the bundle; it must not publish.
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1 \
+            || gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --generate-notes
+          gh release upload "$GITHUB_REF_NAME" \
+            dist/*.tar.gz \
+            dist/*.dmg \
+            dist/*.msi \
+            dist/*-setup.exe \
+            dist/SHA256SUMS \
+            dist/BUILD-INFO \
+            dist/sbom.cdx.json \
+            dist/THIRD-PARTY-NOTICES.md \
+            dist/LICENSE-MIT \
+            dist/LICENSE-APACHE \
+            dist/OFL.txt \
+            --clobber

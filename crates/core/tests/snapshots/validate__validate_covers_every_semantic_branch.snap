@@ -1,0 +1,478 @@
+---
+source: crates/core/tests/validate.rs
+expression: report
+---
+{
+  "background-not-data-uri": [
+    {
+      "pointer": "/pages/0/spec/background",
+      "code": "E_SCHEMA",
+      "message": "resource must be a base64 data URI"
+    }
+  ],
+  "background-too-large": [
+    {
+      "pointer": "/pages/0/spec/background",
+      "code": "E_SCHEMA",
+      "message": "resource exceeds 8388608 bytes"
+    }
+  ],
+  "barcode-2d-too-long": [
+    {
+      "pointer": "/pages/0/items/0/data/value",
+      "code": "E_SCHEMA",
+      "message": "a two-dimensional code holds at most 2048 bytes"
+    }
+  ],
+  "barcode-bar-width": [
+    {
+      "pointer": "/pages/0/items/0/style/barWidth",
+      "code": "E_SCHEMA",
+      "message": "bar width must be a finite, positive number of millimetres"
+    }
+  ],
+  "barcode-code128-charset": [
+    {
+      "pointer": "/pages/0/items/0/data/value",
+      "code": "E_SCHEMA",
+      "message": "value must be printable ASCII for code128"
+    }
+  ],
+  "barcode-code39-charset": [
+    {
+      "pointer": "/pages/0/items/0/data/value",
+      "code": "E_SCHEMA",
+      "message": "value contains a character code39 cannot encode"
+    }
+  ],
+  "barcode-color": [
+    {
+      "pointer": "/pages/0/items/0/style/color",
+      "code": "E_SCHEMA",
+      "message": "colour must be written as #rrggbb"
+    }
+  ],
+  "barcode-ean13-check-digit": [
+    {
+      "pointer": "/pages/0/items/0/data/value",
+      "code": "E_SCHEMA",
+      "message": "ean13 check digit does not match"
+    }
+  ],
+  "barcode-ean13-digits": [
+    {
+      "pointer": "/pages/0/items/0/data/value",
+      "code": "E_SCHEMA",
+      "message": "ean13 value must contain digits only"
+    }
+  ],
+  "barcode-ean13-length": [
+    {
+      "pointer": "/pages/0/items/0/data/value",
+      "code": "E_SCHEMA",
+      "message": "ean13 value must have 12 or 13 digits"
+    }
+  ],
+  "barcode-quiet-zone": [
+    {
+      "pointer": "/pages/0/items/0/style/quietZone",
+      "code": "E_SCHEMA",
+      "message": "quiet zone must be a finite, non-negative number of millimetres"
+    }
+  ],
+  "barcode-text-size": [
+    {
+      "pointer": "/pages/0/items/0/style/textSize",
+      "code": "E_SCHEMA",
+      "message": "text size must be a finite, positive number of millimetres"
+    }
+  ],
+  "barcode-value-empty": [
+    {
+      "pointer": "/pages/0/items/0/data/value",
+      "code": "E_SCHEMA",
+      "message": "barcode value must not be empty"
+    }
+  ],
+  "copies-out-of-range": [
+    {
+      "pointer": "/output/copies",
+      "code": "E_SCHEMA",
+      "message": "copies must be between 1 and 999"
+    }
+  ],
+  "custom-height-missing": [
+    {
+      "pointer": "/pages/0/spec/height",
+      "code": "E_SCHEMA",
+      "message": "custom paper requires height"
+    }
+  ],
+  "custom-orientation-conflict": [
+    {
+      "pointer": "/pages/0/spec/orientation",
+      "code": "E_SCHEMA",
+      "message": "orientation conflicts with the custom width and height"
+    }
+  ],
+  "custom-width-missing": [
+    {
+      "pointer": "/pages/0/spec/width",
+      "code": "E_SCHEMA",
+      "message": "custom paper requires width"
+    }
+  ],
+  "custom-width-not-positive": [
+    {
+      "pointer": "/pages/0/spec/width",
+      "code": "E_SCHEMA",
+      "message": "custom paper width must be a finite, positive number of millimetres"
+    }
+  ],
+  "frame-width-zero": [
+    {
+      "pointer": "/pages/0/items/0/frame/width",
+      "code": "E_SCHEMA",
+      "message": "size must be a finite, positive number of millimetres"
+    }
+  ],
+  "html-both": [
+    {
+      "pointer": "/pages/0/items/0/data",
+      "code": "E_SCHEMA",
+      "message": "use exactly one of html or url"
+    }
+  ],
+  "html-neither": [
+    {
+      "pointer": "/pages/0/items/0/data",
+      "code": "E_SCHEMA",
+      "message": "use exactly one of html or url"
+    }
+  ],
+  "html-url-scheme": [
+    {
+      "pointer": "/pages/0/items/0/data/url",
+      "code": "E_SCHEMA",
+      "message": "url must use the http or https scheme"
+    }
+  ],
+  "image-src-invalid": [
+    {
+      "pointer": "/pages/0/items/0/data/src",
+      "code": "E_SCHEMA",
+      "message": "resource must be a base64 data URI"
+    }
+  ],
+  "item-id-empty": [
+    {
+      "pointer": "/pages/0/items/0/id",
+      "code": "E_SCHEMA",
+      "message": "item id must not be empty"
+    }
+  ],
+  "items-too-many": [
+    {
+      "pointer": "/pages/0/items",
+      "code": "E_SCHEMA",
+      "message": "a page holds at most 500 items"
+    }
+  ],
+  "margin-negative": [
+    {
+      "pointer": "/pages/0/spec/margins/top",
+      "code": "E_SCHEMA",
+      "message": "margin must be a finite, non-negative number of millimetres"
+    }
+  ],
+  "named-size-with-width": [
+    {
+      "pointer": "/pages/0/spec/width",
+      "code": "E_SCHEMA",
+      "message": "width is only allowed when size is custom"
+    }
+  ],
+  "pages-empty": [
+    {
+      "pointer": "/pages",
+      "code": "E_SCHEMA",
+      "message": "a document needs at least one page"
+    }
+  ],
+  "pages-too-many": [
+    {
+      "pointer": "/pages",
+      "code": "E_SCHEMA",
+      "message": "a document holds at most 200 pages"
+    }
+  ],
+  "paper-source-set": [
+    {
+      "pointer": "/output/printer/paperSource",
+      "code": "E_SCHEMA",
+      "message": "paperSource must be null in version 1"
+    }
+  ],
+  "pdf-page-zero": [
+    {
+      "pointer": "/pages/0/items/0/data/page",
+      "code": "E_SCHEMA",
+      "message": "page numbers start at 1"
+    }
+  ],
+  "shape-cell-not-tiangrid": [
+    {
+      "pointer": "/pages/0/items/0/data/cell",
+      "code": "E_SCHEMA",
+      "message": "cell is only allowed for a tianGrid"
+    }
+  ],
+  "shape-dash-empty": [
+    {
+      "pointer": "/pages/0/items/0/style/dash",
+      "code": "E_SCHEMA",
+      "message": "dash must list at least one length"
+    }
+  ],
+  "shape-dash-negative": [
+    {
+      "pointer": "/pages/0/items/0/style/dash/0",
+      "code": "E_SCHEMA",
+      "message": "dash length must be finite and non-negative"
+    }
+  ],
+  "shape-fill-color": [
+    {
+      "pointer": "/pages/0/items/0/style/fill",
+      "code": "E_SCHEMA",
+      "message": "colour must be written as #rrggbb"
+    }
+  ],
+  "shape-lines-not-textrule": [
+    {
+      "pointer": "/pages/0/items/0/data/lines",
+      "code": "E_SCHEMA",
+      "message": "lines are only allowed for a textRule"
+    }
+  ],
+  "shape-points-not-polygon": [
+    {
+      "pointer": "/pages/0/items/0/data/points",
+      "code": "E_SCHEMA",
+      "message": "points are only allowed for a polygon"
+    }
+  ],
+  "shape-polygon-missing-points": [
+    {
+      "pointer": "/pages/0/items/0/data/points",
+      "code": "E_SCHEMA",
+      "message": "a polygon requires points"
+    }
+  ],
+  "shape-polygon-odd": [
+    {
+      "pointer": "/pages/0/items/0/data/points",
+      "code": "E_SCHEMA",
+      "message": "a polygon needs at least three x/y pairs"
+    }
+  ],
+  "shape-polygon-too-short": [
+    {
+      "pointer": "/pages/0/items/0/data/points",
+      "code": "E_SCHEMA",
+      "message": "a polygon needs at least three x/y pairs"
+    }
+  ],
+  "shape-stroke-color": [
+    {
+      "pointer": "/pages/0/items/0/style/stroke",
+      "code": "E_SCHEMA",
+      "message": "colour must be written as #rrggbb"
+    }
+  ],
+  "shape-stroke-width": [
+    {
+      "pointer": "/pages/0/items/0/style/strokeWidth",
+      "code": "E_SCHEMA",
+      "message": "stroke width must be a finite, non-negative number of millimetres"
+    }
+  ],
+  "shape-tiangrid-empty-cell": [
+    {
+      "pointer": "/pages/0/items/0/data/cell/rows",
+      "code": "E_SCHEMA",
+      "message": "row count must be at least 1"
+    },
+    {
+      "pointer": "/pages/0/items/0/data/cell/cols",
+      "code": "E_SCHEMA",
+      "message": "column count must be at least 1"
+    }
+  ],
+  "shape-tiangrid-missing-cell": [
+    {
+      "pointer": "/pages/0/items/0/data/cell",
+      "code": "E_SCHEMA",
+      "message": "a tianGrid requires cell"
+    }
+  ],
+  "table-border-color": [
+    {
+      "pointer": "/pages/0/items/0/style/borderColor",
+      "code": "E_SCHEMA",
+      "message": "colour must be written as #rrggbb"
+    }
+  ],
+  "table-border-width": [
+    {
+      "pointer": "/pages/0/items/0/style/borderWidth",
+      "code": "E_SCHEMA",
+      "message": "border width must be a finite, non-negative number of millimetres"
+    }
+  ],
+  "table-column-key-duplicate": [
+    {
+      "pointer": "/pages/0/items/0/data/columns/1/key",
+      "code": "E_SCHEMA",
+      "message": "column keys must be unique"
+    }
+  ],
+  "table-column-key-empty": [
+    {
+      "pointer": "/pages/0/items/0/data/columns/0/key",
+      "code": "E_SCHEMA",
+      "message": "column key must not be empty"
+    }
+  ],
+  "table-column-width-negative": [
+    {
+      "pointer": "/pages/0/items/0/data/columns/0/width",
+      "code": "E_SCHEMA",
+      "message": "column width must be a finite, non-negative number of millimetres"
+    }
+  ],
+  "table-columns-empty": [
+    {
+      "pointer": "/pages/0/items/0/data/columns",
+      "code": "E_SCHEMA",
+      "message": "a table needs at least one column"
+    }
+  ],
+  "table-columns-too-many": [
+    {
+      "pointer": "/pages/0/items/0/data/columns",
+      "code": "E_SCHEMA",
+      "message": "a table holds at most 32 columns"
+    }
+  ],
+  "table-font-size": [
+    {
+      "pointer": "/pages/0/items/0/style/fontSize",
+      "code": "E_SCHEMA",
+      "message": "font size must be a finite, positive number of millimetres"
+    }
+  ],
+  "table-footer-unknown-key": [
+    {
+      "pointer": "/pages/0/items/0/data/footer/values/b",
+      "code": "E_SCHEMA",
+      "message": "footer key does not name a column"
+    }
+  ],
+  "table-row-height": [
+    {
+      "pointer": "/pages/0/items/0/style/rowHeight",
+      "code": "E_SCHEMA",
+      "message": "row height must be a finite, positive number of millimetres"
+    }
+  ],
+  "table-row-unknown-key": [
+    {
+      "pointer": "/pages/0/items/0/data/rows/0/b",
+      "code": "E_SCHEMA",
+      "message": "row key does not name a column"
+    }
+  ],
+  "table-rows-too-many": [
+    {
+      "pointer": "/pages/0/items/0/data/rows",
+      "code": "E_SCHEMA",
+      "message": "a table holds at most 10000 rows"
+    }
+  ],
+  "tag-too-long": [
+    {
+      "pointer": "/meta/tags/0",
+      "code": "E_SCHEMA",
+      "message": "a tag holds at most 24 characters"
+    }
+  ],
+  "text-empty": [
+    {
+      "pointer": "/pages/0/items/0/data/text",
+      "code": "E_SCHEMA",
+      "message": "text must not be empty"
+    }
+  ],
+  "text-font-invalid": [
+    {
+      "pointer": "/pages/0/items/0/data/fontFile",
+      "code": "E_SCHEMA",
+      "message": "resource must be a base64 data URI"
+    }
+  ],
+  "text-style-color": [
+    {
+      "pointer": "/pages/0/items/0/style/color",
+      "code": "E_SCHEMA",
+      "message": "colour must be written as #rrggbb"
+    }
+  ],
+  "text-style-font-size": [
+    {
+      "pointer": "/pages/0/items/0/style/fontSize",
+      "code": "E_SCHEMA",
+      "message": "font size must be a finite, positive number of millimetres"
+    }
+  ],
+  "text-style-letter-spacing": [
+    {
+      "pointer": "/pages/0/items/0/style/letterSpacing",
+      "code": "E_SCHEMA",
+      "message": "letter spacing must be finite"
+    }
+  ],
+  "text-style-line-height": [
+    {
+      "pointer": "/pages/0/items/0/style/lineHeight",
+      "code": "E_SCHEMA",
+      "message": "line height must be a finite, positive multiplier"
+    }
+  ],
+  "text-too-long": [
+    {
+      "pointer": "/pages/0/items/0/data/text",
+      "code": "E_SCHEMA",
+      "message": "text holds at most 10000 characters"
+    }
+  ],
+  "too-many-tags": [
+    {
+      "pointer": "/meta/tags",
+      "code": "E_SCHEMA",
+      "message": "at most 8 tags are allowed"
+    }
+  ],
+  "version": [
+    {
+      "pointer": "/version",
+      "code": "E_SCHEMA",
+      "message": "only version 1 is supported"
+    },
+    {
+      "pointer": "/pages",
+      "code": "E_SCHEMA",
+      "message": "a document needs at least one page"
+    }
+  ]
+}

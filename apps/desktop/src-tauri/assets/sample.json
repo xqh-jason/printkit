@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "spec": {
+        "size": "A4",
+        "margins": { "top": 15, "right": 15, "bottom": 15, "left": 15 }
+      },
+      "items": [
+        {
+          "id": "heading",
+          "type": "text",
+          "frame": { "x": 10, "y": 10, "width": 150, "height": 12 },
+          "style": {
+            "fontSize": 6,
+            "lineHeight": 1.4,
+            "color": "#000000",
+            "align": "left"
+          },
+          "data": { "text": "printkit desktop test print" }
+        }
+      ]
+    }
+  ]
+}

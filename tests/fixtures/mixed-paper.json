@@ -1,0 +1,1 @@
+{"version": 1, "pages": [{"spec": {"size": "A4"}, "items": [{"id": "p1", "type": "text", "frame": {"x": 20, "y": 20, "width": 150, "height": 20}, "data": {"text": "page one A4"}}]}, {"spec": {"size": "A5"}, "items": [{"id": "p2", "type": "text", "frame": {"x": 10, "y": 10, "width": 120, "height": 20}, "data": {"text": "page two A5"}}]}]}

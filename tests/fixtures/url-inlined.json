@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "spec": {
+        "size": "A4",
+        "margins": {
+          "top": 12,
+          "right": 12,
+          "bottom": 12,
+          "left": 12
+        }
+      },
+      "items": [
+        {
+          "id": "remote-html",
+          "type": "html",
+          "frame": {
+            "x": 15,
+            "y": 20,
+            "width": 180,
+            "height": 120
+          },
+          "style": {
+            "overflow": "hidden"
+          },
+          "data": {
+            "html": "<!doctype html><html><head><meta charset=\"utf-8\"><title>remote</title></head><body><p>remote url sample</p><p>printkit fetch</p></body></html>\n"
+          }
+        }
+      ]
+    }
+  ]
+}

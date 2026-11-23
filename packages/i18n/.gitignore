@@ -1,0 +1,5 @@
+node_modules/
+
+# packages/i18n has no runtime dependencies; its tests use Node builtins only,
+# so there is no lockfile to commit and no install step in CI.
+pnpm-lock.yaml

@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "spec": {
+        "size": "A4"
+      },
+      "items": [
+        {
+          "id": "fit-contain",
+          "type": "image",
+          "frame": {
+            "x": 10,
+            "y": 10,
+            "width": 20,
+            "height": 20
+          },
+          "style": {
+            "fit": "contain"
+          },
+          "data": {
+            "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIxMCIgdmlld0JveD0iMCAwIDIwIDEwIj48cmVjdCB3aWR0aD0iMjAiIGhlaWdodD0iMTAiIGZpbGw9IiMwMDAwMDAiLz48L3N2Zz4="
+          }
+        },
+        {
+          "id": "fit-cover",
+          "type": "image",
+          "frame": {
+            "x": 10,
+            "y": 50,
+            "width": 20,
+            "height": 20
+          },
+          "style": {
+            "fit": "cover"
+          },
+          "data": {
+            "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIxMCIgdmlld0JveD0iMCAwIDIwIDEwIj48cmVjdCB3aWR0aD0iMjAiIGhlaWdodD0iMTAiIGZpbGw9IiMwMDAwMDAiLz48L3N2Zz4="
+          }
+        },
+        {
+          "id": "fit-fill",
+          "type": "image",
+          "frame": {
+            "x": 10,
+            "y": 90,
+            "width": 20,
+            "height": 20
+          },
+          "style": {
+            "fit": "fill"
+          },
+          "data": {
+            "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIxMCIgdmlld0JveD0iMCAwIDIwIDEwIj48cmVjdCB3aWR0aD0iMjAiIGhlaWdodD0iMTAiIGZpbGw9IiMwMDAwMDAiLz48L3N2Zz4="
+          }
+        },
+        {
+          "id": "fit-none",
+          "type": "image",
+          "frame": {
+            "x": 10,
+            "y": 130,
+            "width": 20,
+            "height": 20
+          },
+          "style": {
+            "fit": "none"
+          },
+          "data": {
+            "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIxMCIgdmlld0JveD0iMCAwIDIwIDEwIj48cmVjdCB3aWR0aD0iMjAiIGhlaWdodD0iMTAiIGZpbGw9IiMwMDAwMDAiLz48L3N2Zz4="
+          }
+        }
+      ]
+    }
+  ]
+}

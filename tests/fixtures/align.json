@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "spec": {
+        "size": "A4"
+      },
+      "items": [
+        {
+          "id": "l",
+          "type": "text",
+          "frame": {
+            "x": 10,
+            "y": 20,
+            "width": 100,
+            "height": 10
+          },
+          "style": {
+            "align": "left"
+          },
+          "data": {
+            "text": "LEFTMARK"
+          }
+        },
+        {
+          "id": "c",
+          "type": "text",
+          "frame": {
+            "x": 10,
+            "y": 40,
+            "width": 100,
+            "height": 10
+          },
+          "style": {
+            "align": "center"
+          },
+          "data": {
+            "text": "CENTERMARK"
+          }
+        },
+        {
+          "id": "r",
+          "type": "text",
+          "frame": {
+            "x": 10,
+            "y": 60,
+            "width": 100,
+            "height": 10
+          },
+          "style": {
+            "align": "right"
+          },
+          "data": {
+            "text": "RIGHTMARK"
+          }
+        }
+      ]
+    }
+  ]
+}

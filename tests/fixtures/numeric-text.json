@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "spec": { "size": "A4" },
+      "items": [
+        {
+          "id": "numeric-line",
+          "type": "text",
+          "frame": { "x": 20, "y": 20, "width": 170, "height": 60 },
+          "style": { "fontSize": 12, "lineHeight": 1.4 },
+          "data": { "text": "INVOICE 2026-11-08 TOTAL 12345.67 TAX 890.00 SEQUENCE 0123456789" }
+        }
+      ]
+    }
+  ]
+}

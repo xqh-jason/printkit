@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "spec": {
+        "size": "A4",
+        "margins": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "items": [
+        {
+          "id": "origin",
+          "type": "text",
+          "frame": {
+            "x": 10,
+            "y": 10,
+            "width": 60,
+            "height": 8
+          },
+          "style": {
+            "fontSize": 4,
+            "lineHeight": 1.2,
+            "color": "#000000",
+            "align": "left"
+          },
+          "data": {
+            "text": "origin-marker"
+          }
+        },
+        {
+          "id": "corner",
+          "type": "text",
+          "frame": {
+            "x": 170,
+            "y": 260,
+            "width": 35,
+            "height": 8
+          },
+          "style": {
+            "fontSize": 4,
+            "lineHeight": 1.2,
+            "color": "#000000",
+            "align": "left"
+          },
+          "data": {
+            "text": "corner-marker"
+          }
+        }
+      ]
+    }
+  ]
+}

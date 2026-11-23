@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "meta": {
+    "title": "copies fixture",
+    "tags": ["fixture", "copies"]
+  },
+  "output": {
+    "copies": 3,
+    "collate": true
+  },
+  "pages": [
+    {
+      "spec": {
+        "size": "A4",
+        "margins": {
+          "top": 10,
+          "right": 10,
+          "bottom": 10,
+          "left": 10
+        }
+      },
+      "items": [
+        {
+          "id": "copy-page-one",
+          "type": "text",
+          "frame": {
+            "x": 15,
+            "y": 15,
+            "width": 120,
+            "height": 10
+          },
+          "style": {
+            "fontSize": 5,
+            "lineHeight": 1.2,
+            "color": "#000000",
+            "align": "left"
+          },
+          "data": {
+            "text": "copies fixture page one"
+          }
+        }
+      ]
+    },
+    {
+      "spec": {
+        "size": "A4",
+        "margins": {
+          "top": 10,
+          "right": 10,
+          "bottom": 10,
+          "left": 10
+        }
+      },
+      "items": [
+        {
+          "id": "copy-page-two",
+          "type": "text",
+          "frame": {
+            "x": 15,
+            "y": 15,
+            "width": 120,
+            "height": 10
+          },
+          "style": {
+            "fontSize": 5,
+            "lineHeight": 1.2,
+            "color": "#000000",
+            "align": "left"
+          },
+          "data": {
+            "text": "copies fixture page two"
+          }
+        }
+      ]
+    }
+  ]
+}
