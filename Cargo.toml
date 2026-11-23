@@ -97,6 +97,7 @@ objc2-app-kit = { version = "0.3", default-features = false, features = [
     "NSBitmapImageRep",
     "NSButton",
     "NSClipView",
+    "NSColor",
     "NSControl",
     "NSGraphics",
     "NSGraphicsContext",

@@ -24,12 +24,14 @@ use block2::RcBlock;
 use bytes::Bytes;
 use objc2::rc::Retained;
 use objc2::runtime::{AnyObject, NSObject, NSObjectProtocol, ProtocolObject};
-use objc2::{DefinedClass, MainThreadMarker, MainThreadOnly, define_class, msg_send};
-use objc2_app_kit::{NSApplication, NSApplicationActivationPolicy, NSEventMask, NSImage};
+use objc2::{AnyThread, DefinedClass, MainThreadMarker, MainThreadOnly, define_class, msg_send};
+use objc2_app_kit::{
+    NSApplication, NSApplicationActivationPolicy, NSBitmapImageRep, NSEventMask, NSImage,
+};
 use objc2_core_foundation::{CGPoint, CGRect, CGSize};
 use objc2_foundation::{
-    NSData, NSDate, NSDefaultRunLoopMode, NSError, NSNumber, NSProcessInfo, NSRunLoop, NSString,
-    NSThread,
+    NSData, NSDate, NSDefaultRunLoopMode, NSError, NSInteger, NSNumber, NSProcessInfo, NSRunLoop,
+    NSString, NSThread,
 };
 use objc2_web_kit::{
     WKContentWorld, WKNavigation, WKNavigationAction, WKNavigationActionPolicy,
@@ -552,7 +554,13 @@ fn render_blocking(
     if remaining.is_zero() {
         return Err(PlatformError::Timeout(timeout_millis(budget)));
     }
-    wait_for_snapshot(&webview, &snapshot_configuration, remaining)?;
+    wait_for_painted_snapshot(
+        &webview,
+        &snapshot_configuration,
+        &spec,
+        first_page_has_background(html),
+        remaining,
+    )?;
     let configuration = unsafe { WKPDFConfiguration::new(mtm) };
     let mut parts = Vec::with_capacity(pages);
     for page in 0..pages {
@@ -662,12 +670,27 @@ fn wait_for_text(slot: &TextSlot, timeout: Duration) -> Result<String, PlatformE
     }
 }
 
-fn wait_for_snapshot(
+type ImageSlot = Rc<RefCell<Option<Result<Retained<NSImage>, String>>>>;
+
+fn wait_for_image(slot: &ImageSlot, timeout: Duration) -> Result<Retained<NSImage>, PlatformError> {
+    let deadline = Instant::now() + timeout;
+    loop {
+        if let Some(result) = slot.borrow_mut().take() {
+            return result.map_err(PlatformError::Render);
+        }
+        if Instant::now() >= deadline {
+            return Err(PlatformError::Timeout(timeout_millis(timeout)));
+        }
+        pump_once();
+    }
+}
+
+fn take_snapshot(
     webview: &WKWebView,
     configuration: &WKSnapshotConfiguration,
     timeout: Duration,
-) -> Result<(), PlatformError> {
-    let slot: TextSlot = Rc::new(RefCell::new(None));
+) -> Result<Retained<NSImage>, PlatformError> {
+    let slot: ImageSlot = Rc::new(RefCell::new(None));
     let block_slot = Rc::clone(&slot);
     let completion = RcBlock::new(move |image: *mut NSImage, error: *mut NSError| {
         let result = if !error.is_null() {
@@ -678,7 +701,10 @@ fn wait_for_snapshot(
         } else if image.is_null() {
             Err("takeSnapshot completed without an image".to_owned())
         } else {
-            Ok("1".to_owned())
+            // SAFETY: the image is valid for the callback; retaining it keeps
+            // it alive after WebKit releases its reference.
+            unsafe { Retained::retain(image) }
+                .ok_or_else(|| "the snapshot image could not be retained".to_owned())
         };
         *block_slot.borrow_mut() = Some(result);
     });
@@ -687,7 +713,95 @@ fn wait_for_snapshot(
     unsafe {
         webview.takeSnapshotWithConfiguration_completionHandler(Some(configuration), &completion)
     };
-    wait_for_text(&slot, timeout).map(|_| ())
+    wait_for_image(&slot, timeout)
+}
+
+fn wait_for_painted_snapshot(
+    webview: &WKWebView,
+    configuration: &WKSnapshotConfiguration,
+    spec: &RenderSpec,
+    check_background: bool,
+    timeout: Duration,
+) -> Result<(), PlatformError> {
+    let deadline = Instant::now() + timeout;
+    loop {
+        let remaining = deadline.saturating_duration_since(Instant::now());
+        if remaining.is_zero() {
+            return Err(PlatformError::Timeout(timeout_millis(timeout)));
+        }
+        let image = take_snapshot(webview, configuration, remaining)?;
+        if !check_background || snapshot_has_background(&image, spec)? {
+            return Ok(());
+        }
+        if Instant::now() >= deadline {
+            return Err(PlatformError::Timeout(timeout_millis(timeout)));
+        }
+        // A snapshot can complete before the compositor commits the image
+        // decode. Let the run loop turn before asking again.
+        let until = (Instant::now() + Duration::from_millis(50)).min(deadline);
+        while Instant::now() < until {
+            pump_once();
+        }
+    }
+}
+
+/// Sample the four page corners; the page background covers the page, while
+/// body text normally starts inside the frame.
+fn snapshot_has_background(image: &NSImage, spec: &RenderSpec) -> Result<bool, PlatformError> {
+    let tiff = image
+        .TIFFRepresentation()
+        .ok_or_else(|| PlatformError::Render("the snapshot has no TIFF data".to_owned()))?;
+    let bitmap = NSBitmapImageRep::initWithData(NSBitmapImageRep::alloc(), &tiff)
+        .ok_or_else(|| PlatformError::Render("the snapshot is not a bitmap".to_owned()))?;
+    let width = bitmap.pixelsWide();
+    let height = bitmap.pixelsHigh();
+    if width <= 0 || height <= 0 {
+        return Err(PlatformError::Render(
+            "the snapshot bitmap is empty".to_owned(),
+        ));
+    }
+    let content_width = spec.content_width_mm() * MM_TO_PT;
+    let content_height = spec.content_height_mm() * MM_TO_PT;
+    if !(content_width > 0.0 && content_height > 0.0) {
+        return Err(PlatformError::Render(
+            "the render geometry has no content area".to_owned(),
+        ));
+    }
+    let (page_width, page_height) = spec.size_mm(0);
+    let page_offset = spec.offset_mm(0) * MM_TO_PT;
+    let scale_x = width as f64 / content_width;
+    let scale_y = height as f64 / content_height;
+    for (fx, fy) in [(0.02, 0.02), (0.98, 0.02), (0.02, 0.98), (0.98, 0.98)] {
+        let x = ((page_width * MM_TO_PT * fx) * scale_x).floor() as NSInteger;
+        let y = ((page_offset + page_height * MM_TO_PT * fy) * scale_y).floor() as NSInteger;
+        let x = x.clamp(0, width - 1);
+        let y = y.clamp(0, height - 1);
+        let color = bitmap.colorAtX_y(x, y).ok_or_else(|| {
+            PlatformError::Render("the snapshot pixel is not readable".to_owned())
+        })?;
+        let red = color.redComponent();
+        let green = color.greenComponent();
+        let blue = color.blueComponent();
+        let alpha = color.alphaComponent();
+        if alpha > 0.05 && !(red > 0.95 && green > 0.95 && blue > 0.95) {
+            return Ok(true);
+        }
+    }
+    Ok(false)
+}
+
+/// The generated HTML starts a page with `<div class="page"...>` and writes
+/// its background immediately inside that block.
+fn first_page_has_background(html: &str) -> bool {
+    let Some(start) = html.find("<div class=\"page\"") else {
+        return false;
+    };
+    let tail = &html[start..];
+    let end = tail[1..]
+        .find("<div class=\"page\"")
+        .map(|offset| offset + 1)
+        .unwrap_or(tail.len());
+    tail[..end].contains("class=\"page-background\"")
 }
 
 /// Let the main run loop process WebKit callbacks for a short slice.

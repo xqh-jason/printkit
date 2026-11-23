@@ -23,6 +23,9 @@ This entry describes `main` as `0.2.6-dev`; it has not been tagged or released.
   `afterScreenUpdates=true` before `createPDF`, so the capture waits for the
   compositor to paint rather than trusting `Image.complete`. A snapshot error
   or timeout is reported as a render failure instead of producing a white page.
+- When the first page declares a background, the snapshot corners are checked
+  for a non-white pixel. A white snapshot is retried until the render timeout
+  and then fails explicitly, so a white PDF is never returned as success.
 - The desktop shell handles SIGTERM/SIGINT through the same quit path as the
   tray action: stop the owned sidecar, wait for it, then exit.
 - `printkit serve` unblocks inherited SIGTERM/SIGINT before installing its
