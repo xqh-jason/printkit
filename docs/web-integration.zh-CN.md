@@ -1,8 +1,8 @@
 # printkit 浏览器接入指南
 
 浏览器页面通过本机的 printkit 服务打印，服务再把文档交给操作系统。服务只绑定 `127.0.0.1`。
-protocol 1、SDK `0.2.5`；契约文件为 `schema/document-v1.json` 与 `schema/protocol-v1.json`。
-`0.2.5` 仍是 1.0 之前的版本，因此首次公开发布前删除的方法（如 `calib.*`）不提供兼容层。
+protocol 1、SDK `0.2.6`；契约文件为 `schema/document-v1.json` 与 `schema/protocol-v1.json`。
+`0.2.6` 仍是 1.0 之前的版本，因此首次公开发布前删除的方法（如 `calib.*`）不提供兼容层。
 
 ## 目录
 

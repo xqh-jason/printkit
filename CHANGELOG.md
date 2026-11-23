@@ -6,6 +6,31 @@ uses the versioning policy in [CONTRIBUTING.md](CONTRIBUTING.md#versioning).
 
 ## [Unreleased]
 
+
+## [0.2.6] - 2026-11-23
+
+CI-only cut after the v0.2.5 Release run failed in the gates. No printing
+behaviour changes.
+
+### Fixed
+
+- macOS PDF capture waits for each inline image to finish loading before calling
+  `Image.decode()`. Calling `decode()` on a still-loading image rejects at once;
+  the old barrier swallowed that rejection and could capture a white page
+  background on a cold WKWebView.
+- The desktop shell handles SIGTERM/SIGINT through the same quit path as the
+  tray action: stop the owned sidecar, wait for it, then exit.
+- `printkit serve` unblocks inherited SIGTERM/SIGINT before installing its
+  async handlers, so a sidecar spawned by a shell that blocked those signals
+  still stops when signalled.
+- `desktop_smoke.sh` treats a zombie as exited, checks the process state instead
+  of `kill -0` alone, requires the sidecar port to stay closed, and reports the
+  process state and serve log on a real survivor.
+
+### Changed
+
+- Package, desktop, Tauri, SDK and i18n versions are 0.2.6.
+
 ## [0.2.5] - 2026-11-23
 
 CI-only cut. Proves the reworked Release workflow; no printing behaviour changes.

@@ -4,7 +4,7 @@ exclude = ["apps/desktop"]
 resolver = "3"
 
 [workspace.package]
-version = "0.2.5"
+version = "0.2.6"
 edition = "2024"
 rust-version = "1.89"
 license = "MIT OR Apache-2.0"
@@ -67,6 +67,7 @@ salvo = { version = "0.85", default-features = false, features = [
     "affix-state",
 ] }
 tokio = { version = "1", features = ["rt-multi-thread", "net", "signal", "sync", "time", "macros"] }
+libc = "0.2"
 rusqlite = { version = "0.41", default-features = false, features = ["backup"] }
 sha2 = { version = "0.10", default-features = false }
 getrandom = "0.3"

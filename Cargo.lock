@@ -1932,7 +1932,7 @@ dependencies = [
 
 [[package]]
 name = "printkit"
-version = "0.2.5"
+version = "0.2.6"
 dependencies = [
  "base64 0.23.1",
  "bytes",
@@ -1940,6 +1940,7 @@ dependencies = [
  "fs2",
  "futures",
  "getrandom 0.3.4",
+ "libc",
  "lopdf",
  "printkit-core",
  "printkit-facade",
@@ -1966,7 +1967,7 @@ dependencies = [
 
 [[package]]
 name = "printkit-barcode"
-version = "0.2.5"
+version = "0.2.6"
 dependencies = [
  "printkit-core",
  "rxing",
@@ -1975,7 +1976,7 @@ dependencies = [
 
 [[package]]
 name = "printkit-core"
-version = "0.2.5"
+version = "0.2.6"
 dependencies = [
  "base64 0.23.1",
  "insta",
@@ -1989,7 +1990,7 @@ dependencies = [
 
 [[package]]
 name = "printkit-engine"
-version = "0.2.5"
+version = "0.2.6"
 dependencies = [
  "async-trait",
  "base64 0.23.1",
@@ -2014,7 +2015,7 @@ dependencies = [
 
 [[package]]
 name = "printkit-facade"
-version = "0.2.5"
+version = "0.2.6"
 dependencies = [
  "futures",
  "printkit-engine",
@@ -2026,7 +2027,7 @@ dependencies = [
 
 [[package]]
 name = "printkit-pdf"
-version = "0.2.5"
+version = "0.2.6"
 dependencies = [
  "bytes",
  "criterion",
@@ -2036,7 +2037,7 @@ dependencies = [
 
 [[package]]
 name = "printkit-platform"
-version = "0.2.5"
+version = "0.2.6"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2047,7 +2048,7 @@ dependencies = [
 
 [[package]]
 name = "printkit-platform-mac"
-version = "0.2.5"
+version = "0.2.6"
 dependencies = [
  "async-trait",
  "block2",
@@ -2063,7 +2064,7 @@ dependencies = [
 
 [[package]]
 name = "printkit-platform-win"
-version = "0.2.5"
+version = "0.2.6"
 dependencies = [
  "async-trait",
  "base64 0.23.1",
@@ -2087,7 +2088,7 @@ dependencies = [
 
 [[package]]
 name = "printkit-plugin-host"
-version = "0.2.5"
+version = "0.2.6"
 dependencies = [
  "fs2",
  "printkit-plugin-api",
@@ -2102,21 +2103,21 @@ dependencies = [
 
 [[package]]
 name = "printkit-plugin-observability"
-version = "0.2.5"
+version = "0.2.6"
 dependencies = [
  "printkit-plugin-api",
 ]
 
 [[package]]
 name = "printkit-plugin-records"
-version = "0.2.5"
+version = "0.2.6"
 dependencies = [
  "printkit-plugin-api",
 ]
 
 [[package]]
 name = "printkit-protocol"
-version = "0.2.5"
+version = "0.2.6"
 dependencies = [
  "printkit-core",
  "schemars",
@@ -2127,7 +2128,7 @@ dependencies = [
 
 [[package]]
 name = "printkit-render"
-version = "0.2.5"
+version = "0.2.6"
 dependencies = [
  "base64 0.23.1",
  "printkit-barcode",
@@ -2137,7 +2138,7 @@ dependencies = [
 
 [[package]]
 name = "printkit-schema"
-version = "0.2.5"
+version = "0.2.6"
 dependencies = [
  "printkit-core",
  "printkit-protocol",
@@ -2149,7 +2150,7 @@ dependencies = [
 
 [[package]]
 name = "printkit-store"
-version = "0.2.5"
+version = "0.2.6"
 dependencies = [
  "rusqlite",
  "serde_json",
@@ -2160,7 +2161,7 @@ dependencies = [
 
 [[package]]
 name = "printkit-trace"
-version = "0.2.5"
+version = "0.2.6"
 dependencies = [
  "flate2",
  "serde",

@@ -385,18 +385,30 @@ fn wait_for_paint(
     Ok(())
 }
 
-/// Async function body: decode every inline image, then wait two animation
-/// frames so the paint reaches the layer `createPDF` captures.
+/// Async function body: wait for every inline image to load and decode, then
+/// wait two animation frames so the paint reaches the layer `createPDF`
+/// captures.
 ///
-/// `Image.complete` only says the bytes arrived; the decoded image may still
-/// not be on a painted layer. A slow or loaded runner can otherwise export a
-/// white background. The `setTimeout` fallback keeps an off-screen web view
-/// (where requestAnimationFrame can be throttled) from waiting forever.
+/// `Image.complete` says the load finished; `decode()` only starts after that.
+/// Calling `decode()` on an image that is still loading rejects immediately,
+/// and swallowing that rejection exports a white background. A failed image
+/// resolves its `error` event, so this barrier cannot hang forever; a missing
+/// image is still visible as a blank image rather than delaying the render.
+/// The `setTimeout` fallback keeps an off-screen web view (where
+/// requestAnimationFrame can be throttled) from waiting forever.
 const PAINT_SCRIPT: &str = r#"
 const images = Array.from(document.images);
-await Promise.all(images.map((image) => image.decode
-  ? image.decode().catch(() => {})
-  : Promise.resolve()));
+await Promise.all(images.map(async (image) => {
+  if (!image.complete) {
+    await new Promise((resolve) => {
+      image.addEventListener('load', resolve, { once: true });
+      image.addEventListener('error', resolve, { once: true });
+    });
+  }
+  if (image.decode) {
+    await image.decode().catch(() => {});
+  }
+}));
 await new Promise((resolve) => {
   let done = false;
   const finish = () => {

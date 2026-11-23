@@ -3,6 +3,7 @@
 #![allow(clippy::panic, clippy::unwrap_used)]
 
 use std::sync::Mutex;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::thread;
 use std::time::{Duration, Instant};
 
@@ -36,6 +37,33 @@ impl JobHook for SleepHook {
     }
     fn run(&self, _ctx: &HookCtx) -> Result<HookOutcome, HookError> {
         thread::sleep(Duration::from_millis(200));
+        Ok(HookOutcome::Continue)
+    }
+}
+
+/// Records that a worker entered and left the hook, so `drop` can be checked
+/// without timing the OS scheduler.
+struct JoinHook {
+    started: AtomicBool,
+    finished: AtomicBool,
+}
+
+static JOIN: JoinHook = JoinHook {
+    started: AtomicBool::new(false),
+    finished: AtomicBool::new(false),
+};
+
+impl JobHook for JoinHook {
+    fn id(&self) -> &'static str {
+        "join"
+    }
+    fn phases(&self) -> &'static [HookPhase] {
+        &[HookPhase::BeforeRender]
+    }
+    fn run(&self, _ctx: &HookCtx) -> Result<HookOutcome, HookError> {
+        self.started.store(true, Ordering::SeqCst);
+        thread::sleep(Duration::from_millis(200));
+        self.finished.store(true, Ordering::SeqCst);
         Ok(HookOutcome::Continue)
     }
 }
@@ -192,9 +220,21 @@ fn queue_full_fail_open() {
 #[test]
 fn drop_joins_workers() {
     let runner = HookRunner::new(Duration::from_millis(20));
-    runner.register(&SLEEP);
+    runner.register(&JOIN);
     let _ = runner.run(HookPhase::BeforeRender, &ctx());
-    let started = Instant::now();
+    // `run` may time out before the worker is scheduled. Wait for the hook to
+    // start, then drop: a runner that does not join leaves `finished` false.
+    let deadline = Instant::now() + Duration::from_secs(2);
+    while !JOIN.started.load(Ordering::SeqCst) && Instant::now() < deadline {
+        thread::yield_now();
+    }
+    assert!(
+        JOIN.started.load(Ordering::SeqCst),
+        "no worker started the hook"
+    );
     drop(runner);
-    assert!(started.elapsed() >= Duration::from_millis(100));
+    assert!(
+        JOIN.finished.load(Ordering::SeqCst),
+        "drop returned before the worker finished"
+    );
 }
