@@ -25,14 +25,16 @@ use bytes::Bytes;
 use objc2::rc::Retained;
 use objc2::runtime::{AnyObject, NSObject, NSObjectProtocol, ProtocolObject};
 use objc2::{DefinedClass, MainThreadMarker, MainThreadOnly, define_class, msg_send};
-use objc2_app_kit::{NSApplication, NSApplicationActivationPolicy, NSEventMask};
+use objc2_app_kit::{NSApplication, NSApplicationActivationPolicy, NSEventMask, NSImage};
 use objc2_core_foundation::{CGPoint, CGRect, CGSize};
 use objc2_foundation::{
-    NSData, NSDate, NSDefaultRunLoopMode, NSError, NSProcessInfo, NSRunLoop, NSString, NSThread,
+    NSData, NSDate, NSDefaultRunLoopMode, NSError, NSNumber, NSProcessInfo, NSRunLoop, NSString,
+    NSThread,
 };
 use objc2_web_kit::{
     WKContentWorld, WKNavigation, WKNavigationAction, WKNavigationActionPolicy,
-    WKNavigationDelegate, WKPDFConfiguration, WKWebView, WKWebViewConfiguration,
+    WKNavigationDelegate, WKPDFConfiguration, WKSnapshotConfiguration, WKWebView,
+    WKWebViewConfiguration,
 };
 use printkit_platform::{MM_TO_PT, PlatformError, RenderHost, RenderSpec, RowHeights, WebviewInfo};
 
@@ -533,6 +535,24 @@ fn render_blocking(
         ));
     };
     wait_for_paint(&webview, mtm, timeout)?;
+    // A completed image decode is still not proof that WebKit's compositor
+    // painted the page. Take a real snapshot after screen updates before
+    // createPDF; a white or missing snapshot is an explicit render error, not
+    // a silently blank PDF.
+    let snapshot_configuration = unsafe { WKSnapshotConfiguration::new(mtm) };
+    // A tiny snapshot width keeps a 200-page document from allocating a huge
+    // image while still forcing the whole laid-out page to paint.
+    let snapshot_width = NSNumber::new_f64(64.0);
+    // SAFETY: main thread; the configuration is live and copied by WebKit.
+    unsafe {
+        snapshot_configuration.setAfterScreenUpdates(true);
+        snapshot_configuration.setSnapshotWidth(Some(&snapshot_width));
+    }
+    let remaining = budget.saturating_sub(started.elapsed());
+    if remaining.is_zero() {
+        return Err(PlatformError::Timeout(timeout_millis(budget)));
+    }
+    wait_for_snapshot(&webview, &snapshot_configuration, remaining)?;
     let configuration = unsafe { WKPDFConfiguration::new(mtm) };
     let mut parts = Vec::with_capacity(pages);
     for page in 0..pages {
@@ -640,6 +660,34 @@ fn wait_for_text(slot: &TextSlot, timeout: Duration) -> Result<String, PlatformE
         }
         pump_once();
     }
+}
+
+fn wait_for_snapshot(
+    webview: &WKWebView,
+    configuration: &WKSnapshotConfiguration,
+    timeout: Duration,
+) -> Result<(), PlatformError> {
+    let slot: TextSlot = Rc::new(RefCell::new(None));
+    let block_slot = Rc::clone(&slot);
+    let completion = RcBlock::new(move |image: *mut NSImage, error: *mut NSError| {
+        let result = if !error.is_null() {
+            // SAFETY: WebKit hands over a valid NSError for the callback's
+            // duration; the description is copied out before returning.
+            let error = unsafe { &*error };
+            Err(error.localizedDescription().to_string())
+        } else if image.is_null() {
+            Err("takeSnapshot completed without an image".to_owned())
+        } else {
+            Ok("1".to_owned())
+        };
+        *block_slot.borrow_mut() = Some(result);
+    });
+    // SAFETY: main thread, live web view and copied configuration; the block
+    // is copied to the heap by RcBlock and completes after the paint barrier.
+    unsafe {
+        webview.takeSnapshotWithConfiguration_completionHandler(Some(configuration), &completion)
+    };
+    wait_for_text(&slot, timeout).map(|_| ())
 }
 
 /// Let the main run loop process WebKit callbacks for a short slice.
