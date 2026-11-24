@@ -16,12 +16,18 @@ PY
 )
 cargo build -q -p printkit
 cargo build -q --release -p printkit
+# `python3 -m http.server` calls socket.getfqdn() between bind() and listen();
+# macOS 15+ can stall that lookup for ~35 s (local network privacy,
+# actions/runner-images#14409), so the socket is bound but not listening and a
+# readiness probe sees ECONNREFUSED. The helper patches the lookup so the
+# fixture starts listening immediately; its output is saved for a failure.
+server_log=$(mktemp)
 (
   cd tests/fixtures
-  exec python3 -m http.server "$PORT" --bind 127.0.0.1
-) &
+  exec python3 ../scripts/http_fixture_server.py "$PORT" --bind 127.0.0.1
+) >"$server_log" 2>&1 &
 server=$!
-trap 'kill "$server" 2>/dev/null || true' EXIT
+trap 'kill "$server" 2>/dev/null || true; rm -f "$server_log"' EXIT
 
 ready=false
 for _ in $(seq 1 50); do
@@ -39,6 +45,7 @@ PY
 done
 [ "$ready" = true ] || {
   echo "url_fetch_guard: the fixture server did not start" >&2
+  cat "$server_log" >&2
   exit 1
 }
 
@@ -48,7 +55,7 @@ OUT="$(mktemp)"
 # port, so feed the guard a copy that names the port it is actually serving.
 GUARD_INPUT="$(mktemp)"
 sed "s/127\\.0\\.0\\.1:8899/127.0.0.1:$PORT/" tests/fixtures/url.json >"$GUARD_INPUT"
-trap 'kill "$server" 2>/dev/null || true; rm -rf "$DATA_DIR" "$OUT" "$GUARD_INPUT"' EXIT
+trap 'kill "$server" 2>/dev/null || true; rm -rf "$DATA_DIR" "$OUT" "$GUARD_INPUT"; rm -f "$server_log"' EXIT
 
 # 1. Debug build, no opt-in: the loopback fixture is refused.
 set +e

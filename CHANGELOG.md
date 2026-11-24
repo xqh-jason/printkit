@@ -17,6 +17,11 @@ uses the versioning policy in [CONTRIBUTING.md](CONTRIBUTING.md#versioning).
   pixels. The snapshot reflects the on-screen compositor, not the render tree
   `createPDF` paints, so it neither proves nor gates PDF content; a late
   background paint was reported as `E_TIMEOUT` instead of a useful error.
+- The URL-guard fixture server patches `socket.getfqdn()` before running
+  `http.server`. macOS 15 and later can stall that reverse lookup for about
+  35 seconds (local network privacy), leaving the socket bound but not
+  listening; the Intel runner's gate 15 then reported the fixture server did
+  not start.
 
 ### Changed
 
