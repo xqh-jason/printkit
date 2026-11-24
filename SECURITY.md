@@ -10,8 +10,8 @@ seriously.
 |---|---|
 | 0.2.x | Yes; security fixes are backported to the latest 0.2.x patch |
 
-The latest published release is v0.2.4. The `main` branch is 0.2.6-dev and
-has not been tagged or released.
+The latest published release is v0.2.7; the `main` branch carries the
+`0.2.7-dev` version while the next release is prepared.
 
 The project is pre-1.0. Older pre-release builds may receive a fix only when
 the report also affects the current 0.2.x line.

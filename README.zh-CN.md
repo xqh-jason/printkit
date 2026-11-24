@@ -13,10 +13,10 @@
 
 ## 状态
 
-- 最新已发布版本：**[v0.2.4](https://github.com/xqh-jason/printkit/releases/tag/v0.2.4)**。
-- `main` 是 **0.2.6-dev**，尚未打 tag，也未发布。
+- 最新已发布版本：**[v0.2.7](https://github.com/xqh-jason/printkit/releases/tag/v0.2.7)**。
+- `main` 是 **0.2.7-dev**，当前 0.2.x 开发线。
 - 从 [GitHub Releases](https://github.com/xqh-jason/printkit/releases/latest) 下载分发包与安装包。
-- Windows 仍是预览：v0.2.4 不提供 Windows 命令行压缩包，也不提供 Windows 桌面安装包。
+- Windows 仍是预览：v0.2.7 不提供 Windows 命令行压缩包，也不提供 Windows 桌面安装包。
 
 ## 为什么用 printkit
 
@@ -47,20 +47,20 @@ flowchart LR
 
 macOS 11 及以上、Apple silicon，不需要管理员权限。从
 [GitHub Releases](https://github.com/xqh-jason/printkit/releases/latest) 下载
-最新已发布版本（当前为 v0.2.4）；它包含两类产物：
+最新已发布版本（当前为 v0.2.7）；它包含两类产物：
 
 **分发包**（无需安装步骤）：
 
 - `printkit-macos-arm64.tar.gz` —— 命令行二进制。与
   `printkit-schema-macos-arm64.tar.gz` 解压到同一目录，二进制从解压出的
   `schema/` 读取契约。
-- v0.2.4 不提供 Windows 命令行压缩包。
+- v0.2.7 不提供 Windows 命令行压缩包。
 
 **安装包**（仅桌面应用）：
 
 - `printkit-desktop-macos-arm64.dmg` —— 拖入「应用程序」后启动，它自己拉起
   本地服务。ad-hoc 签名、未公证，首次启动可能需要右键 → 打开。
-- Windows 桌面安装包由带 tag 的 release workflow 为后续版本构建，v0.2.4
+- Windows 桌面安装包由带 tag 的 release workflow 为后续版本构建，v0.2.7
   不包含这些产物。它们未签名，也从未在真实 Windows 主机上安装过。
 
 每个 release 还附带 `SHA256SUMS`、`sbom.cdx.json`、`THIRD-PARTY-NOTICES.md`、
@@ -113,7 +113,7 @@ await engine.print(document); // → { jobId }
 1. Windows 预览窗口有原生 Print 按钮与 Ctrl+P；页码与缩放控件尚未实现。
 2. 两个平台都在真机双面设备验证前用 `E_UNSUPPORTED` 拒绝双面请求。这是有意
    为之：双面任务不会静默变成单面。
-3. v0.2.4 只发布 macOS 产物。带 tag 的 workflow 包含 Windows 安装包 job，
+3. v0.2.7 只发布 macOS 产物。带 tag 的 workflow 包含 Windows 安装包 job，
    但尚未发布任何 Windows 安装包，也未在真实 Windows 硬件验证。
 
 Windows 渲染池是动态的：逻辑核数的一半，至少 1 个、最多 4 个 WebView2 worker
@@ -200,7 +200,7 @@ core 打印不依赖任何插件：两个全关时 `pdf`、`print`、`printBatch
 `schema/document-v1.json` 与 `protocol-v1.json` 独立版本化；首次公开发布后，
 各自的 version 1 在同一大版本内保持兼容。MSRV 为 Rust 1.89，只在次版本提升。
 弃用会在 [CHANGELOG.md](CHANGELOG.md) 中提前至少一个次版本说明。`main` 是
-`0.2.6-dev`，仍处于 1.0 之前，因此首次公开发布前删除的方法（如 `calib.set`/`calib.list`）
+`0.2.7-dev`，仍处于 1.0 之前，因此首次公开发布前删除的方法（如 `calib.set`/`calib.list`）
 属于预发布 breaking change，不提供兼容层。每个 release tag 必须有对应的
 changelog 条目；GitHub release notes 由该 tag 生成。
 

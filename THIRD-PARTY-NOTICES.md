@@ -733,25 +733,25 @@ a statement of full compliance.
 
 ## First-party components
 
-- **@printkit/i18n** `0.2.6` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit** `0.2.6` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-barcode** `0.2.6` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-core** `0.2.6` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-engine** `0.2.6` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-facade** `0.2.6` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-pdf** `0.2.6` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-platform** `0.2.6` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-platform-mac** `0.2.6` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-platform-win** `0.2.6` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **@printkit/i18n** `0.2.7` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit** `0.2.7` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-barcode** `0.2.7` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-core** `0.2.7` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-engine** `0.2.7` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-facade** `0.2.7` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-pdf** `0.2.7` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-platform** `0.2.7` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-platform-mac** `0.2.7` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-platform-win** `0.2.7` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
 - **printkit-plugin-api** `1.0.0` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-plugin-host** `0.2.6` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-plugin-observability** `0.2.6` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-plugin-records** `0.2.6` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-protocol** `0.2.6` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-render** `0.2.6` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-schema** `0.2.6` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-store** `0.2.6` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
-- **printkit-trace** `0.2.6` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-plugin-host** `0.2.7` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-plugin-observability** `0.2.7` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-plugin-records** `0.2.7` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-protocol** `0.2.7` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-render** `0.2.7` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-schema** `0.2.7` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-store** `0.2.7` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
+- **printkit-trace** `0.2.7` — MIT OR Apache-2.0 — <https://github.com/xqh-jason/printkit>
 
 ## Per-component copyright notices
 

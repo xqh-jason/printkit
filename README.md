@@ -13,10 +13,10 @@ English | [Chinese](README.zh-CN.md)
 
 ## Status
 
-- Latest published release: **[v0.2.4](https://github.com/xqh-jason/printkit/releases/tag/v0.2.4)**.
-- `main` is **0.2.6-dev**; it is not tagged or released.
+- Latest published release: **[v0.2.7](https://github.com/xqh-jason/printkit/releases/tag/v0.2.7)**.
+- `main` is **0.2.7-dev**, the current pre-1.0 line.
 - Download archives and installers from [GitHub Releases](https://github.com/xqh-jason/printkit/releases/latest).
-- Windows is preview: v0.2.4 ships no Windows CLI archive or desktop installer.
+- Windows is preview: v0.2.7 ships no Windows CLI archive or desktop installer.
 
 ## Why printkit
 
@@ -53,7 +53,7 @@ flowchart LR
 ## Install
 
 macOS 11 or newer on Apple silicon, no administrator rights. Download the
-latest published release, currently v0.2.4, from
+latest published release, currently v0.2.7, from
 [GitHub Releases](https://github.com/xqh-jason/printkit/releases/latest). Its
 artifacts fall into two groups:
 
@@ -62,7 +62,7 @@ artifacts fall into two groups:
 - `printkit-macos-arm64.tar.gz` — the CLI binary. Extract it together with
   `printkit-schema-macos-arm64.tar.gz`; the binary reads the schema contracts
   from the extracted `schema/` directory.
-- v0.2.4 ships no Windows CLI archive.
+- v0.2.7 ships no Windows CLI archive.
 
 **Installers** (desktop app only):
 
@@ -70,7 +70,7 @@ artifacts fall into two groups:
   it starts the local service itself. Ad-hoc signed, not notarized, so the
   first launch may need right-click → Open.
 - Windows installers are built by the tagged release workflow for a future
-  release, but v0.2.4 does not include them. They are unsigned and have never
+  release, but v0.2.7 does not include them. They are unsigned and have never
   been installed on a real Windows host.
 
 A release also ships `SHA256SUMS`, `sbom.cdx.json`, `THIRD-PARTY-NOTICES.md`,
@@ -130,7 +130,7 @@ hardware. — not offered.
 2. Duplex requests are rejected with `E_UNSUPPORTED` on both platforms until a
    physical duplex printer is verified. The rejection is deliberate: a duplex
    job never silently prints single-sided.
-3. v0.2.4 publishes only macOS artifacts. The tagged workflow has Windows
+3. v0.2.7 publishes only macOS artifacts. The tagged workflow has Windows
    installer jobs, but no Windows installer has been published or verified on
    real Windows hardware.
 
@@ -236,7 +236,7 @@ release fixes bugs. `schema/document-v1.json` and `protocol-v1.json` are
 versioned independently; after the first public release, version 1 of each stays
 compatible within its major version. The MSRV is Rust 1.89 and is raised only in
 a minor release. Deprecations are announced in [CHANGELOG.md](CHANGELOG.md) at
-least one minor release ahead. The `main` branch is `0.2.6-dev`, still pre-1.0,
+least one minor release ahead. The `main` branch is `0.2.7-dev`, still pre-1.0,
 so methods removed before the first public release (for example
 `calib.set`/`calib.list`) are a pre-release breaking change and carry no
 compatibility shim. Every release

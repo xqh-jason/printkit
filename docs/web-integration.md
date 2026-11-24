@@ -1,8 +1,8 @@
 # printkit browser integration guide
 
 A browser page prints by talking to a printkit service on the same machine, and the service prints
-through the operating system. The service binds `127.0.0.1` only. Protocol 1, SDK `0.2.6`
-(main/0.2.6-dev; latest published release is v0.2.4); contracts:
+through the operating system. The service binds `127.0.0.1` only. Protocol 1, SDK `0.2.7`
+(main/0.2.7-dev; latest published release is v0.2.7); contracts:
 `schema/document-v1.json` and `schema/protocol-v1.json`. `main` is still pre-1.0,
 so methods removed before the first public release (for example `calib.*`) carry no
 compatibility shim.

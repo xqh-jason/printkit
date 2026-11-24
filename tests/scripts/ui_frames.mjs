@@ -74,7 +74,7 @@ function mockInit({ state = "runningOwned", reachable = true, pending = [], plug
     async invoke(cmd, args) {
       if (pending.includes(cmd)) return new Promise(() => {});
       if (cmd === "snapshot") return {
-        sidecar: { version: "0.2.6", target: "aarch64-apple-darwin", compatible: true, message: "" },
+        sidecar: { version: "0.2.7", target: "aarch64-apple-darwin", compatible: true, message: "" },
         config: { dataDir: join(homedir(), "Library", "Application Support", "printkit"), port: 19080, json: {} },
         configError: null,
         status: { state, pid: 4821, port: 19080, reachable, lockPath: "/tmp/printkit.lock", staleLock: false, detail: null },

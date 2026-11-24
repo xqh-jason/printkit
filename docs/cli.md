@@ -24,7 +24,7 @@ printkit-schema-macos-arm64.tar.gz
     └── licenses/                third-party licence texts
 ```
 
-Download the latest published release (currently v0.2.4) from
+Download the latest published release (currently v0.2.7) from
 [GitHub Releases](https://github.com/xqh-jason/printkit/releases/latest).
 
 There is no installer, no service registration and no `sudo`. Run the binary
@@ -41,7 +41,7 @@ It refuses to fall back to the machine that built it: without the extracted
 `printkit schema --out DIR`. A build from source uses the repository checkout.
 
 The macOS desktop app is a separate download (`printkit-desktop-macos-arm64.dmg`)
-that carries its own sidecar; v0.2.4 ships no Windows CLI archive.
+that carries its own sidecar; v0.2.7 ships no Windows CLI archive.
 
 ## Document schema
 

@@ -4,7 +4,10 @@ All notable changes to printkit are recorded here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project
 uses the versioning policy in [CONTRIBUTING.md](CONTRIBUTING.md#versioning).
 
-## [Unreleased]
+## [0.2.7] - 2026-11-24
+
+Patch release on the 0.2.x line. macOS arm64 artifacts only; Windows artifacts
+are not part of this release. No document schema or protocol change.
 
 ### Fixed
 
@@ -25,6 +28,7 @@ uses the versioning policy in [CONTRIBUTING.md](CONTRIBUTING.md#versioning).
 
 ### Changed
 
+- Package, desktop, Tauri, SDK and i18n versions are 0.2.7.
 - Raster page backgrounds keep the `<img>` path.
 
 ## [0.2.6] - 2026-11-23

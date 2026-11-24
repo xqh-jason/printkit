@@ -1,7 +1,7 @@
 {
   "name": "printkit-desktop",
   "private": true,
-  "version": "0.2.6",
+  "version": "0.2.7",
   "type": "module",
   "packageManager": "pnpm@11.1.3",
   "scripts": {
