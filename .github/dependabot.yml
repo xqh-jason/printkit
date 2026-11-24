@@ -1,16 +1,17 @@
 version: 2
 
-# Policy: monthly version updates, grouped by ecosystem and directory, with
-# open-pull-requests-limit 3 so a release cycle never floods the queue.
-# Security updates stay enabled and ungrouped: GitHub raises them immediately
-# and ignore rules below do not suppress them.
+# Policy: Dependabot version updates are disabled for now
+# (open-pull-requests-limit: 0). The monthly schedule, grouped update rules and
+# per-ecosystem ignore lists stay in place so they can be re-enabled by raising
+# the limit. Security updates stay enabled and ungrouped: GitHub raises them
+# immediately, and neither the limit nor the ignore rules suppress them.
 updates:
   - package-ecosystem: cargo
     directory: /
     schedule:
       interval: monthly
       timezone: Asia/Shanghai
-    open-pull-requests-limit: 3
+    open-pull-requests-limit: 0
     labels:
       - dependencies
       - rust
@@ -46,7 +47,7 @@ updates:
     schedule:
       interval: monthly
       timezone: Asia/Shanghai
-    open-pull-requests-limit: 3
+    open-pull-requests-limit: 0
     labels:
       - dependencies
       - rust
@@ -81,7 +82,7 @@ updates:
     schedule:
       interval: monthly
       timezone: Asia/Shanghai
-    open-pull-requests-limit: 3
+    open-pull-requests-limit: 0
     labels:
       - dependencies
       - javascript
@@ -113,7 +114,7 @@ updates:
     schedule:
       interval: monthly
       timezone: Asia/Shanghai
-    open-pull-requests-limit: 3
+    open-pull-requests-limit: 0
     labels:
       - dependencies
       - javascript
@@ -146,7 +147,7 @@ updates:
     schedule:
       interval: monthly
       timezone: Asia/Shanghai
-    open-pull-requests-limit: 3
+    open-pull-requests-limit: 0
     labels:
       - dependencies
       - github_actions
