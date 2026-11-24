@@ -6,6 +6,22 @@ uses the versioning policy in [CONTRIBUTING.md](CONTRIBUTING.md#versioning).
 
 ## [Unreleased]
 
+### Fixed
+
+- macOS page backgrounds declared as SVG are embedded as inline vector markup
+  instead of a data-URI `<img>`. WebKit's `createPDF` exported the SVG image
+  blank on a headless macOS runner, so the background fixture produced a white
+  page; inline SVG paints through the same render-tree path as shape and
+  barcode markup.
+- macOS PDF capture no longer waits on a `WKWebView` snapshot or validates its
+  pixels. The snapshot reflects the on-screen compositor, not the render tree
+  `createPDF` paints, so it neither proves nor gates PDF content; a late
+  background paint was reported as `E_TIMEOUT` instead of a useful error.
+
+### Changed
+
+- Raster page backgrounds keep the `<img>` path.
+
 ## [0.2.6] - 2026-11-23
 
 CI-only cut after the v0.2.5 Release run failed in the gates. No printing

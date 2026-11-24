@@ -14,6 +14,7 @@ const STYLE: &str = concat!(
     ".page{position:relative;overflow:hidden;box-sizing:border-box;}",
     ".item{position:absolute;white-space:pre-wrap;}",
     ".page-background{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:fill;}",
+    ".page-background svg{display:block;width:100%;height:100%;}",
     ".item-image img,.item-image svg,.item-image .image-content{display:block;width:100%;height:100%;}",
     ".item-image.image-fit-none svg{width:auto;height:auto;}",
     ".data-table{border-collapse:collapse;table-layout:fixed;width:100%;}",
@@ -285,12 +286,35 @@ fn write_page_open(out: &mut String, page: &Page, break_after: bool) {
     }
     out.push_str("\">");
     if let Some(background) = &page.spec.background {
-        let _ = write!(
-            out,
-            "<img class=\"page-background\" alt=\"\" src=\"{}\" />",
-            escape_html(background)
-        );
+        write_background(out, background);
     }
+}
+
+/// Paint the page background below every item.
+///
+/// WebKit's PDF painter does not reliably rasterise an SVG reference held in
+/// an `<img>`: a data-URI SVG background exported as a blank (white) page on a
+/// headless macOS runner even after the image reported `complete` and decoded.
+/// Inline SVG is vector content in the render tree, painted by `createPDF`
+/// like shape and barcode markup, so SVG backgrounds are embedded directly.
+/// Raster backgrounds keep the `<img>` path.
+fn write_background(out: &mut String, background: &str) {
+    if let Some((media_type, payload)) = decode_data_uri(background)
+        && media_type.eq_ignore_ascii_case("image/svg+xml")
+        && let Ok(svg) = String::from_utf8(payload)
+    {
+        // Scope any `<style>` in the background to its own wrapper so it
+        // cannot restyle the host page or another page's items.
+        let svg = sanitize::sanitize_svg(&svg, Some(".page-background"));
+        let svg = svg_with_fit(&svg, printkit_core::ImageFit::Fill);
+        let _ = write!(out, "<div class=\"page-background\">{svg}</div>");
+        return;
+    }
+    let _ = write!(
+        out,
+        "<img class=\"page-background\" alt=\"\" src=\"{}\" />",
+        escape_html(background)
+    );
 }
 
 fn write_text(
@@ -1046,6 +1070,27 @@ mod tests {
         let first = html.find("class=\"page-background\"").unwrap();
         let first_item = html.find("class=\"item item-table\"").unwrap();
         assert!(first < first_item, "the background must paint below items");
-        assert!(html.contains(background));
+        // An SVG background is inline vector content, not an `<img>`: WebKit's
+        // PDF painter can export a data-URI SVG image as a blank page.
+        assert!(html.contains("<div class=\"page-background\"><svg"));
+        assert!(html.contains("fill=\"#ff0000\""));
+        assert!(!html.contains("<img class=\"page-background\""));
+    }
+
+    #[test]
+    fn raster_page_background_keeps_the_image_element() {
+        let background = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==";
+        let html = to_html(&validated(json!({
+            "version": 1,
+            "pages": [page(
+                json!({"size": "A4", "background": background}),
+                json!([text_item("label", "x")]),
+            )],
+        })))
+        .unwrap();
+        assert!(html.contains(&format!(
+            "<img class=\"page-background\" alt=\"\" src=\"{background}\" />"
+        )));
+        assert!(!html.contains("<div class=\"page-background\">"));
     }
 }
